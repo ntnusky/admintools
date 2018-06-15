@@ -1,2 +1,6 @@
 # admintools
-A collection of admin tools and scripts that's not relevant to distribute to all servers 
+A collection of administrative tools which might be useful for administrators of
+our openstack clouds.
+
+These tools are intended for administrators workstations, and not to be
+distributed to all servers.
