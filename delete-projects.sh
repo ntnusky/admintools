@@ -168,7 +168,9 @@ for projectID in $(openstack project list | grep "$1" | awk '{ print $2 }'); do
 
     # Delete all security groups
     echo "Deleting security groups"
+    default_group=$(openstack security group show -f value -c id default)
     groups=$(openstack security group list | \
+      grep -v $default_group | \
       egrep [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
     for group in $groups; do
       openstack security group delete $group
