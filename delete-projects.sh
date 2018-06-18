@@ -71,11 +71,18 @@ for projectID in $(openstack project list | grep "$1" | awk '{ print $2 }'); do
       openstack server delete $vm
     done
 
+    # Delete all private images
+    echo "Deleting private images"
+    images=$(openstack image list --private -f value -c ID)
+    for image in $images; do
+      openstack image set --unprotected $image
+      openstack image delete $image
+    done
     # Delete all volume snapshots
     echo "Deleting snapshots"
-    snapshots=$(openstack snapshot list -f value -c ID)
+    snapshots=$(openstack volume snapshot list -f value -c ID)
     for snap in $snapshots; do
-      openstack snapshot delete $snap
+      openstack volume snapshot delete $snap
     done
   
     # Delete all cinder volumes
@@ -84,14 +91,6 @@ for projectID in $(openstack project list | grep "$1" | awk '{ print $2 }'); do
       egrep [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
     for volume in $volumes; do
       openstack volume delete $volume
-    done
-
-    # Delete all private images
-    echo "Deleting private images"
-    images=$(openstack image list --private -f value -c ID)
-    for image in $images; do
-      openstack image set --unprotected $image
-      openstack image delete $image
     done
 
     # Delete all floating IP's
