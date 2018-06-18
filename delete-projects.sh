@@ -96,8 +96,7 @@ for projectID in $(openstack project list | grep "$1" | awk '{ print $2 }'); do
 
     # Delete all floating IP's
     echo "Deleting floating IP's"
-    ips=$(openstack floating ip list | \
-      egrep [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
+    ips=$(openstack floating ip list -f value -c ID)
     for ip in $ips; do
       openstack floating ip delete $ip
     done
