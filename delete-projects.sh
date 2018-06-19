@@ -1,5 +1,25 @@
 #!/bin/bash
 
+function prereq() {
+  err=0
+  if [ ! $(which openstack) ]; then
+    echo "openstack command missing"
+    err=1
+  fi
+  if [ ! $(which jq) ]; then
+    echo "jq command missing"
+    err=1
+  fi
+  if [ ! $(which heat)  ]; then
+    echo "heat client missing"
+    err=1
+  fi
+
+  if [ $err -ne 0 ]; then
+    exit $err
+  fi
+}
+
 if [ $# -lt 1 ]; then
   echo "Usage: $0 <group_grep>"
   exit 1
@@ -9,6 +29,8 @@ if [ $OS_PROJECT_NAME != "admin" ]; then
   echo "Needs to be authenticated as admin!"
   exit 2
 fi
+
+prereq
 
 adminID=$(openstack user show admin | grep " id " | awk '{ print $4}')
 adminProjectID=$OS_PROJECT_ID
@@ -102,31 +124,25 @@ for projectID in $(openstack project list -f value | grep $1 | awk '{ print $1 }
 
     # Deleting all router->network links
     echo "Deleting all router->network links"
-    routers=$(neutron router-list | \
-      egrep \ [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
+    routers=$(openstack router list -f value -c ID)
     for router in $routers; do
-      interfaces=$(neutron router-port-list $router -f value)
-      IFS=$'\n'
+      interfaces=$(openstack router show -f value -c interfaces_info $router | \
+        jq ".[] | .subnet_id" | tr -d '"')
       for interface in $interfaces; do
-        if [[ $interface =~ ^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*\"subnet_id\":\ \"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}) ]]; then
-          neutron router-interface-delete $router ${BASH_REMATCH[2]}
-        fi
+        openstack router remove subnet $router $interface
       done
-      unset IFS
     done
 
     # Delete all ports
     echo "Deleting ports"
-    ports=$(neutron port-list | \
-      egrep \ [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
+    ports=$(openstack port list -f value -c id)
     for port in $ports; do
-      neutron port-delete $port
+      openstack port delete $port
     done
 
     # Delete all routers
     echo "Deleting all routers"
-    routers=$(openstack router list | \
-      egrep \[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o)
+    routers=$(openstack router list -f value -c ID)
     for router in $routers; do
       openstack router delete $router
     done
