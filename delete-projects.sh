@@ -15,7 +15,7 @@ adminProjectID=$OS_PROJECT_ID
 userID=$(openstack user show $OS_USERNAME --domain=NTNU | grep " id " | \
   awk '{ print $4}')
 
-for projectID in $(openstack project list | grep "$1" | awk '{ print $2 }'); do
+for projectID in $(openstack project list -f value | grep $1 | awk '{ print $1 }'); do
   projectName=$(openstack project show $projectID | grep name | awk '{ print $4 }')
   if [[ -z $2 || $2 != "--yes-i-know-what-i-am-about-to-do" ]]; then
     echo "Your pattern matched the project $projectName"
