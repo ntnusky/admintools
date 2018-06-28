@@ -16,25 +16,35 @@ done
 set -e
 
 if [[ ! -z $create ]]; then
-  $echo "Misc create"
-  testing/misc.bash create
-  touch .openstackTest.misc
+  if [[ ! -e .openstackTest.misc ]]; then
+    $echo "Misc create"
+    testing/misc.bash create
+    touch .openstackTest.misc
+  fi
 
-  $echo "Glance create"
-  testing/glance.bash create
-  touch .openstackTest.glance
+  if [[ ! -e .openstackTest.glance ]]; then
+    $echo "Glance create"
+    testing/glance.bash create
+    touch .openstackTest.glance
+  fi
 
-  $echo "Neutron create"
-  testing/neutron.bash create
-  touch .openstackTest.neutron
+  if [[ ! -e .openstackTest.neutron ]]; then
+    $echo "Neutron create"
+    testing/neutron.bash create
+    touch .openstackTest.neutron
+  fi
 
-  $echo "Nova create"
-  testing/nova.bash create
-  touch .openstackTest.nova
+  if [[ ! -e .openstackTest.nova ]]; then
+    $echo "Nova create"
+    testing/nova.bash create
+    touch .openstackTest.nova
+  fi
 
-  $echo "Cinder create"
-  testing/cinder.bash create
-  touch .openstackTest.cinder
+  if [[ ! -e .openstackTest.cinder ]]; then
+    $echo "Cinder create"
+    testing/cinder.bash create
+    touch .openstackTest.cinder
+  fi
 fi
 
 if [[ ! -z $delete ]]; then
