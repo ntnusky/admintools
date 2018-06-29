@@ -37,7 +37,7 @@ if [[ ! -z $create ]]; then
     else
       $echo "Waiting for the VM to get an IP."
       ((attempts++))
-      [[ $attempts -le 20 ]] || fail "$echo" "The VM did not get an IP" 
+      [[ $attempts -le 40 ]] || fail "$echo" "The VM did not get an IP" 
       sleep 1
     fi
   done
