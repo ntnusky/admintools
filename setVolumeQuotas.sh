@@ -19,6 +19,9 @@ if [[ $? -eq 0 ]]; then
   openstack quota set --volume-type Fast --snapshots 0 $project
   openstack quota set --volume-type VeryFast --volumes 0 $project
   openstack quota set --volume-type VeryFast --snapshots 0 $project
+  openstack quota set --volume-type Unlimited --volumes 0 $project
+  openstack quota set --volume-type Unlimited --snapshots 0 $project
+
 
   openstack quota show $project
 else
