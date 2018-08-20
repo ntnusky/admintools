@@ -47,6 +47,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     echo " -- Changing quotas"
     $cmd openstack quota set $projectName --volume-type Fast --volumes 0
     $cmd openstack quota set $projectName --volume-type VeryFast --volumes 0
+    $cmd openstack quota set $projectName --volume-type Unlimited --volumes 0
   fi
 
   noRoles=$(openstack role list --project $projectName --user $username \
