@@ -14,9 +14,9 @@ openstack project show $project &> /dev/null
 if [[ $? -eq 0 ]]; then
   echo "Project exists..."
   echo "Setting quotas..."
-  openstack quota set --cores 8 $project
+  openstack quota set --cores 16 $project
   openstack quota set --instances 16 $project
-  openstack quota set --ram 16384 $project
+  openstack quota set --ram 32768 $project
   openstack quota set --gigabytes 40 $project
   openstack quota set --volumes 16 $project
 
