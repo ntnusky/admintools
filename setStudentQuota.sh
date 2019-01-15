@@ -15,7 +15,7 @@ if [[ $? -eq 0 ]]; then
   echo "Project exists..."
   echo "Setting quotas..."
   openstack quota set --cores 4 $project
-  openstack quota set --instances 2 $project
+  openstack quota set --instances 4 $project
   openstack quota set --ram 8192 $project
   openstack quota set --gigabytes 20 $project
   openstack quota set --volumes 2 $project
