@@ -11,6 +11,8 @@ declare -A types
 types[PRIV]="5 10 20 100 5"
 types[STUDENT]="4 4 8 20 2"
 
+types[THESIS]="16 16 32 50 10"
+
 types[IMT2681]="3 3 6 20 2"
 types[IMT3003]="15 15 30 200 10"
 types[IMT3005]="25 25 50 200 10"
@@ -65,7 +67,9 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]] || [[ -z $users ]]; then
   echo ""
   echo "Optional arguments:"
   echo " -u <username>                  : Add several times for more users"
-  echo " -e <expiry-date (dd.mm.yyyy)>  : Set deletion-date. "
+  echo " -e <expiry-date (dd.mm.yyyy)>  : Set deletion-date. If this is not"
+  echo "                                :   supplied the expiry-date will be"
+  echo "                                :   the end of the current semester"
   echo " -s                             : Create a service-user"
   echo " -l                             : List available project types"
   exit $EXIT_MISSINGARGS
@@ -103,7 +107,7 @@ if [[ -z $expiry ]]; then
   fi
 fi
 
-if [[ ! $expiry =~ ^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$ ]]; then
+if [[ ! $expiry =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
   echo "\"$expiry\" does not look like a date on the format dd.mm.yyyy"
   exit $EXIT_CONFIGERROR
 fi
@@ -112,7 +116,7 @@ if openstack project show $projectName &> /dev/null; then
   echo "A project with the name \"$projectName\" already exist." 
 else
   echo "Creating the project $projectName"
-  openstack project create --description "$desc" --domain NTNU $projectName
+  openstack project create --description "$projectDesc" --domain NTNU $projectName
   echo "Setting project expiry to $expiry"
   openstack project set --property expiry=$date $projectName
 
