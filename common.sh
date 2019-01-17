@@ -43,3 +43,57 @@ function need_admin {
     exit $EXIT_DEPENDENCY
   fi
 }
+
+function add_user {
+  local project=$1
+  local user=$2
+
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
+  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
+  local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
+
+  if [ $(openstack role assignment list --project $projectid --user $userid \
+        --role _member_ | wc -l) -eq 1 ]; then
+    echo Adding $user to $project as _member_
+    openstack role add --project $projectid --user $userid _member_
+  fi
+
+  if [ $(openstack role assignment list --project $projectid --user $userid \
+        --role heat_stack_owner | wc -l) -eq 1 ]; then
+    echo Adding $user to $project as heat_stack_owner
+    openstack role add --project $projectid --user $userid heat_stack_owner
+  fi
+}
+
+function remove_user {
+  local project=$1
+  local user=$2
+
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
+  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
+  local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
+
+  unset even
+  for roleinherit in $(openstack role assignment list --project $projectid \
+        --user $userid -f value -c Role -c Inherited); do
+    if [[ -z $even ]]; then
+      role=$roleinherit
+      even=1
+      continue
+    else
+      inherit=$roleinherit
+      unset even
+    fi
+
+    if [[ $inherit == "True" ]]; then
+      extra="--inherited"
+    else
+      extra=""
+    fi
+
+    echo "Removing the role $role for the user $user from the project $project"
+    openstack role remove --project $projectid --user $userid $role $extra
+  done
+}
