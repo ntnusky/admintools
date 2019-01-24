@@ -141,7 +141,7 @@ function clean_neutron {
 
   # Delete all subnets
   echo "Deleting subnets"
-  subnets=$(openstack subnet list -f value -c ID)
+  subnets=$(openstack subnet list --project $projectID -f value -c ID)
   for subnet in $subnets; do
     openstack subnet delete $subnet
   done
