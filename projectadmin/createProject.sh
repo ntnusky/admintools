@@ -27,9 +27,9 @@ while getopts u:n:d:e:slt:i:c:r:v:g: option; do
     i) qinstances=${OPTARG} ;;
     c) qcpu=${OPTARG} ;;
     r) qmemory=${OPTARG} ;;
-    v) qvolumes=${OPTARG} ;;
-    g) qgigabytes=${OPTARG} ;;
+    v) qvol=${OPTARG} ;;
     l) listtypes=1 ;;
+    g) [[ -z $groups ]] && groups="${OPTARG}" || groups="$groups,${OPTARG}" ;;
     u) [[ -z $users ]] && users="${OPTARG}" || users="$users,${OPTARG}" ;;
   esac
 done
@@ -45,7 +45,17 @@ if [[ ! -z $listtypes ]]; then
   exit $EXIT_OK
 fi
 
-if [[ -z $projectName ]] || [[ -z $projectDesc ]] || [[ -z $users ]]; then
+if [[ ! -z $qvol ]]; then
+  if [[ $qvol =~ ^([0-9]+),([0-9]+)$ ]]; then 
+    qvolumes=${BASH_REMATCH[1]}
+    qgigabytes=${BASH_REMATCH[2]}
+  else
+    echo "-v is set incorrectly. It needs two numbers separated by a comma."
+  fi
+fi
+
+if [[ -z $projectName ]] || [[ -z $projectDesc ]] || \
+    ([[ -z $users ]] && [[ -z $groups ]]); then
   echo "This script creates a project and adds user(s) to the newly created"
   echo "project. The project is created wit quotas as defined by qouta"
   echo "templates."
@@ -55,18 +65,22 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]] || [[ -z $users ]]; then
   echo "Mandatory arguments (arguments which are always required)"
   echo " -n <project_name>              : A project name"
   echo " -d <project_description>       : A project description"
-  echo " -u <username>                  : Which user should have access"
+  echo ""
+  echo "Project membership - Add at least one user or group."
+  echo " -u <username>  : The NTNU username of a user which should have access" 
+  echo " -g <groupname> : The name of a NTNU LDAP group which should be added"
+  echo "                :   to the project"
   echo ""
   echo "Quota-arguments (You need to set a type (-t) or all the other options):"
-  echo " -t <project-type> : What kind of project is it? It sets the quotas"
-  echo " -i <instances>    : The number of VM's the project might create"
-  echo " -c <cpu-count>    : CPU-Quota for the project."
-  echo " -m <memory>       : RAM-Quota - in gigabytes"
-  echo " -v <volumes>      : The number of volumes the project can have"
-  echo " -g <gigabytes>    : Total space for cinder volumes."
+  echo " -t <project-type>        : What kind of project is it? It sets quotas"
+  echo " -i <instances>           : The number of VM's the project might create"
+  echo " -c <cpu-count>           : CPU-Quota for the project."
+  echo " -r <memory>              : RAM-Quota - in gigabytes"
+  echo " -v <volumes>,<gigabytes> : The number of volumes the project can have,"
+  echo "                          :   and the total amount of space these can"
+  echo "                          :   use"
   echo ""
   echo "Optional arguments:"
-  echo " -u <username>                  : Add several times for more users"
   echo " -e <expiry-date (dd.mm.yyyy)>  : Set deletion-date. If this is not"
   echo "                                :   supplied the expiry-date will be"
   echo "                                :   the end of the current semester"
@@ -145,6 +159,20 @@ for username in $(echo $users | tr ',' ' '); do
         --user-domain=NTNU heat_stack_owner
   else
     echo "$username is already present in the project"
+  fi
+done
+
+for groupname in $(echo $groups | tr ',' ' '); do 
+  noRoles=$(openstack role assignment list --project $projectName \
+  --group $groupname --group-domain=NTNU -f csv | wc -l)
+  if [[ $noRoles -le 1 ]]; then
+    echo "Adding $groupname to the project"
+    openstack role add --project $projectName --group $groupname \
+        --group-domain=NTNU _member_
+    openstack role add --project $projectName --group $groupname \
+        --group-domain=NTNU heat_stack_owner
+  else
+    echo "$groupname is already present in the project"
   fi
 done
 
