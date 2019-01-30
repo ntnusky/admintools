@@ -18,7 +18,7 @@ adminProjectID=$(openstack project show admin -f value -c id)
 
 echo "Starting to delete the project $projectName ($projectID)"
 
-delete_users $projectID $OS_USERNAME
+delete_users $projectID
 add_user $projectID $OS_USERNAME
 set_project $projectName $projectID
 

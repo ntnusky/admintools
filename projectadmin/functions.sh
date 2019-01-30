@@ -1,29 +1,46 @@
 #!/bin/bash
 
-
+# This function deletes all users from a project, optionally except for a single
+# user. The function can take three arguments:
+#  1 - A project ID or Name
+#  2 - (Optional) A file-name to write the user ID's deleted to.
 function delete_users {
-  echo "Removing users from project"                                           
+  echo "Removing users and groups from project"
+
   local project=$1
-
-  if [[ ! -z $2 ]]; then
-    local userid=$(openstack user show $2 -f value -c id 2> /dev/null) || \
-    local userid=$(openstack user show $2 -f value -c id --domain=NTNU 2> /dev/null)
-    echo " - Except for the user $2"
-  else
-    local userid="Ingen"
-  fi
-
   local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
   local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
+  local statusfile=$2
 
-  local roles=$(openstack role assignment list --project $projectid -f value \
-    -c Role -c User | grep -v $userid | awk '{ print $2 "," $1 }')      
-                                                                               
-  for userANDrole in $roles; do                                                
-    userAndRole=$(echo $userANDrole | sed s/,/\ /)
-    openstack role remove --project $projectID --user $userAndRole
+  for roleA in $(openstack role assignment list --project $projectid -f json \
+      | jq -c ".[]"); do
+    local role=$(echo $roleA | jq -r '.["Role"]')
+    local user=$(echo $roleA | jq -r '.["User"]')
+    local group=$(echo $roleA | jq -r '.["Group"]')
+    local inherited=$(echo $roleA | jq -r '.["Inherited"]')
+
+    if [[ $inherited == "true" ]]; then
+      i=" --inherited"
+    else
+      i=""
+    fi
+
+    if [[ ! -z $user ]]; then
+      if [[ ! -z $statusfile ]]; then
+        echo "USER:${user},${role}" >> $statusfile
+      fi
+      openstack role remove --project $projectID --user $user $role $i
+    fi
+
+    if [[ ! -z $group ]]; then
+      if [[ ! -z $statusfile ]]; then
+        echo "GROUP:${group},${role}" >> $statusfile
+      fi
+      openstack role remove --project $projectID --group $group $role $i
+    fi
   done  
-  echo "Finished removing users from project"
+
+  echo "Finished removing users and groups from the project"
 }
 
 function set_project {
@@ -48,6 +65,18 @@ function clean_nova {
   vms=$(openstack server list -f value -c ID)
   for vm in $vms; do
     openstack server delete $vm
+  done
+}
+
+function disable_nova {
+  local project=$1
+  local statusfile=$2
+
+  echo "Turning off virtual machines"
+  vms=$(openstack server list --project $project --status ACTIVE -f value -c ID)
+  for vm in $vms; do
+    openstack server stop $vm
+    echo "VM:${vm}" >> $statusfile
   done
 }
 
