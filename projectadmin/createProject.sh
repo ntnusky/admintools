@@ -2,6 +2,7 @@
 set -e
 
 . $(dirname $0)/../common.sh
+. $(dirname $0)/functions.sh
 
 prereq
 need_admin
@@ -177,29 +178,7 @@ for groupname in $(echo $groups | tr ',' ' '); do
 done
 
 if [[ ! -z $service ]]; then
-  serviceUserName="${projectName}_service"
-  echo "Checking if service-user is present"
-  noRoles=$(openstack role list --project $projectName --user \
-      $serviceUserName -f csv  | wc -l)
-  if [[ $noRoles -le 1 ]]; then
-    echo "Adding the user $serviceUserName to $projectName"
-
-    password=$(pwgen -s -1 12)
-    file="$serviceUserName.password.txt"
-
-    echo $serviceUserName $password >> $file
-    echo "The password ($password) is written to the file $file"
-
-    openstack user create --domain default --password $password --email \
-        serviceusers@localhost --description "Service user for $projectName" \
-        $serviceUserName
-    openstack role add --project $projectName --user $serviceUserName \
-        _member_
-    openstack role add --project $projectName --user $serviceUserName \
-        heat_stack_owner
-  else
-    echo "The project already have a service-user"
-  fi
+  create_serviceuser $projectName
 fi
 
 exit $EXIT_OK

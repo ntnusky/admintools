@@ -43,6 +43,72 @@ function delete_users {
   echo "Finished removing users and groups from the project"
 }
 
+function delete_user {
+  local user=$1
+
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
+  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local domain=$(openstack user show $userid -f value -c domain_id 2> /dev/null)
+
+  if [[ -z $(openstack role assignment list --user $userid) ]]; then
+    if [[ $domain == 'default' ]]; then
+      echo "Deleting the user $user as its not in projects anymore." 
+      openstack user delete $userid
+    else
+      echo "Cannot delete the user, as it is not in the openstack user database."
+      echo "LDAP users needs to be deleted in the LDAP catalog, not here."
+    fi
+  else
+    echo "The user is still member of some projects, and is thus not deleted."
+  fi
+}
+
+# This function removes a users from a project.
+# The function can take two arguments:
+#  1 - A project ID or Name
+#  2 - A user ID or Name 
+function remove_user {
+  echo "Removing user from project"
+
+  local project=$1
+  local user=$2
+
+  local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
+  local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
+  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+
+  for roleA in $(openstack role assignment list --project $projectid \
+      --user $userid -f json | jq -c ".[]"); do
+    local role=$(echo $roleA | jq -r '.["Role"]')
+    local user=$(echo $roleA | jq -r '.["User"]')
+    local group=$(echo $roleA | jq -r '.["Group"]')
+    local inherited=$(echo $roleA | jq -r '.["Inherited"]')
+
+    if [[ $inherited == "true" ]]; then
+      i=" --inherited"
+    else
+      i=""
+    fi
+
+    if [[ ! -z $user ]]; then
+      if [[ ! -z $statusfile ]]; then
+        echo "USER:${user},${role}" >> $statusfile
+      fi
+      openstack role remove --project $projectid --user $user $role $i
+    fi
+
+    if [[ ! -z $group ]]; then
+      if [[ ! -z $statusfile ]]; then
+        echo "GROUP:${group},${role}" >> $statusfile
+      fi
+      openstack role remove --project $projectid --group $group $role $i
+    fi
+  done  
+
+  echo "Finished removing user from the project"
+}
+
 function set_project {
   local projectName=$1
   local projectID=$2
@@ -209,4 +275,40 @@ function clean_swift {
     openstack container delete $container -r
   done
   echo "Finished cleaning swift"
+}
+
+function create_serviceuser {
+  local projectName=$1
+  local extra=$2
+  local serviceUserName="${projectName}_service"
+
+  echo "Checking if service-user is present"
+  local noRoles=$(openstack role assignment list --project $projectName --user \
+      $serviceUserName -f csv  | wc -l)
+  if [[ $noRoles -le 1 ]]; then
+    echo "Adding the user $serviceUserName to $projectName"
+
+    local password=$(pwgen -s -1 12)
+    local file="$serviceUserName.password.txt"
+
+    echo $serviceUserName $password >> $file
+    echo "The password ($password) is written to the file $file"
+
+    openstack user create --domain default --password $password --email \
+        serviceusers@localhost --description "Service user for $projectName" \
+        $serviceUserName
+    openstack role add --project $projectName --user $serviceUserName \
+        _member_
+    openstack role add --project $projectName --user $serviceUserName \
+        heat_stack_owner
+
+    if [[ $2 == '--inherited' ]]; then
+      openstack role add --project $projectName --user $serviceUserName \
+          _member_ --inherited
+      openstack role add --project $projectName --user $serviceUserName \
+          heat_stack_owner --inherited
+    fi
+  else
+    echo "The project already have a service-user"
+  fi
 }
