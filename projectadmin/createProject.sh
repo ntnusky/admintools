@@ -18,6 +18,8 @@ types[IMT2681]="3 3 6 20 2"
 types[IMT3003]="15 15 30 200 10"
 types[IMT3005]="25 25 50 200 10"
 
+types[DEPARTMENT]="50 50 100 500 50"
+
 while getopts u:n:d:e:slt:i:c:r:v:g: option; do
   case "${option}" in 
     d) projectDesc=${OPTARG} ;;
