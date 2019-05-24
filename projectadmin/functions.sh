@@ -130,7 +130,7 @@ function clean_nova {
   echo "Deleting virtual machines"
   vms=$(openstack server list -f value -c ID)
   for vm in $vms; do
-    openstack server delete $vm
+    openstack server delete --wait $vm
   done
 }
 
