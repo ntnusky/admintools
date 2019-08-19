@@ -135,7 +135,7 @@ else
   echo "Creating the project $projectName"
   openstack project create --description "$projectDesc" --domain NTNU $projectName
   echo "Setting project expiry to $expiry"
-  openstack project set --property expiry=$date $projectName
+  openstack project set --property expiry=$expiry $projectName
 
   echo "Setting quotas ($instances instances, $cpu cores, $ram GB RAM"
   echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
