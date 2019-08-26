@@ -14,7 +14,7 @@ if [ $# -lt 1 ]; then
 fi
 
 for projectID in $(openstack project list -f value | grep $1 | awk '{ print $1 }'); do
-  projectName=$(openstack project show $projectID | grep name | awk '{ print $4 }')
+  projectName=$(openstack project show -f value -c name $projectID)
   if [[ -z $2 || $2 != "--yes-i-know-what-i-am-about-to-do" ]]; then
     echo "Your pattern matched the project $projectName"
     dryRun=1

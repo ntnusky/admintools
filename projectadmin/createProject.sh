@@ -26,7 +26,7 @@ while getopts u:n:d:e:slt:i:c:r:v:g: option; do
     n) projectName=${OPTARG} ;;
     e) expiry=${OPTARG} ;;
     s) service=1 ;;
-    t) projectType=${OPTARG} ;;
+    t) projectType=${OPTARG^^} ;;
     i) qinstances=${OPTARG} ;;
     c) qcpu=${OPTARG} ;;
     r) qmemory=${OPTARG} ;;
