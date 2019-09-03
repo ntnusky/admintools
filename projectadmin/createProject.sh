@@ -117,7 +117,7 @@ else
 fi
 
 if [[ -z $expiry ]]; then
-  if [[ $(date +%m) -le 6 ]]; then
+  if [[ $(date +%-m) -le 6 ]]; then
     expiry="30.06.$(date +%Y)"
   else
     expiry="31.12.$(date +%Y)"
