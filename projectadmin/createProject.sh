@@ -18,7 +18,7 @@ types[IMT2681]="3 3 6 20 2"
 types[IMT3003]="15 15 30 200 10"
 types[IMT3005]="25 25 50 200 10"
 types[IIKG1001]="2 2 4 2 2"
-types[DIGSEC-kurs]="2 4 12 20 2"
+types[DIGSEC]="2 4 12 20 2"
 
 types[DEPARTMENT]="50 50 100 500 50"
 
