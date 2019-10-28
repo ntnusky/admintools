@@ -214,8 +214,8 @@ function clean_neutron {
   echo "Deleting all router->network links"
   routers=$(openstack router list -f value -c ID)
   for router in $routers; do
-    interfaces=$(openstack router show -f value -c interfaces_info $router | \
-      jq ".[] | .subnet_id" | tr -d '"')
+    interfaces=$(openstack router show -f json -c interfaces_info $router | \
+      jq '.[] | .[] | .subnet_id' | tr -d '"')
     for interface in $interfaces; do
       openstack router remove subnet $router $interface
     done
