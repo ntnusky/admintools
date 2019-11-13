@@ -251,22 +251,22 @@ function clean_neutron {
   done
 
   # Delete all firewalls, policies and rules
-  echo "Deleting firewalls"
-  fws=$(neutron firewall-list -f value -c id)
+  echo "Deleting firewall groups"
+  fws=$(openstack firewall group list -f value -c ID)
   for fw in $fws; do
-    neutron firewall-delete $fw
+    openstack firewall group delete $fw
   done
 
   echo "Deleting firewall policies"
-  policies=$(neutron firewall-policy-list -f value -c id)
+  policies=$(openstack firewall group policy list -f value -c ID)
   for policy in $policies; do
-    neutron firewall-policy-delete $policy
+    openstack firewall group policy delete $policy
   done
 
   echo "Deleting firewall rules"
-  rules=$(neutron firewall-rule-list -f value -c id)
+  rules=$(openstack firewall group rule list -f value -c ID)
   for rule in $rules; do
-    neutron firewall-rule-delete $rule
+    openstack firewall group rule delete $rule
   done
 }
 
