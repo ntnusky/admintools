@@ -1,6 +1,6 @@
 #!/bin/bash
 
-parent="IMT3003_V19_workers"
+parent="IMT3003_workers"
 net="imt3003"
 
 if [[ $# -lt 3 ]]; then
