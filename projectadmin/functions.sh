@@ -253,24 +253,9 @@ function clean_neutron {
   # Delete all firewalls, policies and rules
   echo "Deleting firewall groups (skipping default group)"
   defaultgroup=$(openstack firewall group show -f value -c ID default)
-  echo "found default group $defaultgroup"
-  fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}")
-  echo "Will delete all this: $fws"
+  fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
   for fw in $fws; do
-    echo "trying to delete $fw"
     openstack firewall group delete $fw
-  done
-
-  echo "Deleting firewall policies (skipping defaults)"
-  policies=$(openstack firewall group policy list -f value -c ID -c Name | grep -vE 'default [ingress|egress]')
-  for policy in $(echo $policies | cut -d' ' -f1); do
-    openstack firewall group policy delete $policy
-  done
-
-  echo "Deleting firewall rules"
-  rules=$(openstack firewall group rule list -f value -c ID)
-  for rule in $rules; do
-    openstack firewall group rule delete $rule
   done
 }
 
