@@ -24,8 +24,8 @@ set_project $projectName $projectID
 
 clean_heat
 clean_nova
-clean_glance
 clean_cinder
+clean_glance
 clean_swift
 clean_neutron $projectID
 
