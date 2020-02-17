@@ -63,6 +63,32 @@ function delete_user {
   fi
 }
 
+# This function adds a users to a project.
+# The function can take two arguments:
+#  1 - A project ID or Name
+#  2 - A user ID or Name 
+function add_user {
+  local project=$1
+  local user=$2
+
+  local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
+  local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
+  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+
+  noRoles=$(openstack role assignment list --project $projectid --user $userid \
+     -f csv  | wc -l)
+  if [[ $noRoles -le 1 ]]; then
+    echo "Adding $user to the project"
+    openstack role add --project $projectid --user $userid _member_
+    openstack role add --project $projectid --user $userid heat_stack_owner
+    return 0
+  else
+    echo "$user is already present in the project"
+    return 1
+  fi
+}
+
 # This function removes a users from a project.
 # The function can take two arguments:
 #  1 - A project ID or Name
@@ -281,7 +307,8 @@ function create_serviceuser {
     local password=$(pwgen -s -1 12)
     local file="$serviceUserName.password.txt"
 
-    echo $serviceUserName $password >> $file
+    echo "Username: $serviceUserName" > $file
+    echo "Password: $password" >> $file
     echo "The password ($password) is written to the file $file"
 
     openstack user create --domain default --password $password --email \
@@ -292,11 +319,31 @@ function create_serviceuser {
     openstack role add --project $projectName --user $serviceUserName \
         heat_stack_owner
 
-    if [[ $2 == '--inherited' ]]; then
+    if [[ $extra == '--inherited' ]]; then
       openstack role add --project $projectName --user $serviceUserName \
           _member_ --inherited
       openstack role add --project $projectName --user $serviceUserName \
           heat_stack_owner --inherited
+    fi
+
+    # If the current user is not a part of the project, add it temporarly.
+    result=0
+    add_user $projectName $OS_USERNAME || result=1
+
+    # Switch to the new project, and upload the service-user credentials to
+    # swift.
+    oldtenant=$OS_TENANT_ID
+    newtenant=$(openstack project show $projectName -f value -c id)
+    export OS_TENANT_ID=$newtenant
+    openstack container create servicepassword &> /dev/null
+    openstack object create servicepassword $file &> /dev/null
+
+    # Switch back to the admin-project
+    export OS_TENANT_ID=$oldtenant
+
+    # If the current user was added temporarly, remove it again
+    if [[ $result -eq 0 ]]; then
+      remove_user $projectName $OS_USERNAME
     fi
   else
     echo "The project already have a service-user"
