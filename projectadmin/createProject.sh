@@ -20,6 +20,7 @@ types[IMT3005]="25 25 50 200 10"
 types[DCSG1005]="20 20 30 100 10"
 types[IIKG1001]="2 2 4 2 2"
 types[DIGSEC]="2 4 12 20 2"
+types[TTM4135]="1 1 2 20 1"
 
 types[DEPARTMENT]="50 50 100 500 50"
 
