@@ -332,14 +332,14 @@ function create_serviceuser {
 
     # Switch to the new project, and upload the service-user credentials to
     # swift.
-    oldtenant=$OS_TENANT_ID
+    oldtenant=$OS_PROJECT_ID
     newtenant=$(openstack project show $projectName -f value -c id)
-    export OS_TENANT_ID=$newtenant
+    export OS_PROJECT_ID=$newtenant
     openstack container create servicepassword &> /dev/null
     openstack object create servicepassword $file &> /dev/null
 
     # Switch back to the admin-project
-    export OS_TENANT_ID=$oldtenant
+    export OS_PROJECT_ID=$oldtenant
 
     # If the current user was added temporarly, remove it again
     if [[ $result -eq 0 ]]; then
