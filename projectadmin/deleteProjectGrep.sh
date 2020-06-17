@@ -13,7 +13,7 @@ if [ $# -lt 1 ]; then
   exit $EXIT_MISSINGARGS
 fi
 
-for projectID in $(openstack project list -f value | grep $1 | awk '{ print $1 }'); do
+for projectID in $(openstack project list -f value -c Name | grep -E "$1" ); do
   projectName=$(openstack project show -f value -c name $projectID)
   if [[ -z $2 || $2 != "--yes-i-know-what-i-am-about-to-do" ]]; then
     echo "Your pattern matched the project $projectName"
