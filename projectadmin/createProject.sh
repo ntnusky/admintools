@@ -146,13 +146,14 @@ else
   echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
   openstack quota set $projectName --cores $cpu --instances $instances \
       --ram $(($ram * 1024))  --volumes $cindervolumes --gigabytes $cindergb
-  echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
-  openstack quota set $projectName --volume-type Fast --volumes 0 || \
-      echo "The volume-type Fast does not exist"
-  openstack quota set $projectName --volume-type VeryFast --volumes 0 || \
-      echo "The volume-type VeryFast does not exist"
-  openstack quota set $projectName --volume-type Unlimited --volumes 0 || \
-      echo "The volume-type Unlimited does not exist"
+  # THis is not needed anymore as we have set these volume-types as non-public
+  #echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
+  #openstack quota set $projectName --volume-type Fast --volumes 0 || \
+  #    echo "The volume-type Fast does not exist"
+  #openstack quota set $projectName --volume-type VeryFast --volumes 0 || \
+  #    echo "The volume-type VeryFast does not exist"
+  #openstack quota set $projectName --volume-type Unlimited --volumes 0 || \
+  #    echo "The volume-type Unlimited does not exist"
   echo "Project created"
 fi
 
