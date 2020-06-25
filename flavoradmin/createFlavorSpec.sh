@@ -18,6 +18,9 @@ createFlavor() {
   # Define IOPS-limits
   echo "  \"quota:disk_read_iops_sec\": $5, \"quota:disk_write_iops_sec\": $5," 
 
+  # Add general-purpose compute tag.
+  echo "  \"aggregate_instance_extra_specs:node_type\": \"general\"," 
+
   # Allow using the RNG
   echo -n "  \"hw_rng:allowed\": true, \"hw_rng:rate_bytes\": 24, "
   echo "\"hw_rng:rate_period\": 5000,"
