@@ -20,10 +20,7 @@ types[IMT3003]="15 15 30 200 10"
 types[IMT3005]="25 25 50 200 10"
 types[DCSG1005]="20 20 30 100 10"
 types[IIKG1001]="2 2 4 2 2"
-types[DIGSEC]="2 4 12 20 2"
 types[TTM4135]="1 1 2 20 1"
-
-types[DEPARTMENT]="50 50 100 500 50"
 
 while getopts u:n:d:e:slt:i:c:r:v:g: option; do
   case "${option}" in 
@@ -44,8 +41,8 @@ done
 
 if [[ ! -z $listtypes ]]; then
   echo The following types of projects can be created:
-  
-  for ptype in ${!types[@]}; do
+
+  for ptype in $(echo ${!types[@]} | tr ' ' '\n' | sort); do
     read pi pc pr pg pv <<< ${types[$ptype]}
     echo "$ptype: $pi instances, $pc CPU's, ${pr}GB RAM, $pv (${pg}GB) volumes"
   done
