@@ -163,6 +163,10 @@ for username in $(echo $users | tr ',' ' '); do
         --user-domain=NTNU _member_
     openstack role add --project $projectName --user $username \
         --user-domain=NTNU heat_stack_owner
+    openstack role add --project $projectName --user $username \
+        --user-domain=NTNU load-balancer_member
+    openstack role add --project $projectName --user $username \
+        --user-domain=NTNU creator
   else
     echo "$username is already present in the project"
   fi
@@ -177,6 +181,10 @@ for groupname in $(echo $groups | tr ',' ' '); do
         --group-domain=NTNU _member_
     openstack role add --project $projectName --group $groupname \
         --group-domain=NTNU heat_stack_owner
+    openstack role add --project $projectName --group $groupname \
+        --group-domain=NTNU load-balancer_member
+    openstack role add --project $projectName --group $groupname \
+        --group-domain=NTNU creator
   else
     echo "$groupname is already present in the project"
   fi

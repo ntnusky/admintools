@@ -82,6 +82,8 @@ function add_user {
     echo "Adding $user to the project"
     openstack role add --project $projectid --user $userid _member_
     openstack role add --project $projectid --user $userid heat_stack_owner
+    openstack role add --project $projectid --user $userid load-balancer_member
+    openstack role add --project $projectid --user $userid creator
     return 0
   else
     echo "$user is already present in the project"
@@ -318,12 +320,16 @@ function create_serviceuser {
         _member_
     openstack role add --project $projectName --user $serviceUserName \
         heat_stack_owner
+    openstack role add --project $projectName --user $serviceUserName \
+        load-balancer_member
+    openstack role add --project $projectName --user $serviceUserName \
+        creator
 
     if [[ $extra == '--inherited' ]]; then
       openstack role add --project $projectName --user $serviceUserName \
-          _member_ --inherited
+          load-balancer_member --inherited
       openstack role add --project $projectName --user $serviceUserName \
-          heat_stack_owner --inherited
+          creator --inherited
     fi
 
     # If the current user is not a part of the project, add it temporarly.
