@@ -8,7 +8,7 @@ cp $orgimage $image
 echo "Upgrading packages"
 virt-customize -a $image --update
 echo "Installing packages"
-virt-customize -a $image --install build-essential,dkms
+virt-customize -a $image --install build-essential,dkms,libxml2-utils
 echo "Installing GRID-script"
 virt-customize -a $image --copy-in check-grid-driver.sh:/opt/ --append-line '/etc/crontab:@reboot root bash /opt/check-grid-driver.sh'
 
