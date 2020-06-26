@@ -7,7 +7,7 @@
 # For CentOS:
 # epel-release gcc dkms make kernel-devel cpp glibc-devel glibc-headers kernel-headers libmpc mpfr
 # For Ubuntu:
-# build-essential dkms
+# build-essential dkms libxml2-utils
 
 baseurl='http://rpm.iik.ntnu.no/nvidia'
 available_driver_version=$(curl -s ${baseurl}/grid-driver-version.txt)
