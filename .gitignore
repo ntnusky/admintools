@@ -1,2 +1,5 @@
 *.qcow2
 *.raw
+*.img
+*.csv
+*.txt
