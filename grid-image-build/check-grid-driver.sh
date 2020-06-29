@@ -13,12 +13,18 @@ baseurl='http://rpm.iik.ntnu.no/nvidia'
 available_driver_version=$(curl -s ${baseurl}/grid-driver-version.txt)
 driver_url="${baseurl}/grid-driver.run"
 gridd_conf="${baseurl}/gridd.conf"
+cuda_installer="/opt/cuda.run"
 
 function removeNouveau() {
   sed -i 's/GRUB_CMDLINE_LINUX="[^"]*/& rd.driver.blacklist=nouveau nouveau.modeset=0/' /etc/default/grub
   sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& rd.driver.blacklist=nouveau nouveau.modeset=0/' /etc/default/grub
   echo ">>>> /etc/default/grub:"
   cat /etc/default/grub | grep nouveau
+}
+
+function installCuda() {
+  sh $cuda_installer --silent --toolkit --samples
+  rm $cuda_installer
 }
 
 if [ $(which nvidia-smi) ]; then
@@ -58,6 +64,10 @@ if [ "$installed_driver_version" != "$available_driver_version" ]; then
   curl -s -o /etc/nvidia/gridd.conf $gridd_conf
 
   rm grid-driver.run
+
+  if [ ! -e /usr/local/cuda ]; then
+    installCuda
+  fi
 
   reboot
 else
