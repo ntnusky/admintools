@@ -27,7 +27,9 @@ clean_nova
 clean_cinder
 clean_glance
 clean_swift
+clean_octavia
 clean_neutron $projectID
+clean_magnum
 
 # Delete all security groups
 echo "Deleting security groups"

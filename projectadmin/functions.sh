@@ -150,7 +150,7 @@ function clean_heat {
   echo "Deleting heat stacks"
   stackIDs=$(openstack stack list -f value -c ID)
   for stackID in $stackIDs; do
-    openstack stack delete $stackID --yes --wait
+    openstack stack abandon --output-file /dev/null $stackID
   done
 }
 
@@ -294,6 +294,31 @@ function clean_swift {
   done
   echo "Finished cleaning swift"
 }
+
+function clean_octavia {
+  echo "Cleaning octavia"
+  for lb in $(openstack loadbalancer list -f value -c id); do
+    openstack loadbalancer delete --cascade $lb
+  done
+  echo "Finished cleaning octavia"
+}
+
+function clean_magnum {
+  echo "Deleting magnum clusters"
+  for cluster in $(openstack coe cluster list -f value -c uuid); do
+    openstack coe cluster delete $cluster
+  done
+  echo "Cleaning private cluster templates"
+  while [[ $(openstack coe cluster list -f value) != '' ]]; do
+    echo "Watiing for clusters to be deleted"
+    sleep 1
+  done
+  # The modern openstackclient is not able to list the public/private information...
+  for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
+    openstack coe cluster template delete $template
+  done
+}
+
 
 function create_serviceuser {
   local projectName=$1
