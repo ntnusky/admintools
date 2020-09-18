@@ -8,6 +8,8 @@ for f in $(cat $1 | jq -c '.[]'); do
   RAM=$(echo $f | jq -re '.["RAM"]')
   DISK=$(echo $f | jq -re '.["Disk"]')
   VISIBILITY=$(echo $f | jq -re '.["visibility"]')
+
+  unset properties
   declare -A properties
 
   for key in $(echo $f | jq -r 'keys[]'); do

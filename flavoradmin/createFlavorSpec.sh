@@ -15,8 +15,10 @@ createFlavor() {
     echo "\"hw:cpu_sockets\": 2, \"hw:cpu_threads\": 1,"
   fi
 
-  # Define IOPS-limits
-  echo "  \"quota:disk_read_iops_sec\": $5, \"quota:disk_write_iops_sec\": $5," 
+  if [[ $5 -ne '-1' ]]; then
+    # Define IOPS-limits
+    echo "  \"quota:disk_read_iops_sec\": $5, \"quota:disk_write_iops_sec\": $5," 
+  fi
 
   # Add general-purpose compute tag.
   echo "  \"aggregate_instance_extra_specs:node_type\": \"general\"," 
@@ -49,6 +51,7 @@ for s in tiny small medium large xlarge; do
   createFlavor "m1.${s}" ${cores[$i]} $ram 40 300 public
   createFlavor "m1.io1.${s}" ${cores[$i]} $ram 40 600 private
   createFlavor "m1.io2.${s}" ${cores[$i]} $ram 40 1200 private
+  createFlavor "m1.ix.${s}" ${cores[$i]} $ram 40 -1 private
   ((i++))
 done
 
@@ -59,6 +62,7 @@ for s in tiny small medium large xlarge; do
   createFlavor "l1.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 300 public
   createFlavor "l1.io1.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 600 private
   createFlavor "l1.io2.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 1200 private
+  createFlavor "l1.ix.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 -1 private
   ((i++))
 done
 
@@ -69,9 +73,11 @@ for s in tiny small medium large xlarge; do
   createFlavor "c1.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 300 public
   createFlavor "c1.io1.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 600 private
   createFlavor "c1.io2.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 1200 private
+  createFlavor "c1.ix.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 -1 private
   createFlavor "r1.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 300 public
   createFlavor "r1.io1.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 600 private
   createFlavor "r1.io2.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 1200 private
+  createFlavor "r1.ix.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 -1 private
   ((i++))
 done
 
