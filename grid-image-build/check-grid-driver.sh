@@ -25,12 +25,17 @@ function removeNouveau() {
 function installCuda() {
   sh $cuda_installer --silent --toolkit --samples
   rm $cuda_installer
+
+  for patch in $(ls /opt/cuda_patch*); do
+    /opt/$patch --silent --toolkit --samples
+    rm $patch
+  done
 }
 
 if [ $(which nvidia-smi) ]; then
   installed_driver_version=$(nvidia-smi -q -x | xmllint --xpath '/nvidia_smi_log/driver_version/text()' -)
 else
-  installed_driver_verison=''
+  installed_driver_version=''
 fi
 
 if [ "$installed_driver_version" != "$available_driver_version" ]; then

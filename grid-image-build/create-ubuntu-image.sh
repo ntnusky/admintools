@@ -18,6 +18,7 @@ echo "Installing GRID-script"
 virt-customize -a $image \
   --copy-in check-grid-driver.sh:/opt/ \
   --copy-in cuda.run:/opt/ \
+  --copy-in cuda_patch1.run:/opt \
   --copy-in cuda.sh:/etc/profile.d/ \
   --append-line '/etc/crontab:@reboot root bash /opt/check-grid-driver.sh'
 
