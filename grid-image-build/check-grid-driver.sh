@@ -25,12 +25,17 @@ function removeNouveau() {
 function installCuda() {
   sh $cuda_installer --silent --toolkit --samples
   rm $cuda_installer
+
+  for patch in $(ls /opt/cuda_patch*); do
+    /opt/$patch --silent --toolkit --samples
+    rm $patch
+  done
 }
 
 if [ $(which nvidia-smi) ]; then
   installed_driver_version=$(nvidia-smi -q -x | xmllint --xpath '/nvidia_smi_log/driver_version/text()' -)
 else
-  installed_driver_verison=''
+  installed_driver_version=''
 fi
 
 if [ "$installed_driver_version" != "$available_driver_version" ]; then
@@ -46,7 +51,7 @@ if [ "$installed_driver_version" != "$available_driver_version" ]; then
     if grep -qi ubuntu /etc/os-release; then
       echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf
       echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf
-      update-initramsfs -u
+      update-initramfs -u
     elif grep -qi centos /etc/os-release; then
       echo "blacklist nouveau" | tee /lib/modprobe.d/blacklist-nouveau.conf
       mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bkp

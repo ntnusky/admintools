@@ -13,7 +13,7 @@ cp $orgimage $image
 echo "Upgrading packages"
 virt-customize -a $image --update
 echo "Installing packages"
-virt-customize -a $image --install build-essential,dkms,libxml2-utils
+virt-customize -a $image --install build-essential,dkms,libxml2-utils,libglvnd-core-dev
 echo "Installing GRID-script"
 virt-customize -a $image \
   --copy-in check-grid-driver.sh:/opt/ \
