@@ -341,6 +341,9 @@ function create_serviceuser {
     openstack container create servicepassword &> /dev/null
     openstack object create servicepassword $file &> /dev/null
 
+    # Delete the password-file after it is uploaded to swift.
+    rm $file
+
     # Switch back to the admin-project
     export OS_PROJECT_ID=$oldtenant
 
