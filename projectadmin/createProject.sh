@@ -24,7 +24,7 @@ types[IIKG1001]="2 2 4 2 2"
 types[TTM4135]="1 1 2 20 1"
 types[TTM4133]="4 4 16 100 4"
 
-while getopts u:n:d:e:slt:i:c:r:v:g: option; do
+while getopts u:n:d:e:slt:i:c:r:v:g:p: option; do
   case "${option}" in 
     d) projectDesc=${OPTARG} ;;
     n) projectName=${OPTARG} ;;
@@ -38,6 +38,7 @@ while getopts u:n:d:e:slt:i:c:r:v:g: option; do
     l) listtypes=1 ;;
     g) [[ -z $groups ]] && groups="${OPTARG}" || groups="$groups,${OPTARG}" ;;
     u) [[ -z $users ]] && users="${OPTARG}" || users="$users,${OPTARG}" ;;
+    p) parentProject=${OPTARG} ;;
   esac
 done
 
@@ -92,6 +93,8 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]] || \
   echo "                                :   supplied the expiry-date will be"
   echo "                                :   the end of the current semester"
   echo " -s                             : Create a service-user"
+  echo " -p <project-name|id>           : The new project will be a child"
+  echo "                                :    of the given project"
   echo " -l                             : List available project types"
   exit $EXIT_MISSINGARGS
 fi
@@ -133,11 +136,17 @@ if [[ ! $expiry =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
   exit $EXIT_CONFIGERROR
 fi
 
+if [[ ! -z $parentProject ]]; then
+  parent="--parent $parentProject"
+else
+  parent=""
+fi
+
 if openstack project show $projectName &> /dev/null; then
   echo "A project with the name \"$projectName\" already exist." 
 else
   echo "Creating the project $projectName"
-  openstack project create --description "$projectDesc" --domain NTNU $projectName
+  openstack project create --description "$projectDesc" --domain NTNU $parent $projectName
   echo "Setting project expiry to $expiry"
   openstack project set --property expiry=$expiry $projectName
 

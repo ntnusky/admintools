@@ -47,7 +47,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 
   u=${usernames//\,/\ -u\ }
   $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -t DCSG2003 \
-                      -e $date -s
+                      -p $parent -e $date -s
 
   if [[ $exists -eq 0 ]]; then
     projectID=$(openstack project show $projectName -f value -c id) 2> /dev/null
