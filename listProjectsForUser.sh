@@ -12,4 +12,10 @@ fi
 
 username="$1"
 
-openstack role assignment list --user "$username" --user-domain NTNU --names
+if [[ $username =~ _service$ ]]; then
+  domain="Default"
+else
+  domain="NTNU"
+fi
+
+openstack role assignment list --user "$username" --user-domain "$domain" --names
