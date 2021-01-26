@@ -57,8 +57,8 @@ done
 
 # Generate l-series
 i=0
-cores=(12 16 20 24 32)
-for s in tiny small medium large xlarge; do
+cores=(12 16 20 24 32 64)
+for s in tiny small medium large xlarge 2xlarge; do
   createFlavor "l1.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 300 public
   createFlavor "l1.io1.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 600 private
   createFlavor "l1.io2.${s}" ${cores[$i]} $((${cores[$i]}*4096)) 40 1200 private

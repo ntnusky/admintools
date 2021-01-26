@@ -478,6 +478,49 @@
   "visibility": "private"
 },
 {
+  "Name": "l1.2xlarge",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "visibility": "public"
+},
+{
+  "Name": "l1.io1.2xlarge",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 600, "quota:disk_write_iops_sec": 600,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "visibility": "private"
+},
+{
+  "Name": "l1.io2.2xlarge",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 1200, "quota:disk_write_iops_sec": 1200,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "visibility": "private"
+},
+{
+  "Name": "l1.ix.2xlarge",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "visibility": "private"
+},
+{
   "Name": "c1.tiny",
   "CPU": "8",
   "RAM": "16384",
