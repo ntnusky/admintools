@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This net should exist in the MISC-project at all times
+net='ttm4135'
+
 if [[ $# -lt 3 ]]; then
   echo "This script assignes users to projects; and if the project"
   echo "does not exist it will create them. The csv file should list"
@@ -49,6 +52,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   if [[ $exists -eq 0 ]]; then
     projectID=$(openstack project show $projectName -f value -c id) 2> /dev/null
     $cmd ../networking/add_project_to_globalnet.sh $projectID
+
+    $cmd neutron rbac-create --target-tenant $projectID \
+      --action access_as_shared --type network $net
   fi
 
   $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
