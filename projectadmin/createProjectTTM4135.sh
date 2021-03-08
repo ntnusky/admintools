@@ -55,9 +55,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 
     $cmd neutron rbac-create --target-tenant $projectID \
       --action access_as_shared --type network $net
-  fi
 
-  $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
+    $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
+  fi
 
   echo " -- DONE adding $username to $projectName"
 
