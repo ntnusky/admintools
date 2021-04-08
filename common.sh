@@ -97,3 +97,5 @@ function remove_user {
     openstack role remove --project $projectid --user $userid $role $extra
   done
 }
+
+function box() { local t="$1xxxx";local c="${2:-=}"; echo "${t//?/$c}"; echo "$c $1 $c"; echo "${t//?/$c}"; }
