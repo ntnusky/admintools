@@ -29,7 +29,7 @@ else
   $oscmd role assignment list -f value -c User --project "$project" --names | uniq | while read -r line; do
     username=$(echo "$line" | cut -d'@' -f1)
     details=$($oscmd user show -f value -c id -c email --domain NTNU "$username")
-    if [[ $mail =~ @ ]]; then
+    if [[ $details =~ @ ]]; then
       mail=$(echo $details | cut -d' ' -f1)
     # No email registered. Assume student with RESERVE_PUBLISH
     else
