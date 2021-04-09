@@ -26,7 +26,7 @@ echo "Project: $projectname"
 if [ -n "$properties" ]; then
   echo "$properties"
 else
-  $oscmd role assignment list -f value -c User --project "$project" --names | uniq | while read -r line; do
+  $oscmd role assignment list -f value -c User --project "$project" --names | grep 'NTNU' | uniq | while read -r line; do
     username=$(echo "$line" | cut -d'@' -f1)
     details=$($oscmd user show -f value -c id -c email --domain NTNU "$username")
     if [[ $details =~ @ ]]; then
