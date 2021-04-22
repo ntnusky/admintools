@@ -26,15 +26,24 @@ echo "Project: $projectname"
 if [ -n "$properties" ]; then
   echo "$properties"
 else
-  $oscmd role assignment list -f value -c User --project "$project" --names | grep 'NTNU' | uniq | while read -r line; do
-    username=$(echo "$line" | cut -d'@' -f1)
-    details=$($oscmd user show -f value -c id -c email --domain NTNU "$username")
-    if [[ $details =~ @ ]]; then
-      mail=$(echo $details | cut -d' ' -f1)
-    # No email registered. Assume student with RESERVE_PUBLISH
-    else
-      mail="${username}@stud.ntnu.no [WARN] No e-mail registered in AD. Assumed student"
+  $oscmd role assignment list -f csv -c User -c  Group --project "$project" --names | tr -d '"' | grep 'NTNU' | uniq | while read -r line; do
+    username=$(echo "$line" | cut -d',' -f1 | cut -d'@' -f1)
+    group=$(echo "$line" | cut -d',' -f2 | cut -d '@' -f1)
+
+    if [ -n "$username" ]; then
+      userdetails=$($oscmd user show -f value -c id -c email --domain NTNU "$username")
+      if [[ $userdetails =~ @ ]]; then
+        mail=$(echo $userdetails | cut -d' ' -f1)
+      # No email registered. Assume student with RESERVE_PUBLISH
+      else
+        mail="${username}@stud.ntnu.no [WARN] No e-mail registered in AD. Assumed student"
+      fi
+      echo "Username: $username | E-mail: $mail"
     fi
-    echo "Username: $username | E-mail: $mail"
+
+    if [ -n "$group" ]; then
+      groupdesc=$($oscmd group show -f value -c description --domain NTNU "$group")
+      echo "Group: $group | Group description: $groupdesc"
+    fi
   done
 fi
