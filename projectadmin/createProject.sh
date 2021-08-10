@@ -115,7 +115,12 @@ if [[ ! -z $projectType ]] && ([[ ! -z $qcpu ]] || [[ ! -z $qmemory ]] || \
 fi
 
 if [[ ! -z $projectType ]]; then
-  read instances cpu ram cindergb cindervolumes <<< ${types[$projectType]}
+  if [[ ! -z ${types[$projectType]} ]]; then
+    read instances cpu ram cindergb cindervolumes <<< ${types[$projectType]}
+  else
+    echo "The project type $projectType does not exist!"
+    exit $EXIT_CONFIGERROR
+  fi
 else
   instances=$qinstances
   cpu=$qcpu
