@@ -16,7 +16,7 @@ types[THESIS]="16 16 32 50 10"
 
 types[DCSG1005]="8 15 20 100 10"
 types[DCSG2003]="15 15 36 200 10"
-types[IIKG1001]="2 2 4 2 2"
+types[IIKG1001]="2 2 1 2 2"
 types[IDATG2202]="1 2 4 20 1"
 types[IMT3003]="15 15 30 200 10"
 types[IIKG3005]="25 25 50 200 10"
