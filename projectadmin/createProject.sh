@@ -14,6 +14,7 @@ types[STUDENT]="4 4 8 20 2"
 
 types[THESIS]="16 16 32 50 10"
 
+types[DCSG1001]="1 1 0.5 1 1"
 types[DCSG1005]="8 15 20 100 10"
 types[DCSG2003]="15 15 36 200 10"
 types[IIKG1001]="2 2 1 2 2"
@@ -158,8 +159,11 @@ else
 
   echo "Setting quotas ($instances instances, $cpu cores, $ram GB RAM"
   echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
+
+  # The RAM calculation is odd because bash doesn't understand floating point numbers,
+  # and bc will always print a decimal.. Dividing by 1 removes it.
   openstack quota set $projectName --cores $cpu --instances $instances \
-      --ram $(($ram * 1024))  --volumes $cindervolumes --gigabytes $cindergb
+      --ram $(echo "${ram} * 1024 / 1" | bc)  --volumes $cindervolumes --gigabytes $cindergb
   # THis is not needed anymore as we have set these volume-types as non-public
   #echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
   #openstack quota set $projectName --volume-type Fast --volumes 0 || \
