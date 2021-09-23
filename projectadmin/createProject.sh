@@ -25,6 +25,7 @@ types[PROG2005]="3 3 6 20 2"
 types[TTM4133]="4 4 16 100 4"
 types[TTM4135]="1 1 2 20 1"
 types[TTM4175]="4 8 16 20 4"
+types[TTM4195]="4 4 8 20 4"
 
 while getopts u:n:d:e:slt:i:c:r:v:g:p: option; do
   case "${option}" in 
