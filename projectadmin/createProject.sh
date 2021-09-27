@@ -105,14 +105,14 @@ fi
 if [[ -z $projectType ]] && [[ -z $qcpu ]] && [[ -z $qmemory ]] && \
     [[ -z $qvolumes ]] &&  [[ -z $qgigabytes ]]; then  
   echo "You must either set a project type (-t) or manually"
-  echo "define quotas (-i, -c, -r, -v and -g)"
+  echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
 
 if [[ ! -z $projectType ]] && ([[ ! -z $qcpu ]] || [[ ! -z $qmemory ]] || \
     [[ ! -z $qvolumes ]] ||  [[ ! -z $qgigabytes ]]); then  
   echo "You cannot set project type (-t) at the same time as you manually"
-  echo "define quotas (-i, -c, -r, -v and -g)"
+  echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
 
