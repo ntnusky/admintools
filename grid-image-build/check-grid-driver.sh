@@ -34,7 +34,7 @@ function installCuda() {
 
 # First of all: Do we even have a Nvidia device available?
 if [ -z "$(lspci | grep -i nvidia)" ]; then
-	echo "No Nvidia device detected. Exiting"
+  echo "No Nvidia device detected. Exiting"
   exit 0
 fi
 
