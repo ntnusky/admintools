@@ -15,7 +15,7 @@ virt-customize -a $image --update
 echo "Installing epel-release"
 virt-customize -a $image --install epel-release
 echo "Installing packages"
-virt-customize -a $image --install gcc,gcc-c++,dkms,make,kernel-devel,cpp,glibc-devel,glibc-headers,kernel-headers,libmpc,mpfr
+virt-customize -a $image --install gcc,gcc-c++,dkms,make,kernel-devel,cpp,glibc-devel,glibc-headers,kernel-headers,libmpc,mpfr,pciutils
 echo "Installing GRID-script"
 virt-customize -a $image \
   --copy-in check-grid-driver.sh:/opt/ \

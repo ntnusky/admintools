@@ -66,14 +66,21 @@ for s in tiny small medium large xlarge 2xlarge; do
   ((i++))
 done
 
-# Generate c and r-series
+# Generate c-series
 i=0
-cores=(8 12 16 24 32)
-for s in tiny small medium large xlarge; do
+cores=(8 12 16 24 32 64)
+for s in tiny small medium large xlarge 2xlarge; do
   createFlavor "c1.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 300 public
   createFlavor "c1.io1.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 600 private
   createFlavor "c1.io2.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 1200 private
   createFlavor "c1.ix.${s}" ${cores[$i]} $((${cores[$i]}*2048)) 40 -1 private
+  ((i++))
+done
+
+# Generate r-series
+i=0
+cores=(8 12 16 24 32)
+for s in tiny small medium large xlarge; do
   createFlavor "r1.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 300 public
   createFlavor "r1.io1.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 600 private
   createFlavor "r1.io2.${s}" ${cores[$i]} $((${cores[$i]}*8192)) 40 1200 private

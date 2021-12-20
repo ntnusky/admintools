@@ -5,7 +5,7 @@
 
 # This script requires the OS to have tools for building the driver installed.
 # For CentOS:
-# epel-release gcc dkms make kernel-devel cpp glibc-devel glibc-headers kernel-headers libmpc mpfr
+# epel-release gcc dkms make kernel-devel cpp glibc-devel glibc-headers kernel-headers libmpc mpfr pciutils
 # For Ubuntu:
 # build-essential dkms libxml2-utils
 
@@ -31,6 +31,12 @@ function installCuda() {
     rm $patch
   done
 }
+
+# First of all: Do we even have a Nvidia device available?
+if [ -z "$(lspci | grep -i nvidia)" ]; then
+  echo "No Nvidia device detected. Exiting"
+  exit 0
+fi
 
 if [ $(which nvidia-smi) ]; then
   installed_driver_version=$(nvidia-smi -q -x | xmllint --xpath '/nvidia_smi_log/driver_version/text()' -)

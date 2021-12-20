@@ -14,16 +14,19 @@ types[STUDENT]="4 4 8 20 2"
 
 types[THESIS]="16 16 32 50 10"
 
+types[DCSG1001]="1 1 0.5 1 1"
 types[DCSG1005]="8 15 20 100 10"
 types[DCSG2003]="15 15 36 200 10"
-types[IIKG1001]="2 2 4 2 2"
-types[IMT2282]="1 2 4 20 1"
+types[IIKG1001]="2 2 1 2 2"
+types[IIKG1001-GROUP]="4 4 8 4 4"
+types[IDATG2202]="1 2 4 20 1"
 types[IMT3003]="15 15 30 200 10"
-types[IMT3005]="25 25 50 200 10"
+types[IIKG3005]="25 25 50 200 10"
 types[PROG2005]="3 3 6 20 2"
 types[TTM4133]="4 4 16 100 4"
 types[TTM4135]="1 1 2 20 1"
 types[TTM4175]="4 8 16 20 4"
+types[TTM4195]="4 4 8 20 4"
 
 while getopts u:n:d:e:slt:i:c:r:v:g:p: option; do
   case "${option}" in 
@@ -103,19 +106,24 @@ fi
 if [[ -z $projectType ]] && [[ -z $qcpu ]] && [[ -z $qmemory ]] && \
     [[ -z $qvolumes ]] &&  [[ -z $qgigabytes ]]; then  
   echo "You must either set a project type (-t) or manually"
-  echo "define quotas (-i, -c, -m, -v and -g)"
+  echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
 
 if [[ ! -z $projectType ]] && ([[ ! -z $qcpu ]] || [[ ! -z $qmemory ]] || \
     [[ ! -z $qvolumes ]] ||  [[ ! -z $qgigabytes ]]); then  
   echo "You cannot set project type (-t) at the same time as you manually"
-  echo "define quotas (-i, -c, -m, -v and -g)"
+  echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
 
 if [[ ! -z $projectType ]]; then
-  read instances cpu ram cindergb cindervolumes <<< ${types[$projectType]}
+  if [[ ! -z ${types[$projectType]} ]]; then
+    read instances cpu ram cindergb cindervolumes <<< ${types[$projectType]}
+  else
+    echo "The project type $projectType does not exist!"
+    exit $EXIT_CONFIGERROR
+  fi
 else
   instances=$qinstances
   cpu=$qcpu
@@ -153,8 +161,11 @@ else
 
   echo "Setting quotas ($instances instances, $cpu cores, $ram GB RAM"
   echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
+
+  # The RAM calculation is odd because bash doesn't understand floating point numbers,
+  # and bc will always print a decimal.. Dividing by 1 removes it.
   openstack quota set $projectName --cores $cpu --instances $instances \
-      --ram $(($ram * 1024))  --volumes $cindervolumes --gigabytes $cindergb
+      --ram $(echo "${ram} * 1024 / 1" | bc)  --volumes $cindervolumes --gigabytes $cindergb
   # THis is not needed anymore as we have set these volume-types as non-public
   #echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
   #openstack quota set $projectName --volume-type Fast --volumes 0 || \
