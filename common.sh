@@ -21,6 +21,10 @@ function prereq() {
     echo "heat client missing"
     err=$EXIT_DEPENDENCY
   fi
+  if [ ! $(which pwgen) ]; then
+    echo "pwgen is missing"
+    err=$EXIT_DEPENDENCY
+  fi
 
   if [ $err -ne 0 ]; then
     exit $err
