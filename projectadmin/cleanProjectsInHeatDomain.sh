@@ -10,12 +10,6 @@ need_admin
 
 OSCMD=$(command -v openstack)
 
-# Med brukere
-#heat_projects='fecf962480704510b5e2a35e51e5f308-dceacf03-9291-4cfa-b0c5-c04f9d2'
-# Uten brukere
-#heat_projects='338bae0126f948d4b41bf20e879cc8ed-6ffadd3f-c8e8-426b-b0e2-6a810d8'
-
-# Default loop
 heat_projects=$($OSCMD project list --domain heat -f value -c Name)
 for project in $heat_projects; do
   owner=$(echo $project | cut -d '-' -f1)
