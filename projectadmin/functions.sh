@@ -9,6 +9,7 @@ function delete_users {
 
   local project=$1
   local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
+  local projectid=$(openstack project show $project -f value -c id --domain=heat 2> /dev/null) || \
   local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
   local statusfile=$2
 
@@ -29,14 +30,14 @@ function delete_users {
       if [[ ! -z $statusfile ]]; then
         echo "USER:${user},${role}" >> $statusfile
       fi
-      openstack role remove --project $projectID --user $user $role $i
+      openstack role remove --project $projectid --user $user $role $i
     fi
 
     if [[ ! -z $group ]]; then
       if [[ ! -z $statusfile ]]; then
         echo "GROUP:${group},${role}" >> $statusfile
       fi
-      openstack role remove --project $projectID --group $group $role $i
+      openstack role remove --project $projectid --group $group $role $i
     fi
   done  
 
@@ -49,9 +50,10 @@ function delete_user {
   local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
   local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
   local domain=$(openstack user show $userid -f value -c domain_id 2> /dev/null)
+  local domain_name=$(openstack domain show $domain -f value -c name 2> /dev/null)
 
   if [[ -z $(openstack role assignment list --user $userid) ]]; then
-    if [[ $domain == 'default' ]]; then
+    if [[ $domain_name == 'default' ]] || [[ $domain_name == 'heat' ]]; then
       echo "Deleting the user $user as its not in projects anymore." 
       openstack user delete $userid
     else
