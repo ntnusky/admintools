@@ -1,0 +1,13 @@
+#cloud-config
+package_upgrade: true
+timezone: "Europe/Oslo"
+users:
+  - default
+  - name: ntnubrukernavn
+    gecos: Fullt Navn Navnesen
+    groups: sudo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAAlaladidad bruker@host
+      - ssh-rsa AAAAAldadaidaid bruker@enannenhost
