@@ -13,7 +13,7 @@ users:
       - ssh-rsa AAAAAldadaidaid bruker@enannenhost
 
 power_state:
-  mode: poweroff
+  mode: reboot
   message: Reboot after upgrades
   timeout: 30
   condition: True
