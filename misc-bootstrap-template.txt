@@ -11,3 +11,9 @@ users:
     ssh_authorized_keys:
       - ssh-ed25519 AAAAAlaladidad bruker@host
       - ssh-rsa AAAAAldadaidaid bruker@enannenhost
+
+power_state:
+  mode: poweroff
+  message: Reboot after upgrades
+  timeout: 30
+  condition: True
