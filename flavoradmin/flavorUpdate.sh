@@ -7,13 +7,14 @@ for f in $(cat $1 | jq -c '.[]'); do
   CPU=$(echo $f | jq -re '.["CPU"]')
   RAM=$(echo $f | jq -re '.["RAM"]')
   DISK=$(echo $f | jq -re '.["Disk"]')
+  EPHEMERAL=$(echo $f | jq -re '.["Ephemeral"]') || EPHEMERAL=0
   VISIBILITY=$(echo $f | jq -re '.["visibility"]')
 
   unset properties
   declare -A properties
 
   for key in $(echo $f | jq -r 'keys[]'); do
-    if ! [[ "Name CPU RAM Disk visibility" =~ $key ]]; then
+    if ! [[ "Name CPU RAM Disk Ephemeral visibility" =~ $key ]]; then
       properties[$key]=$(echo $f | jq -r ".[\"$key\"]")
     fi
   done
@@ -44,7 +45,7 @@ for f in $(cat $1 | jq -c '.[]'); do
   if [[ $new -eq 1 ]]; then
     echo "Creating the flavor $NAME" 
     openstack flavor create \
-      --vcpus $CPU --ram $RAM --disk $DISK $v $props \
+      --vcpus $CPU --ram $RAM --disk $DISK --ephemeral $EPHEMERAL $v $props \
       $NAME
   else
     echo "Updating the flavor $NAME"
