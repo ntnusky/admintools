@@ -50,7 +50,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   fi
 
   u=${usernames//\,/\ -u\ }
-  $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -t TTM4175 \
+  $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -q TTM4175 \
                       -e $date
 
   if [[ $exists -eq 0 ]]; then

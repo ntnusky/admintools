@@ -28,13 +28,13 @@ types[TTM4135]="1 1 2 20 1"
 types[TTM4175]="4 8 16 20 4"
 types[TTM4195]="4 4 8 20 4"
 
-while getopts u:n:d:e:slt:i:c:r:v:g:p: option; do
+while getopts u:n:d:e:slq:i:c:r:v:g:p:t: option; do
   case "${option}" in 
     d) projectDesc=${OPTARG} ;;
     n) projectName=${OPTARG} ;;
     e) expiry=${OPTARG} ;;
     s) service=1 ;;
-    t) projectType=${OPTARG^^} ;;
+    q) projectType=${OPTARG^^} ;;
     i) qinstances=${OPTARG} ;;
     c) qcpu=${OPTARG} ;;
     r) qmemory=${OPTARG} ;;
@@ -43,6 +43,7 @@ while getopts u:n:d:e:slt:i:c:r:v:g:p: option; do
     g) [[ -z $groups ]] && groups="${OPTARG}" || groups="$groups,${OPTARG}" ;;
     u) [[ -z $users ]] && users="${OPTARG}" || users="$users,${OPTARG}" ;;
     p) parentProject=${OPTARG} ;;
+    t) topdesk=${OPTARG} ;;
   esac
 done
 
@@ -83,8 +84,8 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]] || \
   echo " -g <groupname> : The name of a NTNU LDAP group which should be added"
   echo "                :   to the project"
   echo ""
-  echo "Quota-arguments (You need to set a type (-t) or all the other options):"
-  echo " -t <project-type>        : What kind of project is it? It sets quotas"
+  echo "Quota-arguments (You need to set a type (-q) or all the other options):"
+  echo " -q <project-type>        : What kind of project is it? It sets quotas"
   echo " -i <instances>           : The number of VM's the project might create"
   echo " -c <cpu-count>           : CPU-Quota for the project."
   echo " -r <memory>              : RAM-Quota - in gigabytes"
@@ -99,20 +100,21 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]] || \
   echo " -s                             : Create a service-user"
   echo " -p <project-name|id>           : The new project will be a child"
   echo "                                :    of the given project"
+  echo " -t <TopDesk case number>       : Case number from TopDesk"
   echo " -l                             : List available project types"
   exit $EXIT_MISSINGARGS
 fi
 
 if [[ -z $projectType ]] && [[ -z $qcpu ]] && [[ -z $qmemory ]] && \
     [[ -z $qvolumes ]] &&  [[ -z $qgigabytes ]]; then  
-  echo "You must either set a project type (-t) or manually"
+  echo "You must either set a project type (-q) or manually"
   echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
 
 if [[ ! -z $projectType ]] && ([[ ! -z $qcpu ]] || [[ ! -z $qmemory ]] || \
     [[ ! -z $qvolumes ]] ||  [[ ! -z $qgigabytes ]]); then  
-  echo "You cannot set project type (-t) at the same time as you manually"
+  echo "You cannot set project type (-q) at the same time as you manually"
   echo "define quotas (-i, -c, -r, and -v)"
   exit $EXIT_CONFIGERROR
 fi
@@ -151,6 +153,11 @@ else
   parent=""
 fi
 
+if [[ ! -z $topdesk ]] && [[ ! $topdesk =~ ^NTNU[0-9]+ ]]; then
+  echo "\"$topdesk\" is not a valid TopDesk case number"
+  exit $EXIT_CONFIGERROR
+fi
+
 if openstack project show $projectName &> /dev/null; then
   echo "A project with the name \"$projectName\" already exist." 
 else
@@ -158,6 +165,11 @@ else
   openstack project create --description "$projectDesc" --domain NTNU $parent $projectName
   echo "Setting project expiry to $expiry"
   openstack project set --property expiry=$expiry $projectName
+
+  if [[ ! -z $topdesk ]]; then
+    echo "Adding TopDesk case number ($topdesk)"
+    openstack project set --property topdesk=$topdesk $projectName
+  fi
 
   echo "Setting quotas ($instances instances, $cpu cores, $ram GB RAM"
   echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
