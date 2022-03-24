@@ -1,0 +1,13 @@
+[
+{
+  "Name": "sjakk.xl",
+  "CPU": "112",
+  "RAM": "460800",
+  "Disk": "100",
+  "hw:cpu_cores": 56, "hw:cpu_sockets": 2, "hw:cpu_threads": 112,
+  "quota:disk_read_iops_sec": 1200, "quota:disk_write_iops_sec": 1200,
+  "aggregate_instance_extra_specs:node_type": "sjakk",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "visibility": "private"
+}
+]
