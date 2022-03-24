@@ -1,0 +1,46 @@
+[
+{
+  "Name": "custom.indecol.gpu.small",
+  "CPU": "10",
+  "RAM": "122880",
+  "Disk": "0", "Ephemeral": "1000",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-indecol-gpu-a100d-80g",
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.indecol.gpu.small.nodisk",
+  "CPU": "10",
+  "RAM": "122880",
+  "Disk": "0", 
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-indecol-gpu-a100d-80g",
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.indecol.gpu.large",
+  "CPU": "88",
+  "RAM": "1310720",
+  "Disk": "0", "Ephemeral": "16600",
+  "hw:cpu_cores": 22, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-indecol-gpu-a100d-80g", 
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.indecol.gpu.large.nodisk",
+  "CPU": "88",
+  "RAM": "1310720",
+  "Disk": "0",
+  "hw:cpu_cores": 22, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-indecol-gpu-a100d-80g", 
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+}
+]

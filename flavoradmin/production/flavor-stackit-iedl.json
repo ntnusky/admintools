@@ -1,0 +1,64 @@
+[
+{
+  "Name": "custom.iedl.small",
+  "CPU": "2",
+  "RAM": "32768",
+  "Disk": "0",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "visibility": "private"
+},
+{
+  "Name": "custom.iedl.ssd.small",
+  "CPU": "2",
+  "RAM": "32768",
+  "Disk": "0", "Ephemeral": "128",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "visibility": "private"
+},
+{
+  "Name": "custom.iedl.medium",
+  "CPU": "4",
+  "RAM": "65536",
+  "Disk": "0", 
+  "hw:cpu_cores": 2, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "visibility": "private"
+},
+{
+  "Name": "custom.iedl.ssd.medium",
+  "CPU": "4",
+  "RAM": "65536",
+  "Disk": "0", "Ephemeral": "256",
+  "hw:cpu_cores": 2, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "visibility": "private"
+},
+{
+  "Name": "custom.iedl.gpu.large",
+  "CPU": "20",
+  "RAM": "327680",
+  "Disk": "0", "Ephemeral": "680",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "trait:CUSTOM_A100D_40G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.iedl.gpu.xlarge",
+  "CPU": "80",
+  "RAM": "1310720",
+  "Disk": "0", "Ephemeral": "2700",
+  "hw:cpu_cores": 20, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl", 
+  "trait:CUSTOM_A100D_40G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+}
+]

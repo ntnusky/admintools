@@ -1,0 +1,38 @@
+[
+{
+  "Name": "custom.mh.gpu.tiny",
+  "CPU": "8",
+  "RAM": "16384",
+  "Disk": "40",
+  "hw:cpu_cores": 4, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-10g",
+  "trait:CUSTOM_A100_10G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.mh.gpu.small",
+  "CPU": "16",
+  "RAM": "65536",
+  "Disk": "40",
+  "hw:cpu_cores": 8, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-10g",
+  "trait:CUSTOM_A100_10G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.mh.gpu.large",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "hw:cpu_cores": 16, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-10g", 
+  "trait:CUSTOM_A100_10G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+}
+]
