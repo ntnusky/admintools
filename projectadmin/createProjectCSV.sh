@@ -46,9 +46,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   u=${usernames//\,/\ -u\ }
 
   if [[ $serviceUser -eq 1 ]]; then
-    $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -t $quota -e $date -s
+    $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -q $quota -e $date -s
   else
-    $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -t $quota -e $date
+    $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -q $quota -e $date
   fi
 
   echo "Safe to Ctrl+C the next 5 seconds. $(date +%y%m%d-%H%M%S)"
