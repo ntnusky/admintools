@@ -1,0 +1,102 @@
+[
+{
+  "Name": "g1.1c1r",
+  "CPU": "1",
+  "RAM": "1024",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.1c2r",
+  "CPU": "1",
+  "RAM": "2048",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.1c3r",
+  "CPU": "1",
+  "RAM": "3072",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.1c4r",
+  "CPU": "1",
+  "RAM": "4096",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.2c1r",
+  "CPU": "2",
+  "RAM": "1024",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.2c2r",
+  "CPU": "2",
+  "RAM": "2048",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.2c3r",
+  "CPU": "2",
+  "RAM": "3072",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+},
+{
+  "Name": "g1.2c4r",
+  "CPU": "2",
+  "RAM": "4096",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AESNI": "required",
+  "visibility": "public"
+}
+]
