@@ -1,6 +1,6 @@
 [
 {
-  "Name": "g1.1c1r",
+  "Name": "gx1.1c1r",
   "CPU": "1",
   "RAM": "1024",
   "Disk": "40",
@@ -12,7 +12,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.1c2r",
+  "Name": "gx1.1c2r",
   "CPU": "1",
   "RAM": "2048",
   "Disk": "40",
@@ -24,7 +24,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.1c3r",
+  "Name": "gx1.1c3r",
   "CPU": "1",
   "RAM": "3072",
   "Disk": "40",
@@ -36,7 +36,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.1c4r",
+  "Name": "gx1.1c4r",
   "CPU": "1",
   "RAM": "4096",
   "Disk": "40",
@@ -48,7 +48,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.2c1r",
+  "Name": "gx1.2c1r",
   "CPU": "2",
   "RAM": "1024",
   "Disk": "40",
@@ -61,7 +61,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.2c2r",
+  "Name": "gx1.2c2r",
   "CPU": "2",
   "RAM": "2048",
   "Disk": "40",
@@ -74,7 +74,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.2c3r",
+  "Name": "gx1.2c3r",
   "CPU": "2",
   "RAM": "3072",
   "Disk": "40",
@@ -87,7 +87,7 @@
   "visibility": "public"
 },
 {
-  "Name": "g1.2c4r",
+  "Name": "gx1.2c4r",
   "CPU": "2",
   "RAM": "4096",
   "Disk": "40",

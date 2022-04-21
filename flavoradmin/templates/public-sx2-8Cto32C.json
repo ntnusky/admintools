@@ -1,6 +1,6 @@
 [
 {
-  "Name": "s0.1c1r",
+  "Name": "sx2.1c1r",
   "CPU": "1",
   "RAM": "1024",
   "Disk": "40",
@@ -8,11 +8,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.1c2r",
+  "Name": "sx2.1c2r",
   "CPU": "1",
   "RAM": "2048",
   "Disk": "40",
@@ -20,11 +20,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.1c3r",
+  "Name": "sx2.1c3r",
   "CPU": "1",
   "RAM": "3072",
   "Disk": "40",
@@ -32,11 +32,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.1c4r",
+  "Name": "sx2.1c4r",
   "CPU": "1",
   "RAM": "4096",
   "Disk": "40",
@@ -44,11 +44,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.2c1r",
+  "Name": "sx2.2c1r",
   "CPU": "2",
   "RAM": "1024",
   "Disk": "40",
@@ -57,11 +57,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.2c2r",
+  "Name": "sx2.2c2r",
   "CPU": "2",
   "RAM": "2048",
   "Disk": "40",
@@ -70,11 +70,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.2c3r",
+  "Name": "sx2.2c3r",
   "CPU": "2",
   "RAM": "3072",
   "Disk": "40",
@@ -83,11 +83,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.2c4r",
+  "Name": "sx2.2c4r",
   "CPU": "2",
   "RAM": "4096",
   "Disk": "40",
@@ -96,11 +96,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.2c8r",
+  "Name": "sx2.2c8r",
   "CPU": "2",
   "RAM": "8192",
   "Disk": "40",
@@ -109,11 +109,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c1r",
+  "Name": "sx2.4c1r",
   "CPU": "4",
   "RAM": "1024",
   "Disk": "40",
@@ -122,11 +122,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c2r",
+  "Name": "sx2.4c2r",
   "CPU": "4",
   "RAM": "2048",
   "Disk": "40",
@@ -135,11 +135,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c3r",
+  "Name": "sx2.4c3r",
   "CPU": "4",
   "RAM": "3072",
   "Disk": "40",
@@ -148,11 +148,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c4r",
+  "Name": "sx2.4c4r",
   "CPU": "4",
   "RAM": "4096",
   "Disk": "40",
@@ -161,11 +161,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c8r",
+  "Name": "sx2.4c8r",
   "CPU": "4",
   "RAM": "8192",
   "Disk": "40",
@@ -174,11 +174,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.4c16r",
+  "Name": "sx2.4c16r",
   "CPU": "4",
   "RAM": "16384",
   "Disk": "40",
@@ -187,11 +187,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.8c16r",
+  "Name": "sx2.8c16r",
   "CPU": "8",
   "RAM": "16384",
   "Disk": "40",
@@ -200,11 +200,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.8c32r",
+  "Name": "sx2.8c32r",
   "CPU": "8",
   "RAM": "32768",
   "Disk": "40",
@@ -213,11 +213,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.8c64r",
+  "Name": "sx2.8c64r",
   "CPU": "8",
   "RAM": "65536",
   "Disk": "40",
@@ -226,11 +226,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.12c24r",
+  "Name": "sx2.12c24r",
   "CPU": "12",
   "RAM": "24576",
   "Disk": "40",
@@ -239,11 +239,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.12c48r",
+  "Name": "sx2.12c48r",
   "CPU": "12",
   "RAM": "49152",
   "Disk": "40",
@@ -252,11 +252,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.12c96r",
+  "Name": "sx2.12c96r",
   "CPU": "12",
   "RAM": "98304",
   "Disk": "40",
@@ -265,11 +265,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.16c32r",
+  "Name": "sx2.16c32r",
   "CPU": "16",
   "RAM": "32768",
   "Disk": "40",
@@ -278,11 +278,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.16c64r",
+  "Name": "sx2.16c64r",
   "CPU": "16",
   "RAM": "65536",
   "Disk": "40",
@@ -291,11 +291,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.16c128r",
+  "Name": "sx2.16c128r",
   "CPU": "16",
   "RAM": "131072",
   "Disk": "40",
@@ -304,11 +304,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.20c40r",
+  "Name": "sx2.20c40r",
   "CPU": "20",
   "RAM": "40960",
   "Disk": "40",
@@ -317,11 +317,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.20c80r",
+  "Name": "sx2.20c80r",
   "CPU": "20",
   "RAM": "81920",
   "Disk": "40",
@@ -330,11 +330,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.20c160r",
+  "Name": "sx2.20c160r",
   "CPU": "20",
   "RAM": "163840",
   "Disk": "40",
@@ -343,11 +343,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.24c48r",
+  "Name": "sx2.24c48r",
   "CPU": "24",
   "RAM": "49152",
   "Disk": "40",
@@ -356,11 +356,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.24c96r",
+  "Name": "sx2.24c96r",
   "CPU": "24",
   "RAM": "98304",
   "Disk": "40",
@@ -369,11 +369,11 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 },
 {
-  "Name": "s0.24c192r",
+  "Name": "sx2.24c192r",
   "CPU": "24",
   "RAM": "196608",
   "Disk": "40",
@@ -382,7 +382,85 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "trait:HW_CPU_X86_MMX": "required",
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.32c64r",
+  "CPU": "32",
+  "RAM": "65536",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 16, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.32c128r",
+  "CPU": "32",
+  "RAM": "131072",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 16, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.32c256r",
+  "CPU": "32",
+  "RAM": "262144",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 16, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.64c64r",
+  "CPU": "64",
+  "RAM": "65536",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.64c128r",
+  "CPU": "64",
+  "RAM": "131072",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx2.64c256r",
+  "CPU": "64",
+  "RAM": "262144",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
   "visibility": "public"
 }
 ]
