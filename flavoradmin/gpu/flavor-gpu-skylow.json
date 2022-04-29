@@ -1,13 +1,13 @@
 [
 {
-  "Name": "gpu.v100.8G",
+  "Name": "dx4.8c20r.m10-8G",
   "CPU": "8",
-  "RAM": "92160",
+  "RAM": "20480",
   "Disk": "40",
   "hw:cpu_cores": 4, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-v100-8g", "resources:VGPU": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-m10-8g", "resources:VGPU": 1,
   "visibility": "private"
 }
 ]
