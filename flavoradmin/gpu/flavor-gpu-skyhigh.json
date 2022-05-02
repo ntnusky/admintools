@@ -1,17 +1,17 @@
 [
 {
-  "Name": "gpu.v100.8G",
+  "Name": "dx5.8c90r.v100-8g",
   "CPU": "8",
   "RAM": "92160",
   "Disk": "40",
-  "hw:cpu_cores": 4, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "hw:cpu_cores": 4, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-v100-8g", "resources:VGPU": 1,
   "visibility": "private"
 },
 {
-  "Name": "gpu.micro.a100.4G",
+  "Name": "de3.5c25r.a100-4g",
   "CPU": "5",
   "RAM": "25600",
   "Disk": "40",
@@ -23,35 +23,11 @@
   "visibility": "private"
 },
 {
-  "Name": "gpu.tiny.a100.5G",
-  "CPU": "6",
-  "RAM": "30720",
-  "Disk": "40",
-  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
-  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
-  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-5g", "resources:VGPU": 1,
-  "trait:CUSTOM_A100_5G":"required",
-  "visibility": "private"
-},
-{
-  "Name": "gpu.small.a100.8G",
-  "CPU": "8",
-  "RAM": "51200",
-  "Disk": "40",
-  "hw:cpu_cores": 8, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
-  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
-  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-8g", "resources:VGPU": 1,
-  "trait:CUSTOM_A100_8G":"required",
-  "visibility": "private"
-},
-{
-  "Name": "gpu.medium.a100.10G",
+  "Name": "de3.12c60r.a100-10g",
   "CPU": "12",
   "RAM": "61440",
   "Disk": "40",
-  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-a100-10g", "resources:VGPU": 1,
@@ -59,11 +35,11 @@
   "visibility": "private"
 },
 {
-  "Name": "gpu.large.a100.20G",
+  "Name": "de3.24c120r.a100-20g",
   "CPU": "24",
   "RAM": "122880",
   "Disk": "40",
-  "hw:cpu_cores": 12, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-a100-20g", "resources:VGPU": 1,
@@ -71,11 +47,11 @@
   "visibility": "private"
 },
 {
-  "Name": "gpu.large.a100d.20G",
+  "Name": "de3.24c120r.a100d-20g",
   "CPU": "24",
   "RAM": "122880",
   "Disk": "40",
-  "hw:cpu_cores": 12, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-a100d-20g", "resources:VGPU": 1,
@@ -83,27 +59,15 @@
   "visibility": "private"
 },
 {
-  "Name": "gpu.large+r.a100.20G",
+  "Name": "de2.24c256r.a100-20g",
   "CPU": "24",
   "RAM": "245760",
   "Disk": "40",
-  "hw:cpu_cores": 12, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-nbl-a100-20g", "resources:VGPU": 1,
   "trait:CUSTOM_A100_20G":"required",
-  "visibility": "private"
-},
-{
-  "Name": "gpu.xlarge.a100.40G",
-  "CPU": "48",
-  "RAM": "245760",
-  "Disk": "40",
-  "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
-  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
-  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-40g", "resources:VGPU": 1,
-  "trait:CUSTOM_A100_40G":"required",
   "visibility": "private"
 }
 ]
