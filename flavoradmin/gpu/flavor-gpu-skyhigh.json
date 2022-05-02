@@ -59,7 +59,7 @@
   "visibility": "private"
 },
 {
-  "Name": "de2.24c256r.a100-20g",
+  "Name": "de2.24c240r.a100-20g",
   "CPU": "24",
   "RAM": "245760",
   "Disk": "40",
