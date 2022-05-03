@@ -86,6 +86,8 @@ createFlavor "$prefix.4c3r" 4 3 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c4r" 4 4 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c8r" 4 8 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c16r" 4 16 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.4c32r" 4 32 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.4c64r" 4 64 $disk $cpushares $instructionSet $visibility
 
 createFlavor "$prefix.8c16r" 8 16 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.8c32r" 8 32 $disk $cpushares $instructionSet $visibility
