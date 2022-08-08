@@ -47,6 +47,18 @@
   "visibility": "private"
 },
 {
+  "Name": "de3.48c240r.a100-40g",
+  "CPU": "48",
+  "RAM": "245760",
+  "Disk": "40",
+  "hw:cpu_cores": 24, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-a100-40g", "resources:VGPU": 1,
+  "trait:CUSTOM_A100_40G":"required",
+  "visibility": "private"
+},
+{
   "Name": "de3.24c120r.a100d-20g",
   "CPU": "24",
   "RAM": "122880",
