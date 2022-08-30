@@ -14,7 +14,7 @@ types[STUDENT]="4 4 8 20 2"
 
 types[THESIS]="16 32 64 300 10"
 
-types[DCSG1001]="1 1 0.5 1 1"
+types[DCSG1001]="1 2 4 1 1"
 types[DCSG1001-TA]="4 8 8 4 4"
 types[DCSG1005]="8 15 20 100 10"
 types[DCSG2003]="20 20 50 200 10"
