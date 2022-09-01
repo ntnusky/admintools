@@ -47,22 +47,23 @@ done
 set_project 'admin' $adminProjectID
 remove_user $projectID $OS_USERNAME
 
-# Delete default FWaaS v2 resources. This is easiest to do with the admin context
-echo "Removing default ingress and egress policies from default firewall group"
-default_fwg_id=$(openstack firewall group list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
-openstack firewall group set --disable --no-egress-firewall-policy --no-ingress-firewall-policy $default_fwg_id
-
-echo "Deleting all firewall policies"
-fw_policies=$(openstack firewall group policy list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
-for fw_p in $fw_policies; do
-  openstack firewall group policy delete $fw_p
-done
-
-echo "Deleting all firewall rules"
-fw_rules=$(openstack firewall group rule list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
-for fw_r in $fw_rules; do
-  openstack firewall group rule delete $fw_r
-done
+# FwaaS has been disabled
+## Delete default FWaaS v2 resources. This is easiest to do with the admin context
+#echo "Removing default ingress and egress policies from default firewall group"
+#default_fwg_id=$(openstack firewall group list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
+#openstack firewall group set --disable --no-egress-firewall-policy --no-ingress-firewall-policy $default_fwg_id
+#
+#echo "Deleting all firewall policies"
+#fw_policies=$(openstack firewall group policy list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
+#for fw_p in $fw_policies; do
+#  openstack firewall group policy delete $fw_p
+#done
+#
+#echo "Deleting all firewall rules"
+#fw_rules=$(openstack firewall group rule list --long -f value -c ID -c Project | grep $projectID | cut -d' ' -f1)
+#for fw_r in $fw_rules; do
+#  openstack firewall group rule delete $fw_r
+#done
 
 # Delete default security group from project. This MUST be done with the admin tenant context
 echo "Deleting default security group from project $projectName"

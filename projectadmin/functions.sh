@@ -252,13 +252,14 @@ function clean_neutron {
     openstack network delete $network
   done
 
-  # Delete all firewalls, policies and rules
-  echo "Deleting firewall groups (skipping default group)"
-  defaultgroup=$(openstack firewall group show -f value -c ID default)
-  fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
-  for fw in $fws; do
-    openstack firewall group delete $fw
-  done
+  # FwaaS has been disabled
+  ## Delete all firewalls, policies and rules
+  #echo "Deleting firewall groups (skipping default group)"
+  #defaultgroup=$(openstack firewall group show -f value -c ID default)
+  #fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
+  #for fw in $fws; do
+  #  openstack firewall group delete $fw
+  #done
 }
 
 function clean_swift {
