@@ -78,6 +78,4 @@ done
 echo "Deleting the project $projectName"
 openstack project delete $projectID
 
-
-
 exit $EXIT_OK
