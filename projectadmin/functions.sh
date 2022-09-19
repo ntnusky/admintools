@@ -283,11 +283,11 @@ function clean_magnum {
   for cluster in $(openstack coe cluster list -f value -c uuid); do
     openstack coe cluster delete $cluster
   done
-  echo "Cleaning private cluster templates"
   while [[ $(openstack coe cluster list -f value) != '' ]]; do
     echo "Watiing for clusters to be deleted"
-    sleep 1
+    sleep 5
   done
+  echo "Cleaning private cluster templates"
   # The modern openstackclient is not able to list the public/private information...
   for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
     openstack coe cluster template delete $template
