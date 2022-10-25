@@ -22,6 +22,7 @@ delete_users $projectID
 add_user $projectID $OS_USERNAME
 set_project $projectName $projectID
 
+clean_magnum
 clean_heat
 clean_nova
 clean_cinder
@@ -29,7 +30,6 @@ clean_glance
 clean_swift
 clean_octavia
 clean_neutron $projectID
-clean_magnum
 
 # Delete all security groups
 echo "Deleting security groups"
@@ -69,6 +69,11 @@ remove_user $projectID $OS_USERNAME
 echo "Deleting default security group from project $projectName"
 default_sg_id=$(openstack security group list -f value | grep $projectID | cut -d' ' -f1)
 openstack security group delete $default_sg_id
+
+echo "Deleting projects from heat domain"
+for heatProject in $(openstack project list -f value -c Name --domain heat | grep $projectID); do
+  openstack project delete --domain heat $heatProject
+done
 
 echo "Deleting the project $projectName"
 openstack project delete $projectID
