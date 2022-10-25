@@ -26,8 +26,7 @@ fi
 
 for id in $(openstack router list --agent $sourceID -f value -c ID); do
   echo moving the router $id to agent ${routers[0]}
-  ./migrate-router.sh $id ${routers[0]}
-  sleep 2
+  ./migrate-router.sh $id ${routers[0]} & 
   routers=("${routers[@]: -1}" "${routers[@]:0:${#routers[@]}-1}")
 done
 
