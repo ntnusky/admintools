@@ -18,31 +18,31 @@ done
 set -e
 
 if [[ ! -z $create ]]; then
-  if [[ ! -e .openstackTest.misc ]]; then
+  if [[ ! -e .openstackTest.${U}.misc ]]; then
     $echo "Misc create"
     testing/misc.bash create
     touch .openstackTest.${U}.misc
   fi
 
-  if [[ ! -e .openstackTest.glance ]]; then
+  if [[ ! -e .openstackTest.${U}.glance ]]; then
     $echo "Glance create"
     testing/glance.bash create
     touch .openstackTest.${U}.glance
   fi
 
-  if [[ ! -e .openstackTest.neutron ]]; then
+  if [[ ! -e .openstackTest.${U}.neutron ]]; then
     $echo "Neutron create"
     testing/neutron.bash create
     touch .openstackTest.${U}.neutron
   fi
 
-  if [[ ! -e .openstackTest.nova ]]; then
+  if [[ ! -e .openstackTest.${U}.nova ]]; then
     $echo "Nova create"
     testing/nova.bash create
     touch .openstackTest.${U}.nova
   fi
 
-  if [[ ! -e .openstackTest.cinder ]]; then
+  if [[ ! -e .openstackTest.${U}.cinder ]]; then
     $echo "Cinder create"
     testing/cinder.bash create
     touch .openstackTest.${U}.cinder
