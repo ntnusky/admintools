@@ -22,10 +22,19 @@ while [[ ! -z $1 ]]; do
   shift
 done
 
+if [[ -e ~/.ssh/id_ed25519.pub ]]; then
+  key="~/.ssh/id_ed25519.pub"
+elif [[ -e ~/.ssh/id_rsa.pub ]]; then
+  key="~/.ssh/id_rsa.pub"
+else
+  $echo "Could not find a SSH public key"
+  exit 1
+fi
+
 if [[ ! -z $create ]]; then
   starttime=$(date +%s)
   $echo "Uploading your SSH public key"
-  openstack keypair create --public-key ~/.ssh/id_rsa.pub openstackTest || \
+  openstack keypair create --public-key $key openstackTest || \
       fail "$echo" "Could not upload public-key."
   $echo "Creating a security group, and adding rules for SSH and ICMP"
   openstack security group create openstackTest.group || \
