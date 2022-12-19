@@ -4,7 +4,7 @@ MYDIR="$(dirname "$(realpath "$0")")"
 . $MYDIR/testlib.bash
 
 echo="echo [GLANCE]"
-image="https://cloud-images.ubuntu.com/releases/16.04/release/ubuntu-16.04-server-cloudimg-amd64-disk1.img"
+image="https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
 
 openstack image list &> /dev/null
 if [[ $? -ne 0 ]]; then
