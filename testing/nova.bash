@@ -23,7 +23,8 @@ done
 
 if [[ ! -z $create ]]; then
   $echo "Creating a VM"
-  openstack server create --image openstackTest.image --flavor gx1.1c2r \
+  flavor=$(openstack flavor list -f value -c Name | grep 1c2r | head -n1)
+  openstack server create --image openstackTest.image --flavor $flavor \
       --key-name openstackTest --network testOpenstack.net \
       --security-group openstackTest.group openstackTest
 
