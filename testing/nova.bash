@@ -23,7 +23,7 @@ done
 
 if [[ ! -z $create ]]; then
   $echo "Creating a VM"
-  openstack server create --image openstackTest.image --flavor m1.tiny \
+  openstack server create --image openstackTest.image --flavor gx1.1c2r \
       --key-name openstackTest --network testOpenstack.net \
       --security-group openstackTest.group openstackTest
 
