@@ -45,8 +45,14 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     exists=0
   fi
 
-  u=${usernames//\,/\ -u\ }
-  $cmd ./createProject.sh -n $projectName -d "$desc" -u $u -q DCSG2003 \
+  if [[ -z $usernames ]]; then
+    usr=""
+  else
+    u=${usernames//\,/\ -u\ }
+    usr="-u ${u}"
+  fi
+
+  $cmd ./createProject.sh -n $projectName -d "$desc" $usr -q DCSG2003 \
                       -p $parent -e $date -s
 
   if [[ $exists -eq 0 ]]; then

@@ -17,7 +17,7 @@ types[THESIS]="16 32 64 300 10"
 types[DCSG1001]="1 2 4 1 1"
 types[DCSG1001-TA]="4 8 8 4 4"
 types[DCSG1005]="8 16 24 100 10"
-types[DCSG2003]="20 20 50 200 10"
+types[DCSG2003]="20 30 50 200 10"
 types[DCST1001]="2 4 8 1 1"
 types[IIKG1001]="1 1 2 1 1"
 types[IIKG1001-TA]="4 8 8 4 4"
@@ -74,8 +74,7 @@ if [[ ! -z $qvol ]]; then
   fi
 fi
 
-if [[ -z $projectName ]] || [[ -z $projectDesc ]] || \
-    ([[ -z $users ]] && [[ -z $groups ]]); then
+if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo "This script creates a project and adds user(s) to the newly created"
   echo "project. The project is created wit quotas as defined by qouta"
   echo "templates."
