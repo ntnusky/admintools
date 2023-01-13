@@ -17,14 +17,26 @@ done
 echo >&2
 
 users=()
-echo "Retrieving usernames affected" >&2
+groups=()
+echo "Retrieving usernames and groups affected" >&2
 for project in $(echo  ${projects[@]} | tr ' ' '\n' | sort | uniq); do
-  for user in $(openstack role assignment list --project $project --names --role _member_ --effective -f value -c User | grep NTNU | cut -f 1 -d '@'); do
-    users=($user ${users[@]})
+  for member in $(openstack role assignment list --project $project --names --role _member_ -f value -c User -c Group | grep NTNU | cut -f 1 -d '@'); do
+    if [[ $member =~ _ ]]; then # A group will always contain an underscore. Usernames will never have one
+      groups=($member ${groups[@]})
+    else
+      users=($member ${users[@]})
+    fi
   done
+
   echo -n '#' >&2
 done
 echo >&2
+
+echo "Fetching usernames from groups..."
+for group in $(echo ${groups[@]} | tr ' ' '\n' | sort | uniq); do
+  members="$(ldapsearch -LLL -x -H ldaps://at.ntnu.no -b "ou=Groups,dc=ntnu,dc=no"  cn="$group" memberUid | grep memberUid | awk '{print $2}' | tr '\n' ' ')"
+  users=($members ${users[@]})
+done
 
 echo "Retrieving emails" >&2
 for user in $(echo  ${users[@]} | tr ' ' '\n' | sort | uniq); do
@@ -32,4 +44,3 @@ for user in $(echo  ${users[@]} | tr ' ' '\n' | sort | uniq); do
   echo -n '#' >&2
 done
 echo >&2
-
