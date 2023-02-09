@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# To bulk create DNS records in shiftleader, this is a thing:
+# /opt/shiftleader/manage.py dns_register --name foo.bar.baz --ipv4 1.2.3.4
+# With that, personell with sufficient amounts of bash foo should be able to bulk create records
+
 # This net should exist in the MISC-project at all times
 net='ttm4135'
 
