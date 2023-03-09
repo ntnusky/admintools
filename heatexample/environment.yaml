@@ -1,0 +1,4 @@
+---
+parameters:
+  public_net: ntnu-internal
+  sec_group: default
