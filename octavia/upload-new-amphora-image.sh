@@ -12,7 +12,7 @@ oldImageID=$(openstack image list -f value -c ID --tag amphora)
 
 echo "Uploading image to glance:"
 openstack image create --file $newimage --private --project $project \
-                       --tag amphora $title
+                       --progress --tag amphora $title
 
 echo "Removing amphora-tag from old image"
 openstack image unset --tag amphora $oldImageID
