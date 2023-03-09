@@ -40,7 +40,7 @@ if [[ ! -z $create ]]; then
   starttime=$(date +%s)
   $echo "Uploading image to glance"
   openstack image create --container-format bare --disk-format raw \
-    --file image.raw openstackTest.image || fail "$echo" "could not uplad image"
+    --file image.raw openstackTest.image --progress || fail "$echo" "could not uplad image"
   endtime=$(date +%s)
   $echo "uploaded image in $((endtime-starttime)) seconds"
 
