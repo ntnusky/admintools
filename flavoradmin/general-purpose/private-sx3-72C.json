@@ -1,0 +1,41 @@
+[
+{
+  "Name": "sx3.72c64r",
+  "CPU": "72",
+  "RAM": "65536",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 36, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "private"
+},
+{
+  "Name": "sx3.72c128r",
+  "CPU": "72",
+  "RAM": "131072",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 36, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "private"
+},
+{
+  "Name": "sx3.72c256r",
+  "CPU": "72",
+  "RAM": "262144",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 36, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "private"
+}
+]
