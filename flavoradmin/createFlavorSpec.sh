@@ -78,6 +78,7 @@ createFlavor "$prefix.2c1r" 2 1 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c2r" 2 2 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c3r" 2 3 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c4r" 2 4 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.2c4r" 2 6 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c8r" 2 8 $disk $cpushares $instructionSet $visibility
 
 createFlavor "$prefix.4c1r" 4 1 $disk $cpushares $instructionSet $visibility

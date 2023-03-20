@@ -1,0 +1,24 @@
+[
+{
+  "Name": "custom.exiobase.gpu.large",
+  "CPU": "96",
+  "RAM": "481280",
+  "Disk": "0", "Ephemeral": "3400",
+  "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-exiobase-gpu-a100d-80g", 
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+},
+{
+  "Name": "custom.exiobase.gpu.large.debug",
+  "CPU": "96",
+  "RAM": "481280",
+  "Disk": "0", "Ephemeral": "10",
+  "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-exiobase-gpu-a100d-80g", 
+  "trait:CUSTOM_A100D_80G": "required", "resources:VGPU": 1,
+  "visibility": "private"
+}
+]

@@ -7,3 +7,4 @@
 .openstackTest*
 *.out
 *.rtf
+*.swp

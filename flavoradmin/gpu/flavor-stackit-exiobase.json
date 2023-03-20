@@ -1,6 +1,6 @@
 [
 {
-  "Name": "custom.exiobase.gpu.large",
+  "Name": "dx5s.96c470r.a100d-80g.e3400g",
   "CPU": "96",
   "RAM": "481280",
   "Disk": "0", "Ephemeral": "3400",
