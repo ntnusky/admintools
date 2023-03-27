@@ -183,7 +183,7 @@ else
   # The RAM calculation is odd because bash doesn't understand floating point numbers,
   # and bc will always print a decimal.. Dividing by 1 removes it.
   openstack quota set $projectName --cores $cpu --instances $instances \
-      --ram $(echo "${ram} * 1024 / 1" | bc)  --volumes $cindervolumes --gigabytes $cindergb
+      --ram $(echo "${ram} * 1024 / 1" | bc)  --volumes $cindervolumes --gigabytes $cindergb --subnetpools 0
   # THis is not needed anymore as we have set these volume-types as non-public
   #echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
   #openstack quota set $projectName --volume-type Fast --volumes 0 || \
