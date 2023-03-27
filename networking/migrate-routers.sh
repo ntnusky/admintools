@@ -25,6 +25,11 @@ else
 fi
 
 for id in $(openstack router list --agent $sourceID -f value -c ID); do
+  ha=$(openstack router show $id -f value -c ha)
+  if [[ $ha == 'True' ]]; then
+    echo "Skipping $id as it is HA"
+    continue
+  fi
   echo moving the router $id to agent ${routers[0]}
   ./migrate-router.sh $id ${routers[0]}
   sleep 2
