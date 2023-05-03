@@ -1,5 +1,17 @@
 [
 {
+  "Name": "dx5.24c60r.p40-24g",
+  "CPU": "24",
+  "RAM": "61440",
+  "Disk": "40",
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-p40-24g", "resources:VGPU": 1,
+  "trait:CUSTOM_P40_24G":"required",
+  "visibility": "private"
+},
+{
   "Name": "dx5.8c90r.v100-8g",
   "CPU": "8",
   "RAM": "92160",
@@ -8,18 +20,6 @@
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-v100-8g", "resources:VGPU": 1,
-  "visibility": "private"
-},
-{
-  "Name": "de3.5c25r.a100-4g",
-  "CPU": "5",
-  "RAM": "25600",
-  "Disk": "40",
-  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
-  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
-  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-4g", "resources:VGPU": 1,
-  "trait:CUSTOM_A100_4G":"required",
   "visibility": "private"
 },
 {
