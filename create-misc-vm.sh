@@ -7,7 +7,7 @@ function usage() {
   echo
   echo -n "USAGE: ${0} -i <image-id> -f <flavor-id|flavor-name> -k <key-name> "
   echo -n "-n <instance-name> -t <global|internal> -e <expiredate (dd.mm.yyyy)> "
-  echo "-o <owner> -m <contact-mail> [-s TOPdesk-saksnummer] [-c cloud-config-file]"
+  echo "-o <owner> -m <contact-mail> [-v <size-of-boot-volume>] [-s TOPdesk-saksnummer] [-c cloud-config-file]"
   echo 
   exit 1
 }
@@ -26,7 +26,7 @@ NTNUNET='f755ba0e-5b95-42c3-954a-137c43b53467'
 GLOBALNET='e64530a7-3668-4aaa-845f-21f793e51afe'
 SECGROUP='default'
 
-while getopts i:f:k:n:t:e:o:m:s:c: option
+while getopts i:f:k:n:t:e:o:m:v:s:c: option
 do
   case "${option}" in
     i) IMAGE="${OPTARG}";;
@@ -37,6 +37,7 @@ do
     e) EXPIRE="${OPTARG}";;
     o) OWNER="${OPTARG}";;
     m) EMAIL="${OPTARG}";;
+    v) VOLUMESIZE="${OPTARG}";;
     s) TOPDESK="${OPTARG}";;
     c) CONFIG="${OPTARG}";;
     *) exit 1
@@ -59,6 +60,12 @@ else
   exit 1
 fi
 
+if [ -z $VOLUMESIZE ]; then
+  volume=""
+else
+  volume="--boot-from-volume $VOLUMESIZE"
+fi
+
 if [ -z $TOPDESK ]; then
   topdesk=""
 else
@@ -75,5 +82,6 @@ echo "Creating VM $NAME..."
 
 openstack server create --image $IMAGE --flavor $FLAVOR \
         --security-group "default" --key-name $KEY --nic net-id=$NET \
+        $volume \
         --property contact=$EMAIL --property expire=$EXPIRE \
         --property owner="${OWNER}" $topdesk $config $NAME --wait
