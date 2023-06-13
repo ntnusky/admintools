@@ -23,7 +23,7 @@ projectname=$($oscmd project show -f value -c name "$project")
 box "User info about VM: $vm ($vm_name)"
 echo "Project: $projectname"
 
-if [ -n "$properties" ]; then
+if [ "$properties" != "{}" ]; then
   echo "VM custom properties: $properties"
 else
   $oscmd role assignment list -f csv -c User -c  Group --project "$project" --names | tr -d '"' | grep 'NTNU' | uniq | while read -r line; do
