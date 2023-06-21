@@ -13,6 +13,7 @@ baseurl='http://rpm.iik.ntnu.no/nvidia'
 available_driver_version=$(curl -s ${baseurl}/grid-driver-version.txt)
 driver_url="${baseurl}/grid-driver.run"
 gridd_conf="${baseurl}/gridd.conf"
+gridd_token="${baseurl}/gridd.tok"
 cuda_installer="/opt/cuda.run"
 
 function removeNouveau() {
@@ -73,6 +74,7 @@ if [ "$installed_driver_version" != "$available_driver_version" ]; then
   fi
 
   curl -s -o /etc/nvidia/gridd.conf $gridd_conf
+  curl -s -o /etc/nvidia/ClientConfigToken/gridd.tok $gridd_token
 
   rm grid-driver.run
 
