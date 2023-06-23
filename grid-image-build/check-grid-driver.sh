@@ -11,7 +11,7 @@
 
 baseurl='http://rpm.iik.ntnu.no/nvidia'
 available_driver_version=$(curl -s ${baseurl}/grid-driver-version.txt)
-driver_url="${baseurl}/grid-driver.run"
+driver_url="${baseurl}/grid-driver.deb"
 gridd_conf="${baseurl}/gridd.conf"
 gridd_token="${baseurl}/gridd.tok"
 cuda_installer="/opt/cuda.run"
@@ -67,7 +67,7 @@ if [ "$installed_driver_version" != "$available_driver_version" ]; then
   fi
 
   curl -s -O $driver_url
-  sh grid-driver.run -s --dkms --no-cc-version-check
+  apt -y -o Dpkg::Options::="--force-confold" install ./grid-driver.deb
 
   if [ ! -d /etc/nvidia ]; then
     mkdir -p /etc/nvidia
@@ -76,7 +76,7 @@ if [ "$installed_driver_version" != "$available_driver_version" ]; then
   curl -s -o /etc/nvidia/gridd.conf $gridd_conf
   curl -s -o /etc/nvidia/ClientConfigToken/gridd.tok $gridd_token
 
-  rm grid-driver.run
+  rm grid-driver.deb
 
   if [ ! -e /usr/local/cuda ]; then
     installCuda
