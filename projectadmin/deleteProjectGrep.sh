@@ -13,7 +13,16 @@ if [ $# -lt 1 ]; then
   exit $EXIT_MISSINGARGS
 fi
 
-for projectID in $(openstack project list -f value -c Name | grep -E "$1" ); do
+echo "The following project will be KEPT as they have the KEEP-tag set:"
+for projectID in $(openstack project list -f value -c Name --tags KEEP | grep -E "$1" ); do
+  projectName=$(openstack project show -f value -c name $projectID)
+  echo "$projectName"
+done
+
+echo
+
+echo "The following projects matched your pattern, and will be deleted:"
+for projectID in $(openstack project list -f value -c Name --not-tags KEEP | grep -E "$1" ); do
   projectName=$(openstack project show -f value -c name $projectID)
   if [[ -z $2 || $2 != "--yes-i-know-what-i-am-about-to-do" ]]; then
     echo "Your pattern matched the project $projectName"
@@ -23,6 +32,7 @@ for projectID in $(openstack project list -f value -c Name | grep -E "$1" ); do
     ./$(dirname $0)/deleteProject.sh $projectName
   fi
 done
+
 
 if [[ $dryRun -eq 1 ]]; then
   echo "To actually delete these projects, run the command:"
