@@ -1,8 +1,8 @@
 #!/bin/bash
 
-netName='ttm4115-net'
-subnetName='ttm4115-subnet'
-routerName='ttm4115-router'
+netName='ttm4175-net'
+subnetName='ttm4175-subnet'
+routerName='ttm4175-router'
 
 subnetRange='192.168.0.0/24'
 extNet='ntnu-internal'
