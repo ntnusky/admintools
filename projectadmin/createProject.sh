@@ -24,7 +24,7 @@ types[IIKG1001-TA]="4 8 8 4 4"
 types[IIKG1001-GROUP]="2 2 4 2 2"
 types[IDATA2900]="1 2 4 0 0"
 types[IDATG2202]="1 2 4 20 1"
-types[IDATA2502]="5 16 32 50 5"
+types[IDATA2502]="2 2 8 40 2"
 types[IMT3003]="15 15 30 200 10"
 types[IIKG3005]="25 25 50 200 10"
 types[MACS490]="2 4 4 50 2"
@@ -34,6 +34,7 @@ types[TTM4133]="4 4 16 100 4"
 types[TTM4135]="1 1 2 20 1"
 types[TTM4175]="4 8 16 20 4"
 types[TTM4195]="2 2 4 20 2"
+types[TTM4536]="3 3 6 0 0"
 
 while getopts u:n:d:e:slq:i:c:r:v:g:p:t: option; do
   case "${option}" in 
