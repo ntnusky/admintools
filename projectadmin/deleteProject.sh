@@ -16,6 +16,13 @@ projectName=$(openstack project show $1 -f value -c name)
 projectID=$(openstack project show $1 -f value -c id)
 adminProjectID=$(openstack project show admin -f value -c id)
 
+checkKeep=$(openstack project show -f value -c tags $projectName)
+if [[ $checkKeep =~ KEEP ]]; then
+  echo "The project $projectName has the KEEP tag set, and will not be deleted!"
+  echo "Exiting..."
+  exit $EXIT_CONFIGERROR
+fi
+
 echo "Starting to delete the project $projectName ($projectID)"
 
 delete_users $projectID

@@ -41,6 +41,6 @@ done
 echo "Retrieving emails" >&2
 for user in $(echo  ${users[@]} | tr ' ' '\n' | sort | uniq); do
   openstack user show --domain NTNU $user -f value -c email
-  echo -n '#' >&2
+  echo -n '' >&2
 done
 echo >&2
