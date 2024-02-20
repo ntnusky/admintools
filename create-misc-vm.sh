@@ -12,6 +12,31 @@ function usage() {
   exit 1
 }
 
+function printTopDeskMessage() {
+  case_number=$1
+  username=$2
+  floating_ip=$3
+
+  echo
+  echo "============="
+  echo "TOPDESK-TEKST"
+  echo "============="
+  echo "Lim dette inn i topdesksaken $case_number. Bruk språket som passer <3"
+  echo "Lenke: https://hjelp.ntnu.no/tas/secure/incident?action=lookup&lookup=naam&lookupValue=$case_number"
+  echo
+  cat << EOF
+Hei!
+
+VMen din er klar til bruk, og du kan logge inn via ssh til $username@$floating_ip, med det nøkkelparet du har sendt oss. Brukeren din har passordløs sudo, slik at du kan installere alt du trenger på egenhånd.
+
+######
+
+Hi!
+
+Your VM is now ready for use. Login with ssh to $username@$floating_ip with the keypair you have provided us. Your user has passwordless sudo, and you can install whatever you want.
+EOF
+}
+
 if [ $# -eq 0 ] || [ $1 == "--help" ]; then
   usage
 fi
@@ -53,8 +78,10 @@ fi
 
 if [ "$NETTYPE" == "internal" ]; then
   NET="${NTNUNET}"
+  FIP=$(openstack floating ip create -f value -c floating_ip_address ntnu-internal)
 elif [ "$NETTYPE" == "global" ]; then
   NET="${GLOBALNET}"
+  FIP=$(openstack floating ip create -f value -c floating_ip_address ntnu-global)
 else
   echo "Net type must be either 'global' or 'internal'"
   exit 1
@@ -85,3 +112,17 @@ openstack server create --image $IMAGE --flavor $FLAVOR \
         $volume \
         --property contact=$EMAIL --property expire=$EXPIRE \
         --property owner="${OWNER}" $topdesk $config $NAME --wait
+
+openstack server add floating ip $NAME $FIP
+
+if [ -n "${volume}" ]; then
+  echo "Marking root volume as 'delete on termination'"
+  volume_id=$(openstack server show -f json -c volumes_attached $NAME | jq -r .volumes_attached[0].id)
+  openstack server volume update --delete-on-termination $NAME $volume_id
+fi
+
+# Drar ut brukernavn fra cloud-init-data
+NAME=$(grep 'name:' $CONFIG | cut -d':' -f2 | tr -d ' ')
+
+# Print tekst til TopDesk
+printTopDeskMessage $TOPDESK $NAME $FIP
