@@ -121,8 +121,12 @@ if [ -n "${volume}" ]; then
   openstack server volume update --delete-on-termination $NAME $volume_id
 fi
 
-# Drar ut brukernavn fra cloud-init-data
-NAME=$(grep 'name:' $CONFIG | cut -d':' -f2 | tr -d ' ')
+if [ -n "${config}" ]; then
+  # Drar ut brukernavn fra cloud-init-data
+  NAME=$(grep 'name:' $CONFIG | cut -d':' -f2 | tr -d ' ')
+else
+  NAME='##BRUKERNAVN##'
+fi
 
 # Print tekst til TopDesk
 printTopDeskMessage $TOPDESK $NAME $FIP
