@@ -91,6 +91,19 @@
   "visibility": "public"
 },
 {
+  "Name": "sx2.16c16r",
+  "CPU": "16",
+  "RAM": "16384",
+  "Disk": "40",
+  "quota:cpu_shares": "128",
+  "hw:cpu_cores": 8, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+},
+{
   "Name": "sx2.16c64r",
   "CPU": "16",
   "RAM": "65536",
