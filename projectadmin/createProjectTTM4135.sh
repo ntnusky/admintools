@@ -63,7 +63,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
   fi
 
-  echo " -- DONE adding $username to $projectName"
+  echo " -- DONE adding $usernames to $projectName"
 
   echo "Safe to Ctrl+C the next 5 seconds. $(date +%y%m%d-%H%M%S)"
   sleep 5
