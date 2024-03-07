@@ -27,13 +27,13 @@ function printTopDeskMessage() {
   cat << EOF
 Hei!
 
-VMen din er klar til bruk, og du kan logge inn via ssh til $username@$floating_ip, med det nøkkelparet du har sendt oss. Brukeren din har passordløs sudo, slik at du kan installere alt du trenger på egenhånd.
+VMen din er klar til bruk, og du kan logge inn via ssh til $username@$floating_ip, med det nøkkelparet du har sendt oss. Brukeren din har passordløs sudo, slik at du kan installere alt du trenger på egenhånd. Det betyr også at vår support stort sett begrenser seg til reinstall dersom du skulle finne på å ødelegge noe.
 
 ######
 
 Hi!
 
-Your VM is now ready for use. Login with ssh to $username@$floating_ip with the keypair you have provided us. Your user has passwordless sudo, and you can install whatever you want.
+Your VM is now ready for use. Login with ssh to $username@$floating_ip with the keypair you have provided us. Your user has passwordless sudo, and you can install whatever you want. This also means that our support is limited to a reinstall in the case that you break anything.
 EOF
 }
 
