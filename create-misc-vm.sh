@@ -12,10 +12,57 @@ function usage() {
   exit 1
 }
 
+function gpuMessage() {
+  username=$1
+  floating_ip=$2
+  cat << EOF
+Hei!
+
+Din GPU-vm er nå klar for bruk, og du kan logge inn via ssh til $username@$floating_ip med det nøkkelparet du har oppgitt. Din bruker er satt opp med passordløs sudo, slik at du kan installere alt du trenger på egenhånd. Siden du har sudo, betyr det at vår support stort sett begrenser seg til reinstall dersom du skulle finne på å ødelegge noe.
+
+Nvidia-driver og CUDA er forhåndsinstallert. Det er viktig at du ikke endrer på eller oppgraderer disse, da de må være nøyaktig disse versjonene for at det skal fungere.
+
+Noen nyttige tips kan leses her: https://www.ntnu.no/wiki/display/skyhigh/Using+GPU+instances
+
+Lykke til med arbeidet :-)
+
+#####
+
+Hi!
+
+Your GPU VM is now ready for use, and you can login via ssh to $username@$floating_ip using the keypair you've provided. Your user is configured with passwordless sudo, so that you can install whatever you need yourself. Since you have sudo, our support will be limited to a reinstall in case you break something.
+
+Nvidia driver and CUDA is pre-installed. It is very important that you don't change or upgrade these, since they need to be exactly these versions in order to function correctly.
+
+Some tips can be found here: https://www.ntnu.no/wiki/display/skyhigh/Using+GPU+instances
+
+Good luck with you work :-)
+EOF
+}
+
+function genericMessage() {
+  username=$1
+  floating_ip=$2
+
+  cat << EOF
+Hei!
+
+VMen din er klar til bruk, og du kan logge inn via ssh til $username@$floating_ip, med det nøkkelparet du har sendt oss. Brukeren din har passordløs sudo, slik at du kan installere alt du trenger på egenhånd. Det betyr også at vår support stort sett begrenser seg til reinstall dersom du skulle finne på å ødelegge noe.
+
+
+######
+
+Hi!
+
+Your VM is now ready for use. Login with ssh to $username@$floating_ip with the keypair you have provided us. Your user has passwordless sudo, and you can install whatever you want. This also means that our support is limited to a reinstall in the case that you break anything.
+EOF
+}
+
 function printTopDeskMessage() {
   case_number=$1
   username=$2
   floating_ip=$3
+  flavor=$4
 
   echo
   echo "============="
@@ -24,17 +71,22 @@ function printTopDeskMessage() {
   echo "Lim dette inn i topdesksaken $case_number. Bruk språket som passer <3"
   echo "Lenke: https://hjelp.ntnu.no/tas/secure/incident?action=lookup&lookup=naam&lookupValue=$case_number"
   echo
-  cat << EOF
-Hei!
+  if isGPUflavor $flavor; then
+    gpuMessage $username $floating_ip
+  else
+    genericMessage $username $floating_ip
+  fi
+}
 
-VMen din er klar til bruk, og du kan logge inn via ssh til $username@$floating_ip, med det nøkkelparet du har sendt oss. Brukeren din har passordløs sudo, slik at du kan installere alt du trenger på egenhånd. Det betyr også at vår support stort sett begrenser seg til reinstall dersom du skulle finne på å ødelegge noe.
+function isGPUflavor() {
+  flavor_id=$1
 
-######
-
-Hi!
-
-Your VM is now ready for use. Login with ssh to $username@$floating_ip with the keypair you have provided us. Your user has passwordless sudo, and you can install whatever you want. This also means that our support is limited to a reinstall in the case that you break anything.
-EOF
+  props=$(openstack flavor show $flavor_id -f value -c properties)
+  if [[ "$props" =~ VGPU ]]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 if [ $# -eq 0 ] || [ $1 == "--help" ]; then
@@ -129,4 +181,4 @@ else
 fi
 
 # Print tekst til TopDesk
-printTopDeskMessage $TOPDESK $NAME $FIP
+printTopDeskMessage $TOPDESK $NAME $FIP $FLAVOR
