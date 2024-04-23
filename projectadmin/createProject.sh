@@ -29,7 +29,7 @@ types[IDATA2502]="2 2 8 40 2"
 types[IMT3003]="15 15 30 200 10"
 types[IIKG3005]="25 25 50 200 10"
 types[MACS490]="2 4 4 50 2"
-types[PROG2005]="3 3 6 20 2"
+types[PROG2005]="3 3 3 20 2"
 types[PROG2052]="8 16 32 100 8"
 types[TTM4133]="4 4 16 100 4"
 types[TTM4135]="1 1 2 20 1"
@@ -203,13 +203,7 @@ for username in $(echo $users | tr ',' ' '); do
   if [[ $noRoles -le 1 ]]; then
     echo "Adding $username to the project"
     openstack role add --project $projectName --user $username \
-        --user-domain=NTNU _member_
-    openstack role add --project $projectName --user $username \
-        --user-domain=NTNU heat_stack_owner
-    openstack role add --project $projectName --user $username \
-        --user-domain=NTNU load-balancer_member
-    openstack role add --project $projectName --user $username \
-        --user-domain=NTNU creator
+        --user-domain=NTNU member
   else
     echo "$username is already present in the project"
   fi
