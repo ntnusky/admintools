@@ -82,10 +82,7 @@ function add_user {
      -f csv  | wc -l)
   if [[ $noRoles -le 1 ]]; then
     echo "Adding $user to the project"
-    openstack role add --project $projectid --user $userid _member_
-    openstack role add --project $projectid --user $userid heat_stack_owner
-    openstack role add --project $projectid --user $userid load-balancer_member
-    openstack role add --project $projectid --user $userid creator
+    openstack role add --project $projectid --user $userid member
     return 0
   else
     echo "$user is already present in the project"
@@ -317,19 +314,11 @@ function create_serviceuser {
         serviceusers@localhost --description "Service user for $projectName" \
         $serviceUserName
     openstack role add --project $projectName --user $serviceUserName \
-        _member_
-    openstack role add --project $projectName --user $serviceUserName \
-        heat_stack_owner
-    openstack role add --project $projectName --user $serviceUserName \
-        load-balancer_member
-    openstack role add --project $projectName --user $serviceUserName \
-        creator
+        member
 
     if [[ $extra == '--inherited' ]]; then
       openstack role add --project $projectName --user $serviceUserName \
-          load-balancer_member --inherited
-      openstack role add --project $projectName --user $serviceUserName \
-          creator --inherited
+          member --inherited
     fi
 
     # If the current user is not a part of the project, add it temporarly.

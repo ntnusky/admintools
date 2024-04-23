@@ -215,13 +215,7 @@ for groupname in $(echo $groups | tr ',' ' '); do
   if [[ $noRoles -le 1 ]]; then
     echo "Adding $groupname to the project"
     openstack role add --project $projectName --group $groupname \
-        --group-domain=NTNU _member_
-    openstack role add --project $projectName --group $groupname \
-        --group-domain=NTNU heat_stack_owner
-    openstack role add --project $projectName --group $groupname \
-        --group-domain=NTNU load-balancer_member
-    openstack role add --project $projectName --group $groupname \
-        --group-domain=NTNU creator
+        --group-domain=NTNU member
   else
     echo "$groupname is already present in the project"
   fi
