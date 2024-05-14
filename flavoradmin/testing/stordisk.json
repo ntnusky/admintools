@@ -1,0 +1,12 @@
+[
+{
+  "Name": "stordisk",
+  "CPU": "2",
+  "RAM": "2048",
+  "Disk": "60",
+  "quota:disk_read_iops_sec": 150, "quota:disk_write_iops_sec": 150,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX": "required",
+  "visibility": "public"
+}]

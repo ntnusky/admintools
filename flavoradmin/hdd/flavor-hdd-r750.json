@@ -1,0 +1,12 @@
+[
+{
+  "Name": "x5h.2c4r.e500g",
+  "CPU": "2",
+  "RAM": "4096",
+  "Disk": "0", "Ephemeral": "500",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "hdd", 
+  "visibility": "public"
+}
+]

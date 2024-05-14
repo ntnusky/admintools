@@ -1,0 +1,26 @@
+[
+{
+  "Name": "dx2.6c50r.p100",
+  "CPU": "6",
+  "RAM": "51200",
+  "Disk": "40",
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-p100",
+  "pci_passthrough:alias": "p100:1",
+  "visibility": "private"
+},
+{
+  "Name": "dx2.12c100r.2p100",
+  "CPU": "12",
+  "RAM": "102400",
+  "Disk": "40",
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-p100",
+  "pci_passthrough:alias": "p100:2",
+  "visibility": "private"
+}
+]

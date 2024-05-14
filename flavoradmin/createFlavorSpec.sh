@@ -35,7 +35,10 @@ createFlavor() {
   echo "  \"CPU\": \"$2\","
   echo "  \"RAM\": \"$(($3*1024))\","
   echo "  \"Disk\": \"$4\","
-  echo "  \"quota:cpu_shares\": \"$6\","
+
+  if [[ $cpushares -ne 0 ]]; then
+    echo "  \"quota:cpu_shares\": \"$6\","
+  fi
 
   # Set CPU-configuration
   if [[ $2 -gt 1 && $(($2%2)) -eq 0 ]]; then

@@ -1,0 +1,14 @@
+[
+{
+  "Name": "gx0h.1c1r.e40g",
+  "CPU": "1",
+  "RAM": "1024",
+  "Disk": "0", "Ephemeral": "40",
+  "hw:cpu_cores": 1, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 150, "quota:disk_write_iops_sec": 150,
+  "aggregate_instance_extra_specs:node_type": "localdisk",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_MMX": "required",
+  "visibility": "public"
+}
+]
