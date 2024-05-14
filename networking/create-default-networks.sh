@@ -74,6 +74,7 @@ fi
 if [[ -z $subnet6 ]]; then
   echo "Missing the v6-subnet. Creating it"
   openstack subnet create --project $project --ip-version 6 \
+      --ipv6-ra-mode slaac --ipv6-address-mode slaac \
       --subnet-pool selfservice-ipv6 --network $networkID "Subnet-$extnet-v6"
   subnet6=$(openstack subnet list --network $networkID -f value -c ID --ip-version 6)
 else
