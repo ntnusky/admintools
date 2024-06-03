@@ -100,7 +100,7 @@
   "visibility": "public"
 },
 {
-  "Name": "gx3.2c4r",
+  "Name": "gx3.2c6r",
   "CPU": "2",
   "RAM": "6144",
   "Disk": "40",
@@ -223,6 +223,19 @@
   "Disk": "40",
   "quota:cpu_shares": "1024",
   "hw:cpu_cores": 2, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "public"
+},
+{
+  "Name": "gx3.6c8r",
+  "CPU": "6",
+  "RAM": "8192",
+  "Disk": "40",
+  "quota:cpu_shares": "1024",
+  "hw:cpu_cores": 3, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
   "quota:disk_read_iops_sec": 300, "quota:disk_write_iops_sec": 300,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
