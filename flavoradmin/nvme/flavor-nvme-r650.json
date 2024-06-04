@@ -1,26 +1,24 @@
 [
 {
-  "Name": "x5.10c90r.nvme3t2",
-  "CPU": "10",
-  "RAM": "92160",
+  "Name": "x5.12c64r.nvme3t2",
+  "CPU": "12",
+  "RAM": "65536",
   "Disk": "40",
-  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
-  "quota:disk_read_iops_sec": 1000, "quota:disk_write_iops_sec": 1000,
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "nvme3t2",
   "pci_passthrough:alias": "nvme3t2:1",
-  "visibility": "private"
+  "visibility": "public"
 },
 {
-  "Name": "x5.20c180r.2nvme3t2",
-  "CPU": "20",
-  "RAM": "184320",
+  "Name": "x5.12c94r.nvme3t2",
+  "CPU": "12",
+  "RAM": "96256",
   "Disk": "40",
-  "hw:cpu_cores": 10, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
-  "quota:disk_read_iops_sec": 1000, "quota:disk_write_iops_sec": 1000,
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "nvme3t2",
-  "pci_passthrough:alias": "nvme3t2:2",
-  "visibility": "private"
+  "pci_passthrough:alias": "nvme3t2:1",
+  "visibility": "public"
 }
 ]

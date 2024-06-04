@@ -1,10 +1,30 @@
 [
 {
-  "Name": "x5h.2c4r.e500g",
-  "CPU": "2",
-  "RAM": "4096",
-  "Disk": "0", "Ephemeral": "500",
-  "hw:cpu_cores": 1, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "Name": "x5h.8c64r.e6t",
+  "CPU": "8",
+  "RAM": "65536",
+  "Disk": "0", "Ephemeral": "6144",
+  "hw:cpu_cores": 4, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "hdd", 
+  "visibility": "public"
+},
+{
+  "Name": "x5h.10c64r.e7t",
+  "CPU": "10",
+  "RAM": "65536",
+  "Disk": "0", "Ephemeral": "7168",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "hdd", 
+  "visibility": "public"
+},
+{
+  "Name": "x5h.14c64r.e10t",
+  "CPU": "14",
+  "RAM": "65536",
+  "Disk": "0", "Ephemeral": "10240",
+  "hw:cpu_cores": 7, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "hdd", 
   "visibility": "public"
