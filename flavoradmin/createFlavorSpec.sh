@@ -46,11 +46,6 @@ createFlavor() {
     echo "\"hw:cpu_sockets\": 2, \"hw:cpu_threads\": 1,"
   fi
 
-  if [[ $6 -ne '-1' ]]; then
-    # Define IOPS-limits
-    echo "  \"quota:disk_read_iops_sec\": $5, \"quota:disk_write_iops_sec\": $5," 
-  fi
-
   # Add general-purpose compute tag.
   echo "  \"aggregate_instance_extra_specs:node_type\": \"general\"," 
 
@@ -59,16 +54,16 @@ createFlavor() {
   echo "\"hw_rng:rate_period\": 5000,"
   
   # Set the relevant traits to select correct instruction-sets.
-  echo "  \"trait:$7\": \"required\","
+  echo "  \"trait:$6\": \"required\","
 
   # Set visibility
-  echo "  \"visibility\": \"$8\""
+  echo "  \"visibility\": \"$7\""
 
   echo '},'
 }
 
 # Disk size and IOPS
-disk="40 300"
+disk="40"
 
 echo '['
 
