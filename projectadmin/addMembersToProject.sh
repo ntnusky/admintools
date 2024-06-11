@@ -10,7 +10,7 @@ fi
 
 project=${1}
 users=${2}
-roles="_member_ heat_stack_owner load-balancer_member creator"
+roles="member"
 
 openstack project show $project &> /dev/null
 if [[ $? -eq 0 ]]; then
