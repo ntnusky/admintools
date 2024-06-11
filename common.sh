@@ -58,15 +58,9 @@ function add_user {
   local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
 
   if [ $(openstack role assignment list --project $projectid --user $userid \
-        --role _member_ | wc -l) -eq 1 ]; then
-    echo Adding $user to $project as _member_
-    openstack role add --project $projectid --user $userid _member_
-  fi
-
-  if [ $(openstack role assignment list --project $projectid --user $userid \
-        --role heat_stack_owner | wc -l) -eq 1 ]; then
-    echo Adding $user to $project as heat_stack_owner
-    openstack role add --project $projectid --user $userid heat_stack_owner
+        --role member | wc -l) -eq 1 ]; then
+    echo Adding $user to $project as member
+    openstack role add --project $projectid --user $userid member
   fi
 }
 
