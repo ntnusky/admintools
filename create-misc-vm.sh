@@ -81,7 +81,8 @@ function printTopDeskMessage() {
 function isGPUflavor() {
   flavor_id=$1
 
-  props=$(openstack flavor show $flavor_id -f value -c properties)
+  # After Antelope, you get an access violation error for trying to list access_project_ids on a non-public error. Sending errors to devnull then.. =)
+  props=$(openstack flavor show $flavor_id -f value -c properties 2> /dev/null)
   if [[ "$props" =~ VGPU ]]; then
     return 0
   else
