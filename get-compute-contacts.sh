@@ -20,7 +20,7 @@ users=()
 groups=()
 echo "Retrieving usernames and groups affected" >&2
 for project in $(echo  ${projects[@]} | tr ' ' '\n' | sort | uniq); do
-  for member in $(openstack role assignment list --project $project --names --role _member_ -f value -c User -c Group | grep NTNU | cut -f 1 -d '@'); do
+  for member in $(openstack role assignment list --project $project --names --role member -f value -c User -c Group | grep NTNU | cut -f 1 -d '@'); do
     if [[ $member =~ _ ]]; then # A group will always contain an underscore. Usernames will never have one
       groups=($member ${groups[@]})
     else

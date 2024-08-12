@@ -8,7 +8,7 @@ prereq
 need_admin
 
 while getopts adp: option; do
-  case "${option}" in 
+  case "${option}" in
     a) all=1 ;;
     d) detail=1 ;;
     p) projectPrefix=${OPTARG} ;;
@@ -35,7 +35,7 @@ if [[ ! -z $projectPrefix ]] && [[ ! -z $all ]]; then
   echo "Cannot both specify a prefix and request all projects"
   exit 1
 fi
-  
+
 
 declare -A aggregate
 aggregate['projects']=0
@@ -61,13 +61,13 @@ for project in $projects; do
 
   for key in cores floating-ips gigabytes instances snapshots ram volumes; do
     if [[ ! -z $detail ]]; then
-      echo -n "${key}:$(echo $quota | jq ".[\"$key\"]") "
+      echo -n "${key}:$(echo $quota | jq ".[] | select(.Resource==\"$key\") | .Limit") "
     fi
 
     if [[ -z ${aggregate[$key]} ]]; then
-      aggregate[$key]=$(echo $quota | jq ".[\"$key\"]")
+      aggregate[$key]=$(echo $quota | jq ".[] | select(.Resource==\"$key\") | .Limit")
     else
-      aggregate[$key]=$((${aggregate[$key]} + $(echo $quota | jq ".[\"$key\"]")))
+      aggregate[$key]=$((${aggregate[$key]} + $(echo $quota | jq ".[] | select(.Resource==\"$key\") | .Limit")))
     fi
   done
   if [[ ! -z $detail ]]; then
@@ -77,15 +77,15 @@ done
 
 echo
 echo "Aggregated quotas for the ${aggregate['projects']} projects with a name staring with ${projectPrefix}:"
-for key in "${!aggregate[@]}"; do 
-  echo -n "${key}: " 
+for key in "${!aggregate[@]}"; do
+  echo -n "${key}: "
 
   if [[ " ram " =~ " ${key} " ]]; then
-    echo "$(( ${aggregate[$key]} / 1024 )) GB" 
+    echo "$(( ${aggregate[$key]} / 1024 )) GB"
   elif [[ " gigabytes " =~ " ${key} " ]]; then
-    echo "${aggregate[$key]} GB" 
+    echo "${aggregate[$key]} GB"
   else
-    echo "${aggregate[$key]}" 
+    echo "${aggregate[$key]}"
   fi
 done
 
