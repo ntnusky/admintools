@@ -14,11 +14,14 @@ if [[ -z $4 ]]; then
   echo " - HW_CPU_X86_AVX2 (gen3)"
   echo " - HW_CPU_X86_AVX512F (gen4)"
   echo " - HW_CPU_X86_AVX512VAES (gen5)"
+  # Den her skulle virkelig ha vært noe AMX-flagg; for det er jo det vi vil ha.
+  # Men dette virker som en work-around.
+  echo " - HW_CPU_X86_AVX512IFMA (gen6)"
   echo
   echo "CPU Shares defines priority:"
-  echo " - 128 for low priority"
-  echo " - 1024 for normal priority"
-  echo " - 4096 for high priority"
+  echo " - 1 for low priority"
+  echo " - 8 for normal priority"
+  echo " - 24 for high priority"
   exit 1
 fi
 
@@ -26,6 +29,7 @@ prefix=$1
 instructionSet=$2
 cpushares=$3
 visibility=$4
+last=0
 
 createFlavor() {
   echo '{'
@@ -37,7 +41,8 @@ createFlavor() {
   echo "  \"Disk\": \"$4\","
 
   if [[ $cpushares -ne 0 ]]; then
-    echo "  \"quota:cpu_shares\": \"$6\","
+    shares=$(($5*$2))
+    echo "  \"quota:cpu_shares\": \"$shares\","
   fi
 
   # Set CPU-configuration
@@ -59,7 +64,11 @@ createFlavor() {
   # Set visibility
   echo "  \"visibility\": \"$7\""
 
-  echo '},'
+  if [[ $last -eq 0 ]]; then
+    echo '},'
+  else
+    echo '}'
+  fi
 }
 
 # Disk size and IOPS
@@ -76,10 +85,9 @@ createFlavor "$prefix.2c1r" 2 1 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c2r" 2 2 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c3r" 2 3 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c4r" 2 4 $disk $cpushares $instructionSet $visibility
-createFlavor "$prefix.2c4r" 2 6 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.2c6r" 2 6 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.2c8r" 2 8 $disk $cpushares $instructionSet $visibility
 
-createFlavor "$prefix.4c1r" 4 1 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c2r" 4 2 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c3r" 4 3 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c4r" 4 4 $disk $cpushares $instructionSet $visibility
@@ -87,6 +95,12 @@ createFlavor "$prefix.4c8r" 4 8 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c16r" 4 16 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c32r" 4 32 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.4c64r" 4 64 $disk $cpushares $instructionSet $visibility
+
+createFlavor "$prefix.6c4r" 6 4 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.6c8r" 6 8 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.6c16r" 6 16 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.6c32r" 6 32 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.6c64r" 6 64 $disk $cpushares $instructionSet $visibility
 
 createFlavor "$prefix.8c16r" 8 16 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.8c32r" 8 32 $disk $cpushares $instructionSet $visibility
@@ -115,5 +129,24 @@ createFlavor "$prefix.32c256r" 32 256 $disk $cpushares $instructionSet $visibili
 createFlavor "$prefix.64c64r" 64 64 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.64c128r" 64 128 $disk $cpushares $instructionSet $visibility
 createFlavor "$prefix.64c256r" 64 256 $disk $cpushares $instructionSet $visibility
+
+createFlavor "$prefix.72c64r" 72 64 $disk $cpushares $instructionSet $visibility
+createFlavor "$prefix.72c128r" 72 128 $disk $cpushares $instructionSet $visibility
+last=1
+createFlavor "$prefix.72c256r" 72 256 $disk $cpushares $instructionSet $visibility
+
+
+# Some larger flavors which only fits on our R650s
+#createFlavor "$prefix.96c64r" 96 64 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.96c128r" 96 128 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.96c256r" 96 256 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.96c384r" 96 384 $disk $cpushares $instructionSet $visibility
+#
+#createFlavor "$prefix.112c16r" 112 16 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.112c32r" 112 32 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.112c64r" 112 64 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.112c128r" 112 128 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.112c256r" 112 256 $disk $cpushares $instructionSet $visibility
+#createFlavor "$prefix.112c384r" 112 384 $disk $cpushares $instructionSet $visibility
 
 echo ']'
