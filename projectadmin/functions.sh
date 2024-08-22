@@ -276,19 +276,23 @@ function clean_octavia {
 }
 
 function clean_magnum {
-  echo "Deleting magnum clusters"
-  for cluster in $(openstack coe cluster list -f value -c uuid); do
-    openstack coe cluster delete $cluster
-  done
-  while [[ $(openstack coe cluster list -f value) != '' ]]; do
-    echo "Watiing for clusters to be deleted"
-    sleep 5
-  done
-  echo "Cleaning private cluster templates"
-  # The modern openstackclient is not able to list the public/private information...
-  for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
-    openstack coe cluster template delete $template
-  done
+  if has_endpoint magnum; then
+    echo "Deleting magnum clusters"
+    for cluster in $(openstack coe cluster list -f value -c uuid); do
+      openstack coe cluster delete $cluster
+    done
+    while [[ $(openstack coe cluster list -f value) != '' ]]; do
+      echo "Watiing for clusters to be deleted"
+      sleep 5
+    done
+    echo "Cleaning private cluster templates"
+    # The modern openstackclient is not able to list the public/private information...
+    for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
+      openstack coe cluster template delete $template
+    done
+  else
+    echo "Skipping deleting magnum clusters; Reason: ${OS_REGION_NAME} does not have the magnum service."
+  fi
 }
 
 
@@ -346,4 +350,10 @@ function create_serviceuser {
   else
     echo "The project already have a service-user"
   fi
+}
+
+function has_endpoint {
+  local service_name=$1
+  openstack endpoint list --service ${service_name}
+  return $?
 }
