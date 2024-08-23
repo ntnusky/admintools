@@ -22,6 +22,8 @@ desc=$2
 date=$3
 quota=$4
 
+declare -a projectsNotCreated=()
+
 shift;shift;shift;shift
 
 if [[ $1 == 'service' ]]; then
@@ -39,9 +41,23 @@ else
   cmd=""
 fi
 
+#./verifyUsernames.sh $inputFile > /dev/null
+#USER_OK=$?
+#if [ $USER_OK -eq 1 ]; then
+#  echo "There are invalid usernames in the CSV file. Exiting"
+#  exit 1
+#fi
+
 while IFS='' read -r line || [[ -n "$line" ]]; do
+
   projectName=$(echo $line | cut -d ',' -f 1)
   usernames=$(echo $line | cut -d ',' -f 2-)
+
+  if ! ./verifyUsernames.sh <(grep $projectName $inputFile) > /dev/null; then
+    echo "Invalid username in $projectName"
+    projectsNotCreated+=("${projectName}")
+    continue
+  fi
 
   u=${usernames//\,/\ -u\ }
 
@@ -55,3 +71,10 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   sleep 5
   echo "Not safe to Ctrl+C anymore"
 done < "$inputFile"
+
+if (( ${#projectsNotCreated[@]} )); then
+  echo "The following projects were not created due to invalid username(s) in member list:"
+  for p in "${projectsNotCreated[@]}"; do
+    echo $p
+  done
+fi
