@@ -146,20 +146,30 @@ function set_project {
 }
 
 function clean_heat {
-  echo "Deleting heat stacks"
-  stackIDs=$(openstack stack list -f value -c ID)
-  for stackID in $stackIDs; do
-    openstack stack abandon --output-file /dev/null $stackID
-  done
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    echo "Deleting heat stacks"
+    stackIDs=$(openstack stack list -f value -c ID)
+    for stackID in $stackIDs; do
+      openstack stack abandon --output-file /dev/null $stackID
+    done
+  else
+    echo "Skipping cleaning heat as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function clean_nova {
-  echo "Deleting virtual machines"
-  vms=$(openstack server list -f value -c ID)
-  for vm in $vms; do
-    openstack server unlock $vm
-    openstack server delete --wait $vm
-  done
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    echo "Deleting virtual machines"
+    vms=$(openstack server list -f value -c ID)
+    for vm in $vms; do
+      openstack server unlock $vm
+      openstack server delete --wait $vm
+    done
+  else
+    echo "Skipping cleaning nova as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function disable_nova {
@@ -175,96 +185,116 @@ function disable_nova {
 }
 
 function clean_glance {
-  echo "Deleting private images"
-  images=$(openstack image list --private -f value -c ID)
-  for image in $images; do
-    openstack image set --unprotected $image
-    openstack image delete $image
-  done
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    echo "Deleting private images"
+    images=$(openstack image list --private -f value -c ID)
+    for image in $images; do
+      openstack image set --unprotected $image
+      openstack image delete $image
+    done
+  else
+    echo "Skipping cleaning glance as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function clean_cinder {
-  # Delete all volume snapshots
-  echo "Deleting snapshots"
-  snapshots=$(openstack volume snapshot list -f value -c ID)
-  for snap in $snapshots; do
-    openstack volume snapshot delete $snap
-  done
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    # Delete all volume snapshots
+    echo "Deleting snapshots"
+    snapshots=$(openstack volume snapshot list -f value -c ID)
+    for snap in $snapshots; do
+      openstack volume snapshot delete $snap
+    done
 
-  # Delete all cinder volumes
-  echo "Deleting volumes"
-  volumes=$(openstack volume list -f value -c ID)
-  for volume in $volumes; do
-    openstack volume delete $volume
-  done
+    # Delete all cinder volumes
+    echo "Deleting volumes"
+    volumes=$(openstack volume list -f value -c ID)
+    for volume in $volumes; do
+      openstack volume delete $volume
+    done
+  else
+    echo "Skipping cleaning cinder as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function clean_neutron {
   local projectID=$1
+  local service_present=$2
 
-  # Delete all floating IP's
-  echo "Deleting floating IP's"
-  ips=$(openstack floating ip list -f value -c ID)
-  for ip in $ips; do
-    openstack floating ip delete $ip
-  done
-
-  # Deleting all router->network links
-  echo "Deleting all router->network links"
-  routers=$(openstack router list -f value -c ID)
-  for router in $routers; do
-    interfaces=$(openstack router show -f json -c interfaces_info $router | \
-      jq '.[] | .[] | .subnet_id' | tr -d '"')
-    for interface in $interfaces; do
-      openstack router remove subnet $router $interface
+  if [ $service_present -eq 0 ]; then
+    # Delete all floating IP's
+    echo "Deleting floating IP's"
+    ips=$(openstack floating ip list -f value -c ID)
+    for ip in $ips; do
+      openstack floating ip delete $ip
     done
-  done
 
-  # Delete all ports
-  echo "Deleting ports"
-  ports=$(openstack port list -f value -c id)
-  for port in $ports; do
-    openstack port delete $port
-  done
+    # Deleting all router->network links
+    echo "Deleting all router->network links"
+    routers=$(openstack router list -f value -c ID)
+    for router in $routers; do
+      interfaces=$(openstack router show -f json -c interfaces_info $router | \
+        jq '.[] | .[] | .subnet_id' | tr -d '"')
+      for interface in $interfaces; do
+        openstack router remove subnet $router $interface
+      done
+    done
 
-  # Delete all routers
-  echo "Deleting all routers"
-  routers=$(openstack router list -f value -c ID)
-  for router in $routers; do
-    openstack router delete $router
-  done
+    # Delete all ports
+    echo "Deleting ports"
+    ports=$(openstack port list -f value -c id)
+    for port in $ports; do
+      openstack port delete $port
+    done
 
-  # Delete all subnets
-  echo "Deleting subnets"
-  subnets=$(openstack subnet list --project $projectID -f value -c ID)
-  for subnet in $subnets; do
-    openstack subnet delete $subnet
-  done
+    # Delete all routers
+    echo "Deleting all routers"
+    routers=$(openstack router list -f value -c ID)
+    for router in $routers; do
+      openstack router delete $router
+    done
 
-  # Delete all networks
-  echo "Deleting networks"
-  networks=$(openstack network list --long -f value -c ID -c Project | \
-    grep $projectID | cut -d' ' -f1)
-  for network in $networks; do
-    openstack network delete $network
-  done
+    # Delete all subnets
+    echo "Deleting subnets"
+    subnets=$(openstack subnet list --project $projectID -f value -c ID)
+    for subnet in $subnets; do
+      openstack subnet delete $subnet
+    done
 
-  # FwaaS has been disabled
-  ## Delete all firewalls, policies and rules
-  #echo "Deleting firewall groups (skipping default group)"
-  #defaultgroup=$(openstack firewall group show -f value -c ID default)
-  #fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
-  #for fw in $fws; do
-  #  openstack firewall group delete $fw
-  #done
+    # Delete all networks
+    echo "Deleting networks"
+    networks=$(openstack network list --long -f value -c ID -c Project | \
+      grep $projectID | cut -d' ' -f1)
+    for network in $networks; do
+      openstack network delete $network
+    done
+
+    # FwaaS has been disabled
+    ## Delete all firewalls, policies and rules
+    #echo "Deleting firewall groups (skipping default group)"
+    #defaultgroup=$(openstack firewall group show -f value -c ID default)
+    #fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
+    #for fw in $fws; do
+    #  openstack firewall group delete $fw
+    #done
+  else
+    echo "Skipping cleaning neutron as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function clean_swift {
-  echo "Cleaning swift"
-  for container in $(openstack container list -f value); do
-    openstack container delete $container -r
-  done
-  echo "Finished cleaning swift"
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    echo "Cleaning swift"
+    for container in $(openstack container list -f value); do
+      openstack container delete $container -r
+    done
+    echo "Finished cleaning swift"
+  else
+    echo "Skipping cleaning swift as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 function clean_octavia {
@@ -276,19 +306,24 @@ function clean_octavia {
 }
 
 function clean_magnum {
-  echo "Deleting magnum clusters"
-  for cluster in $(openstack coe cluster list -f value -c uuid); do
-    openstack coe cluster delete $cluster
-  done
-  while [[ $(openstack coe cluster list -f value) != '' ]]; do
-    echo "Watiing for clusters to be deleted"
-    sleep 5
-  done
-  echo "Cleaning private cluster templates"
-  # The modern openstackclient is not able to list the public/private information...
-  for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
-    openstack coe cluster template delete $template
-  done
+  local service_present=$1
+  if [ $service_present -eq 0 ]; then
+    echo "Deleting magnum clusters"
+    for cluster in $(openstack coe cluster list -f value -c uuid); do
+      openstack coe cluster delete $cluster
+    done
+    while [[ $(openstack coe cluster list -f value) != '' ]]; do
+      echo "Watiing for clusters to be deleted"
+      sleep 5
+    done
+    echo "Cleaning private cluster templates"
+    # The modern openstackclient is not able to list the public/private information...
+    for template in $(magnum cluster-template-list --fields public | grep False | grep -oE '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}'); do
+      openstack coe cluster template delete $template
+    done
+  else
+    echo "Skipping cleaning magnum as ${OS_REGION_NAME} does not have this endpoint."
+  fi
 }
 
 
@@ -346,4 +381,18 @@ function create_serviceuser {
   else
     echo "The project already have a service-user"
   fi
+}
+
+function has_endpoint {
+  local service_name=$1
+  openstack endpoint list --service ${service_name} > /dev/null 2>&1
+  local status=$?
+
+  if [ $status -eq 0 ]; then
+    echo "Endpoint ${service_name} present."
+  else
+    echo "Endpoint ${service_name} not present."
+  fi
+
+  return $status
 }

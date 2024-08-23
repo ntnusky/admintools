@@ -23,20 +23,39 @@ if [[ $checkKeep =~ KEEP ]]; then
   exit $EXIT_CONFIGERROR
 fi
 
+echo "Checking which endpoints exist in ${OS_REGION_NAME}."
+
+set +e
+has_endpoint "magnum"
+has_magnum=$?
+has_endpoint "heat"
+has_heat=$?
+has_endpoint "nova"
+has_nova=$?
+has_endpoint "cinderv3"
+has_cinder=$?
+has_endpoint "glance"
+has_glance=$?
+has_endpoint "swift"
+has_swift=$?
+has_endpoint "neutron"
+has_neutron=$?
+set -e
+
 echo "Starting to delete the project $projectName ($projectID)"
 
 delete_users $projectID
 add_user $projectID $OS_USERNAME
 set_project $projectName $projectID
 
-clean_magnum
-clean_heat
-clean_nova
-clean_cinder
-clean_glance
-clean_swift
+clean_magnum $has_magnum
+clean_heat $has_heat
+clean_nova $has_nova
+clean_cinder $has_cinder
+clean_glance $has_glance
+clean_swift $has_swift
 clean_octavia
-clean_neutron $projectID
+clean_neutron $projectID $has_neutron
 
 # Delete all security groups
 echo "Deleting security groups"
