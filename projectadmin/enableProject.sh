@@ -30,21 +30,21 @@ if openstack object save DeactivationLog "${projectID}.log"; then
         echo Enable VM ${BASH_REMATCH[2]}
         openstack server start ${BASH_REMATCH[2]} 
         ;;
-      USER)
-        userAndRole=$(echo ${BASH_REMATCH[2]} | sed s/,/\ /)
-        openstack role add --project $projectID --user $userAndRole
-        echo Add USER ${BASH_REMATCH[2]}
-        ;;
-      GROUP)
-        groupAndRole=$(echo ${BASH_REMATCH[2]} | sed s/,/\ /)
-        openstack role add --project $projectID --group $groupAndRole
-        echo Add GROUP ${BASH_REMATCH[2]}
-        ;;
+#      USER)
+#        userAndRole=$(echo ${BASH_REMATCH[2]} | sed s/,/\ /)
+#        openstack role add --project $projectID --user $userAndRole
+#        echo Add USER ${BASH_REMATCH[2]}
+#        ;;
+#      GROUP)
+#        groupAndRole=$(echo ${BASH_REMATCH[2]} | sed s/,/\ /)
+#        openstack role add --project $projectID --group $groupAndRole
+#        echo Add GROUP ${BASH_REMATCH[2]}
+#        ;;
       *)
         echo Unknown key ${BASH_REMATCH[1]}
     esac
   done
-  
+  openstack project --enable $projectID 
   rm ${projectID}.log
   openstack object delete DeactivationLog "${projectID}.log"
 
