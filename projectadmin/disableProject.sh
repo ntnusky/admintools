@@ -23,8 +23,9 @@ statusfile=$(mktemp)
 
 echo "Starting to disable the project $projectName ($projectID)"
 
-delete_users $projectID $statusfile 
+openstack project --disable $projectID
 disable_nova $projectID $statusfile
+
 
 echo "Uploading a statusfile to swift, so that the project can be reactivated"
 openstack container show DeactivationLog &> /dev/null || \
