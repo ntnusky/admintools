@@ -18,10 +18,10 @@ fi
 
 if [[ $2 == 'internal' ]]; then
   extnet='ntnu-internal'
-  v4='192.168.11.0/24'
+  v4='192.168.13.0/24'
 elif [[ $2 == 'global' ]]; then
   extnet='ntnu-global'
-  v4='192.168.12.0/24'
+  v4='192.168.14.0/24'
 else 
   echo "You must select type internal or global. Not $2"
   exit 4
@@ -43,7 +43,7 @@ routerID=$(openstack router list -f value -c Name -c ID --project $project | \
 
 network=$(openstack network list -f value -c Name --project $project | \
   grep -e "^Network-${extnet}\$" )
-if [[ -z ${router} ]] ; then
+if [[ -z ${network} ]] ; then
   echo "The network \"Network-$extnet\" dont exist. Creating it now:"
   openstack network create "Network-$extnet" --project $project
 else
