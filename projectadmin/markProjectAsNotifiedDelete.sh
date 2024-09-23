@@ -7,6 +7,11 @@ set -e
 prereq
 need_admin
 
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $0 <project-id|project-name> "
+  exit 1
+fi
+
 project=$1
 
 if openstack project show $project &> /dev/null; then
