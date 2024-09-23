@@ -13,7 +13,9 @@ cp $orgimage $image
 echo "Upgrading packages"
 virt-customize -a $image --update
 echo "Installing packages"
-virt-customize -a $image --install build-essential,dkms,libxml2-utils,libglvnd-core-dev,linux-generic-hwe-22.04
+virt-customize -a $image --install build-essential,dkms,libxml2-utils,libglvnd-core-dev,linux-image-6.5.0-45-generic,linux-modules-6.5.0-45-generic,linux-headers-6.5.0-45-generic,linux-modules-extra-6.5.0-45-generic,linux-hwe-6.5-headers-6.5.0-45
+echo "Removing unwanted kernel"
+virt-customize -a $image --uninstall linux-image-virtual,linux-headers-generic,linux-headers-virtual,linux-image-5.15.0-107-generic,linux-headers-5.15.0-107,linux-headers-5.15.0-107-generic,linux-image-5.15.0-107-generic,linux-modules-5.15.0-107-generic
 echo "Installing GRID-script"
 virt-customize -a $image \
   --copy-in check-grid-driver.sh:/opt/ \
