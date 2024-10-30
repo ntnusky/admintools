@@ -194,6 +194,17 @@
   "visibility": "public"
 },
 {
+  "Name": "x5.6c8r",
+  "CPU": "6",
+  "RAM": "8192",
+  "Disk": "40",
+  "hw:cpu_cores": 3, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "public"
+},
+{
   "Name": "x5.8c16r",
   "CPU": "8",
   "RAM": "16384",
@@ -221,6 +232,17 @@
   "RAM": "65536",
   "Disk": "40",
   "hw:cpu_cores": 4, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "public"
+},
+{
+  "Name": "x5.12c16r",
+  "CPU": "12",
+  "RAM": "16384",
+  "Disk": "40",
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "trait:HW_CPU_X86_AVX512VAES": "required",
@@ -287,6 +309,17 @@
   "RAM": "131072",
   "Disk": "40",
   "hw:cpu_cores": 8, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "public"
+},
+{
+  "Name": "x5.18c24r",
+  "CPU": "18",
+  "RAM": "24576",
+  "Disk": "40",
+  "hw:cpu_cores": 9, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
   "aggregate_instance_extra_specs:node_type": "general",
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "trait:HW_CPU_X86_AVX512VAES": "required",
