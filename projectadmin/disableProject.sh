@@ -23,7 +23,7 @@ statusfile=$(mktemp)
 
 echo "Starting to disable the project $projectName ($projectID)"
 
-openstack project --disable $projectID
+openstack project set --disable $projectID
 disable_nova $projectID $statusfile
 
 

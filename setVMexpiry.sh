@@ -21,7 +21,7 @@ fi
 
 if openstack server show $instance &> /dev/null; then
   openstack server set --property expire=$expiry $instance
-  openstack server unset --tag notified_delete $instance
+  openstack server unset --tag notified_delete $instance &> /dev/null || true
   echo "The VM $instance now has the expiry date $expiry, and the notified_delete tag is removed"
 else
   echo "The VM $instance does not exist"
