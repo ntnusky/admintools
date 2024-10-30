@@ -8,7 +8,7 @@ prereq
 need_admin
 
 role_to_be_removed="_member_ creator heat_stack_owner heat_stack_user load-balancer_member"
-role_to_be_deleted="_member_ creator heat_stack_owner heat_stack_user"
+role_to_be_deleted="_member_"
 
 for role in $role_to_be_removed; do
   a=$(openstack role assignment list --role $role -f json)
@@ -34,7 +34,7 @@ for role in $role_to_be_removed; do
       openstack role remove --project $project --user $user $i $role
     else
       echo "Removing group ${group}'s role $role from $project"
-      openstack role remove --project $project --group $user $i $role
+      openstack role remove --project $project --group $group $i $role
     fi
   done
 done
