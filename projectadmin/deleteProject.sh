@@ -23,6 +23,12 @@ if [[ $checkKeep =~ KEEP ]]; then
   exit $EXIT_CONFIGERROR
 fi
 
+active=$(openstack project show $projectID -f value -c enabled)
+if [[ $active =~ False ]]; then
+  echo "Activating project as it need to be active to be deleted :P"
+  openstack project set --enable $projectID
+fi
+
 echo "Starting to delete the project $projectName ($projectID)"
 
 delete_users $projectID
