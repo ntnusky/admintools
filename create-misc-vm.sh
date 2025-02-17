@@ -20,7 +20,7 @@ Hei!
 
 Din GPU-vm er nå klar for bruk, og du kan logge inn via ssh til $username@$floating_ip med det nøkkelparet du har oppgitt. Din bruker er satt opp med passordløs sudo, slik at du kan installere alt du trenger på egenhånd. Siden du har sudo, betyr det at vår support stort sett begrenser seg til reinstall dersom du skulle finne på å ødelegge noe.
 
-Nvidia-driver og CUDA er forhåndsinstallert. Det er viktig at du ikke endrer på eller oppgraderer disse, da de må være nøyaktig disse versjonene for at det skal fungere.
+Nvidia-driver og CUDA er forhåndsinstallert. Det er viktig at du ikke endrer på eller oppgraderer driveren, da oppsettet er avhengig av nettopp denne versjonen for å fungere. Ønsker du en annen CUDA-versjon, er det mulig i gitte tilfeller. Dokumentasjon for dette finner du i lenken under.
 
 Noen nyttige tips kan leses her: https://www.ntnu.no/wiki/display/skyhigh/Using+GPU+instances
 
@@ -32,7 +32,7 @@ Hi!
 
 Your GPU VM is now ready for use, and you can login via ssh to $username@$floating_ip using the keypair you've provided. Your user is configured with passwordless sudo, so that you can install whatever you need yourself. Since you have sudo, our support will be limited to a reinstall in case you break something.
 
-Nvidia driver and CUDA is pre-installed. It is very important that you don't change or upgrade these, since they need to be exactly these versions in order to function correctly.
+Nvidia driver and CUDA is pre-installed. It is very important that you don't change or upgrade the driver, since our setup requires exactly this version in order to function correctly. If you need a different CUDA version, that is possible in some given scenarios. Documentation for howto to do this can be found through the link below.
 
 Some tips can be found here: https://www.ntnu.no/wiki/display/skyhigh/Using+GPU+instances
 
