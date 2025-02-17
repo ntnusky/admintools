@@ -57,7 +57,8 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     projectID=$(openstack project show $projectName -f value -c id) 2> /dev/null
     $cmd ../networking/add_project_to_globalnet.sh $projectID
 
-    $cmd neutron rbac-create --target-tenant $projectID \
+    $cmd openstack rbac create --target-project $projectID \
+      --target-project-domain NTNU \
       --action access_as_shared --type network $net
 
     $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
