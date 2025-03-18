@@ -209,10 +209,17 @@ function clean_neutron {
     openstack floating ip delete $ip
   done
 
-  # Deleting all router->network links
-  echo "Deleting all router->network links"
+  # Deleting all static routes and router->network links
+  echo "Deleting all static routes and router->network links"
   routers=$(openstack router list -f value -c ID)
   for router in $routers; do
+    routes=$(openstack router show -f json -c routes $router | \
+      jq -r '.routes[] | "\(.destination),\(.nexthop)"')
+    for route in $routes; do
+      destination=$(echo $route | cut -d',' -f1)
+      gateway=$(echo $route | cut -d',' -f2)
+      openstack router remove route --route "destination=$destination,gateway=$gateway" $router > /dev/null
+    done
     interfaces=$(openstack router show -f json -c interfaces_info $router | \
       jq '.[] | .[] | .subnet_id' | tr -d '"')
     for interface in $interfaces; do
