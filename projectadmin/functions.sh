@@ -248,15 +248,15 @@ function clean_neutron {
   for network in $networks; do
     openstack network delete $network
   done
+}
 
-  # FwaaS has been disabled
-  ## Delete all firewalls, policies and rules
-  #echo "Deleting firewall groups (skipping default group)"
-  #defaultgroup=$(openstack firewall group show -f value -c ID default)
-  #fws=$(openstack firewall group list -f value -c ID | grep -v "${defaultgroup}" || true)
-  #for fw in $fws; do
-  #  openstack firewall group delete $fw
-  #done
+function clean_neutron_rbac {
+  local projectID=$1
+
+  echo "Deleting RBAC rules"
+  for rbac in $(openstack network rbac list --target-project $projectID -f value -c ID); do
+    openstack network rbac delete $rbac
+  done
 }
 
 function clean_swift {

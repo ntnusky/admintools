@@ -37,7 +37,7 @@ types[TTM4175]="30 128 256 20 30"
 types[TTM4195]="2 2 4 100 2"
 types[TTM4536]="3 3 6 0 0"
 
-while getopts u:n:d:e:slq:i:c:r:v:g:p:t: option; do
+while getopts u:n:d:e:slq:i:c:r:v:f:z:4g:p:t: option; do
   case "${option}" in 
     d) projectDesc=${OPTARG} ;;
     n) projectName=${OPTARG} ;;
@@ -48,6 +48,9 @@ while getopts u:n:d:e:slq:i:c:r:v:g:p:t: option; do
     c) qcpu=${OPTARG} ;;
     r) qmemory=${OPTARG} ;;
     v) qvol=${OPTARG} ;;
+    f) qip=${OPTARG} ;;
+    4) v4pool=1 ;;
+    z) zone=${OPTARG} ;;
     l) listtypes=1 ;;
     g) [[ -z $groups ]] && groups="${OPTARG}" || groups="$groups,${OPTARG}" ;;
     u) [[ -z $users ]] && users="${OPTARG}" || users="$users,${OPTARG}" ;;
@@ -100,6 +103,9 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo " -v <volumes>,<gigabytes> : The number of volumes the project can have,"
   echo "                          :   and the total amount of space these can"
   echo "                          :   use"
+  echo " -f <floating-ip's>       : Quota for Floating IPs."
+  echo " -z <zone>                : Firewall-zone for the project"
+  echo " -4                       : Give access to IPv4 subnet pool"
   echo ""
   echo "Optional arguments:"
   echo " -e <expiry-date (dd.mm.yyyy)>  : Set deletion-date. If this is not"
@@ -111,6 +117,42 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo " -t <TopDesk case number>       : Case number from TopDesk"
   echo " -l                             : List available project types"
   exit $EXIT_MISSINGARGS
+fi
+
+if [[ $OS_REGION_NAME =~ ^TRD[12]$ ]]; then
+  if [[ -z $zone ]]; then
+    echo "A zone must be specified by -z <ZONE>"
+    exit $EXIT_MISSINGARGS
+  fi
+  if [[ ! $zone =~ \
+      ^(internal|exposed|restricted|management|research|infrastructure)$ ]]; then
+    echo "The specified zone is invalid. It must be one of: "
+    echo "  exposed, internal, restricted, management, research or infrastructure" 
+    exit $EXIT_MISSINGARGS
+  fi
+  
+  if [[ -z $qip ]] && [[ $zone == 'exposed' ]]; then
+    floatingip=5
+  elif [[ -z $qip ]]; then
+    floatingip=50
+  else
+    floatingip=$qip
+  fi
+else
+  if [[ ! -z $v4pool ]]; then
+    echo "IPv4 subnet-pool is not relevant for this plattform."
+    exit $EXIT_CONFIGERROR
+  fi
+  if [[ ! -z $zone ]]; then
+    echo "Firewall-zone is not relevant for this plattform."
+    exit $EXIT_CONFIGERROR
+  fi
+
+  if [[ -z $qip ]]; then
+    floatingip=50
+  else
+    floatingip=$qip
+  fi
 fi
 
 if [[ -z $projectType ]] && [[ -z $qcpu ]] && [[ -z $qmemory ]] && \
@@ -171,31 +213,28 @@ if openstack project show $projectName &> /dev/null; then
 else
   echo "Creating the project $projectName"
   openstack project create --description "$projectDesc" --domain NTNU $parent $projectName
-  echo "Setting project expiry to $expiry"
-  openstack project set --property expiry=$expiry $projectName
+fi
 
-  if [[ ! -z $topdesk ]]; then
-    echo "Adding TopDesk case number ($topdesk)"
-    openstack project set --property topdesk=$topdesk $projectName
-  fi
+echo "Setting project expiry to $expiry"
+openstack project set --property expiry=$expiry $projectName
 
-  echo "Setting quotas ($instances instances, $cpu cores, $ram GB RAM"
-  echo "  $cindervolumes volumes with $cindergb gigabytes totally)"
-
-  # The RAM calculation is odd because bash doesn't understand floating point numbers,
-  # and bc will always print a decimal.. Dividing by 1 removes it.
-  openstack quota set $projectName --cores $cpu --instances $instances \
-      --ram $(echo "${ram} * 1024 / 1" | bc)  --volumes $cindervolumes --gigabytes $cindergb --subnetpools 0
-  # THis is not needed anymore as we have set these volume-types as non-public
-  #echo "Setting the quota for Fast/VeryFast/Unlimited cinder-volumes to 0"
-  #openstack quota set $projectName --volume-type Fast --volumes 0 || \
-  #    echo "The volume-type Fast does not exist"
-  #openstack quota set $projectName --volume-type VeryFast --volumes 0 || \
-  #    echo "The volume-type VeryFast does not exist"
-  #openstack quota set $projectName --volume-type Unlimited --volumes 0 || \
-  #    echo "The volume-type Unlimited does not exist"
+if [[ ! -z $topdesk ]]; then
+  echo "Adding TopDesk case number ($topdesk)"
+  openstack project set --property topdesk=$topdesk $projectName
   echo "Project created"
 fi
+
+echo "Setting quotas:"
+echo " - $instances instances, $cpu cores, $ram GB RAM"
+echo " - $floatingip Floating IP's"
+echo " - $cindervolumes volumes with $cindergb gigabytes totally"
+
+# The RAM calculation is odd because bash doesn't understand floating point numbers,
+# and bc will always print a decimal.. Dividing by 1 removes it.
+openstack quota set $projectName --force \
+  --cores $cpu --instances $instances --ram $(echo "${ram} * 1024 / 1" | bc) \
+  --volumes $cindervolumes --gigabytes $cindergb \
+  --floating-ips $floatingip --subnetpools 0 || echo "Quota-change failed"
 
 for username in $(echo $users | tr ',' ' '); do 
   noRoles=$(openstack role assignment list --project $projectName --user $username \
@@ -220,6 +259,24 @@ for groupname in $(echo $groups | tr ',' ' '); do
     echo "$groupname is already present in the project"
   fi
 done
+
+if [[ ! -z $zone ]]; then
+  echo "Giving project access to the $zone zone"
+  openstack network rbac create --type network --action access_as_external \
+    --target-project "${projectName}" "ntnu-${zone}" 2> /dev/null || \
+    echo " - Already granted"
+  echo "Giving project access to the ntnu-${zone}-v6 subnet pool"
+  openstack network rbac create --type subnetpool --action access_as_shared \
+    --target-project "${projectName}" "ntnu-${zone}-v6" 2> /dev/null || \
+    echo " - Already granted"
+fi
+
+if [[ ! -z $v4pool ]]; then
+  echo "Giving project access to the ntnu-${zone}-v4 subnet pool"
+  openstack network rbac create --type subnetpool --action access_as_shared \
+    --target-project "${projectName}" "ntnu-${zone}-v4" 2> /dev/null || \
+    echo " - Already granted"
+fi
 
 if [[ ! -z $service ]]; then
   create_serviceuser $projectName
