@@ -147,7 +147,7 @@ function set_project {
 
 function clean_heat {
   echo "Deleting heat stacks"
-  stackIDs=$(openstack stack list -f value -c ID)
+  stackIDs=$(openstack stack list -f value -c ID || echo "")
   for stackID in $stackIDs; do
     openstack stack abandon --output-file /dev/null $stackID
   done
