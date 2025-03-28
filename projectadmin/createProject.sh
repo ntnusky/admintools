@@ -88,10 +88,11 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo "Usage: $0 [ARGUMENTS]"
   echo ""
   echo "Mandatory arguments (arguments which are always required)"
-  echo " -n <project_name>              : A project name"
-  echo " -d <project_description>       : A project description"
+  echo " -n <project_name>        : A project name"
+  echo " -d <project_description> : A project description"
+  echo " -e <expiry (dd.mm.yyyy)> : Set deletion-date."
   echo ""
-  echo "Project membership - Add at least one user or group."
+  echo "Project membership"
   echo " -u <username>  : The NTNU username of a user which should have access" 
   echo " -g <groupname> : The name of a NTNU LDAP group which should be added"
   echo "                :   to the project"
@@ -104,28 +105,23 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo " -v <volumes>,<gigabytes> : The number of volumes the project can have,"
   echo "                          :   and the total amount of space these can"
   echo "                          :   use"
-  echo " -f <floating-ip's>       : Quota for Floating IPs."
-  echo " -z <zone>                : Firewall-zone for the project"
+  echo ""
+  echo "For ACI-Openstack network-settings:"
   echo " -4                       : Give access to IPv4 subnet pool"
+  echo " -z <zone>                : Firewall-zone for the project"
   echo ""
   echo "Optional arguments:"
-  echo " -e <expiry-date (dd.mm.yyyy)>  : Set deletion-date. If this is not"
-  echo "                                :   supplied the expiry-date will be"
-  echo "                                :   the end of the current semester"
-  echo " -s                             : Create a service-user"
-  echo " -p <project-name|id>           : The new project will be a child"
-  echo "                                :    of the given project"
-  echo " -t <TopDesk case number>       : Case number from TopDesk"
-  echo " -l                             : List available project types"
+  echo " -f <floating-ip's>       : Quota for Floating IPs."
+  echo " -l                       : List available project types"
+  echo " -p <project-name|id>     : The new project will be a child"
+  echo "                          :    of the given project"
+  echo " -s                       : Create a service-user"
+  echo " -t <TopDesk case number> : Case number from TopDesk"
   exit $EXIT_MISSINGARGS
 fi
 
 if [[ $OS_REGION_NAME =~ ^TRD[12]$ ]]; then
-  if [[ -z $zone ]]; then
-    echo "A zone must be specified by -z <ZONE>"
-    exit $EXIT_MISSINGARGS
-  fi
-  if [[ ! $zone =~ \
+  if [[ ! -z $zone && ! $zone =~ \
       ^(internal|exposed|restricted|management|research|infrastructure)$ ]]; then
     echo "The specified zone is invalid. It must be one of: "
     echo "  exposed, internal, restricted, management, research or infrastructure" 
@@ -186,11 +182,8 @@ else
 fi
 
 if [[ -z $expiry ]]; then
-  if [[ $(date +%-m) -le 6 ]]; then
-    expiry="30.06.$(date +%Y)"
-  else
-    expiry="31.12.$(date +%Y)"
-  fi
+  echo "Expiry-date is missing."
+  exit $EXIT_CONFIGERROR
 fi
 
 if [[ ! $expiry =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
@@ -209,11 +202,20 @@ if [[ ! -z $topdesk ]] && [[ ! $topdesk =~ ^NTNU[0-9]+ ]]; then
   exit $EXIT_CONFIGERROR
 fi
 
+if [[ $projectName =~ ^([^_]*)_.*$ ]]; then
+  prefix=${BASH_REMATCH[1]}
+else
+  echo "Project-name need to include an '_' between its prefix and name."
+  echo "  MH-INB_Prosjektnavn eller IT-Server_Prosjektnavn"
+  exit $EXIT_CONFIGERROR
+fi
+
 if openstack project show $projectName &> /dev/null; then
   echo "A project with the name \"$projectName\" already exist." 
 else
   echo "Creating the project $projectName"
-  openstack project create --description "$projectDesc" --domain NTNU $parent $projectName
+  openstack project create --description "$projectDesc" --domain NTNU \
+    --tag $prefix $parent $projectName
 fi
 
 echo "Setting project expiry to $expiry"
@@ -270,6 +272,8 @@ if [[ ! -z $zone ]]; then
   openstack network rbac create --type subnetpool --action access_as_shared \
     --target-project "${projectName}" "ntnu-${zone}-v6" 2> /dev/null || \
     echo " - Already granted"
+  echo "Tagging project with zone"
+  openstack project set --tag "ZONE-${zone}" --tag "POOL-V6-${zone}" "${projectName}"
 fi
 
 if [[ ! -z $v4pool ]]; then
@@ -277,6 +281,7 @@ if [[ ! -z $v4pool ]]; then
   openstack network rbac create --type subnetpool --action access_as_shared \
     --target-project "${projectName}" "ntnu-${zone}-v4" 2> /dev/null || \
     echo " - Already granted"
+  openstack project set --tag "POOL-V4-${zone}" "${projectName}"
 fi
 
 if [[ ! -z $service ]]; then
