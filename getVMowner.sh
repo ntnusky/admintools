@@ -50,8 +50,8 @@ else
     fi
 
     if [ -n "$group" ]; then
-      if [ $($oscmd group show -f value -c description --domain NTNU "$group" 2> /dev/null) ]; then
-        groupdesc="| Group description: $($oscmd group show -f value -c description --domain NTNU "$group")"
+      if [[ $($oscmd group show -f value -c description --domain NTNU "$group" 2> /dev/null) ]]; then
+        groupdesc="| Group description: $($oscmd group show -f value -c description --domain NTNU $group)"
       else
         groupdesc="| (No group description set)"
       fi
