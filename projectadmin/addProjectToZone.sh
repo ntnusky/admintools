@@ -15,7 +15,7 @@ while getopts p:z:4 option; do
   esac
 done
 
-if [[ -z $project ]] || [[ -z $zone ]] || [[ -z $v4pool ]]; then
+if [[ -z $project ]] || [[ -z $zone ]]; then
   echo "This script assignes a networking-zone to a project."
   echo
   echo "Usage: $0 [ARGUMENTS]"
@@ -23,6 +23,8 @@ if [[ -z $project ]] || [[ -z $zone ]] || [[ -z $v4pool ]]; then
   echo "Mandatory arguments (arguments which are always required)"
   echo " -p <project_name> : A project name"
   echo " -z <Network zone> : A project description"
+  echo ""
+  echo "Optional arguments:"
   echo " -4                : Also give access to NTNU IPv4-addresses" 
   exit $EXIT_MISSINGARGS
 fi
