@@ -44,7 +44,7 @@ if openstack object save DeactivationLog "${projectID}.log"; then
         echo Unknown key ${BASH_REMATCH[1]}
     esac
   done
-  openstack project --enable $projectID 
+  openstack project set --enable $projectID 
   rm ${projectID}.log
   openstack object delete DeactivationLog "${projectID}.log"
 

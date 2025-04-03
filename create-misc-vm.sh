@@ -99,10 +99,23 @@ if [ -z $OS_PROJECT_NAME ] || [ $OS_PROJECT_NAME != "MISC" ]; then
   exit 1
 fi
 
-# ID for MISC-net
-NTNUNET='f755ba0e-5b95-42c3-954a-137c43b53467'
-GLOBALNET='e64530a7-3668-4aaa-845f-21f793e51afe'
+# IDs for MISC-net
+declare -A networks
+networks[SkyHiGh-internal]='f755ba0e-5b95-42c3-954a-137c43b53467'
+networks[SkyHiGh-global]='e64530a7-3668-4aaa-845f-21f793e51afe'
+networks[NTNU-IT-internal]='630212d4-764d-479a-8364-52e22e4d1e24'
+networks[NTNU-IT-global]='367d094e-a80a-49f2-a84b-34493ab50cbd'
+networks[TRD1-internal]='edb06423-a29d-49fe-9dc2-392a218081a6'
+networks[TRD1-global]='1b466310-96a2-40c5-bf83-00a47d944138'
+
+NTNUNET=${networks["${OS_REGION_NAME}-internal"]}
+GLOBALNET=${networks["${OS_REGION_NAME}-global"]}
 SECGROUP='default'
+
+if [ -z $NTNUNET ]; then
+  echo "Could not find any networks for your Openstack region, $OS_REGION_NAME"
+  exit 1
+fi
 
 while getopts i:f:k:n:t:e:o:m:v:s:c: option
 do
@@ -129,12 +142,22 @@ if [ -z "$IMAGE" ] || [ -z "$FLAVOR" ] || [ -z "$KEY" ] || [ -z "$NAME" ] || \
   usage
 fi
 
+if [[ ! $expiry =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
+  echo "\"$expiry\" does not look like a date on the format dd.mm.yyyy"
+  exit 1
+fi
+
 if [ "$NETTYPE" == "internal" ]; then
   NET="${NTNUNET}"
   FIP=$(openstack floating ip create -f value -c floating_ip_address ntnu-internal)
 elif [ "$NETTYPE" == "global" ]; then
+  if [ "$OS_REGION_NAME" == "TRD1" ]; then
+    extnet="ntnu-exposed"
+  else
+    extnet="ntnu-global"
+  fi
   NET="${GLOBALNET}"
-  FIP=$(openstack floating ip create -f value -c floating_ip_address ntnu-global)
+  FIP=$(openstack floating ip create -f value -c floating_ip_address $extnet)
 else
   echo "Net type must be either 'global' or 'internal'"
   exit 1
