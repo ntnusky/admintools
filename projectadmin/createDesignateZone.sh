@@ -3,7 +3,7 @@
 if [[ $# -lt 1 ]]; then
   echo "This script will create designate DNS zones for a specific project, and share it with the project."
   echo
-  echo "Usage: $0 <project-id|project-name>"
+  echo "Usage: $0 <project-id|project-name> [<optional-zone-label>]"
   exit 1
 fi
 
@@ -29,7 +29,11 @@ else
 fi
 
 # To lowercase, replace all underscores with dashes, remove everything except letters, numbers and dashes
-zoneLabel="$(echo "$projectName" | tr '[:upper:]' '[:lower:]' | tr "_" "-" | tr -cd -- '-[:alnum:]')"
+if [[ ! -z $2 ]]; then
+  zoneLabel="$(echo "$2" | tr '[:upper:]' '[:lower:]' | tr "_" "-" | tr -cd -- '-[:alnum:]')"
+else
+  zoneLabel="$(echo "$projectName" | tr '[:upper:]' '[:lower:]' | tr "_" "-" | tr -cd -- '-[:alnum:]')"
+fi
 zoneName="$zoneLabel.$zoneSuffix"
 
 zoneEmail="$(openstack zone show -f value -c email "$zoneSuffix" --sudo-project-id "$servicesId")"
@@ -38,13 +42,15 @@ if [[ -z $zoneEmail ]]; then
   exit 1
 fi
 
-echo "Creating zone $zoneName for project $projectName ($projectId)"
 
-openstack zone create --email "$zoneEmail" "$zoneName" --sudo-project-id "$servicesId"
-
-if [[ $? -ne 0 ]]; then
-  echo "Failed to create zone $zoneName. Exiting"
-  exit 1
+if ! openstack zone show "$zoneName" --sudo-project-id "$servicesId" &> /dev/null; then
+  echo "Creating zone $zoneName for project $projectName ($projectId)"
+  openstack zone create --email "$zoneEmail" "$zoneName" --sudo-project-id "$servicesId"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to create zone $zoneName. Exiting"
+    exit 1
+  fi
 fi
 
 echo "Sharing zone $zoneName with project $projectName ($projectId)"
