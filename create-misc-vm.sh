@@ -142,8 +142,8 @@ if [ -z "$IMAGE" ] || [ -z "$FLAVOR" ] || [ -z "$KEY" ] || [ -z "$NAME" ] || \
   usage
 fi
 
-if [[ ! $expiry =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
-  echo "\"$expiry\" does not look like a date on the format dd.mm.yyyy"
+if [[ ! $EXPIRE =~ ^[0-3][0-9]\.[0-1][0-9]\.20[0-9]{2}$ ]]; then
+  echo "\"$EXPIRE\" does not look like a date on the format dd.mm.yyyy"
   exit 1
 fi
 
