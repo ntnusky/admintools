@@ -218,6 +218,9 @@ else
     --tag $prefix $parent $projectName
 fi
 
+echo "Creates DNS-zone for the project"
+./createDesignateZone.sh $projectName
+
 echo "Setting project expiry to $expiry"
 openstack project set --property expiry=$expiry $projectName
 

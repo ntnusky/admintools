@@ -145,6 +145,38 @@ function set_project {
   export OS_PROJECT_NAME=$projectName
 }
 
+function clean_designate {
+  projectID=$1
+
+  # For hver sone
+  zones=$(openstack zone list --sudo-project-id $projectID -f value -c id)
+  for zone in $zones; do
+    owner=$(openstack zone show --sudo-project-id $projectID $zone \
+        -f value -c project_id)
+    
+    if [[ $owner == $projectID ]]; then
+      echo "Deleting DNS zone $zone"
+      openstack zone delete --delete-shares --sudo-project-id $projectID $zone
+    else
+      echo "Zone not owned by project. Deleting the zone-share for $zone"
+      services=$(openstack project show services -f value -c id)
+      shareID=$(openstack zone share list --sudo-project-id $owner \
+        $zone --target-project-id $projectID -f value -c id)
+      openstack zone share delete --sudo-project-id $owner $zone $shareID
+
+      # If the zone is owned by the services project, and not shared with anyone
+      # else, it should be deleted.
+      if [[ $owner == $services ]]; then
+        shares=$(openstack zone share list --all $zone -f value | wc -l)
+        if [[ $shares -eq 0 ]]; then
+          echo " - Deleting the zone $zone as it is not used by any projects"
+          openstack zone delete --sudo-project-id $owner $zone
+        fi
+      fi
+    fi
+  done
+}
+
 function clean_heat {
   echo "Deleting heat stacks"
   stackIDs=$(openstack stack list -f value -c ID || echo "")

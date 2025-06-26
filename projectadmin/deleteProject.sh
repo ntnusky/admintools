@@ -59,6 +59,7 @@ for region in $(openstack region list -f value -c Region); do
   done
   
   set_project 'admin' $adminProjectID
+  clean_designate $projectID
   clean_neutron_rbac $projectID
   # Delete default security group from project. This MUST be done with the admin tenant context
   echo "Deleting default security group from project $projectName"
