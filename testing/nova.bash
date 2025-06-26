@@ -21,6 +21,8 @@ while [[ ! -z $1 ]]; do
   shift
 done
 
+U="${OS_REGION_NAME}_${OS_PROJECT_NAME}"
+
 if [[ ! -z $create ]]; then
   $echo "Creating a VM"
   flavor=$(openstack flavor list -f value -c Name | grep 1c2r | head -n1)
@@ -51,7 +53,7 @@ if [[ ! -z $create ]]; then
   $echo "Associating floating IP with server"
   openstack server add floating ip openstackTest $fip || fail "$echo" "Could not associate IP"
 
-  echo $fip > .openstackTesting.floatinIP.txt
+  echo $fip > .openstackTesting.${U}.floatinIP.txt
 
   attempts=0
   while [[ -z $pinged ]]; do
@@ -88,10 +90,10 @@ if [[ ! -z $delete ]]; then
   $echo "Deleting the VM"
   openstack server delete openstackTest || fail "$echo" "Could not delete VM"
   $echo "Deleting the floating IP"
-  fip=$(cat .openstackTesting.floatinIP.txt)
+  fip=$(cat .openstackTesting.${U}.floatinIP.txt)
   openstack floating ip delete $fip || \
       fail "$echo" "Could not delete floating IP"
-  rm .openstackTesting.floatinIP.txt
+  rm .openstackTesting.${U}.floatinIP.txt
 fi
 
 exit 0

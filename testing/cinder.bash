@@ -21,6 +21,8 @@ while [[ ! -z $1 ]]; do
   shift
 done
 
+U="${OS_REGION_NAME}_${OS_PROJECT_NAME}"
+
 if [[ ! -z $create ]]; then
   $echo "Creating a volume"
   openstack volume create openstackTest.volume --size 2 || \
@@ -41,7 +43,7 @@ if [[ ! -z $create ]]; then
   sleep 5
 
   attempts=0
-  fip=$(cat .openstackTesting.floatinIP.txt)
+  fip=$(cat .openstackTesting.${U}.floatinIP.txt)
   while !  ssh -o StrictHostKeyChecking=no ubuntu@$fip \
         sudo fdisk -l /dev/vdb 2> /dev/null | grep "bytes," &> /dev/null; do
     ((attempts++))
