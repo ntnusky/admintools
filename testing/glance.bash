@@ -5,6 +5,7 @@ MYDIR="$(dirname "$(realpath "$0")")"
 
 echo="echo [GLANCE]"
 image="https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+filename=$(mktemp)
 
 openstack image list &> /dev/null
 if [[ $? -ne 0 ]]; then
@@ -26,13 +27,13 @@ done
 if [[ ! -z $create ]]; then
   starttime=$(date +%s)
   $echo "Download image to test with from the web"
-  wget $image -O image.img || fail "$echo" "Could not download image"
+  wget $image -O $filename || fail "$echo" "Could not download image"
   endtime=$(date +%s)
   $echo "Finished downloading image in $((endtime-starttime)) seconds"
   
   starttime=$(date +%s)
   $echo "Converting image to raw"
-  qemu-img convert -f qcow2 -O raw image.img image.raw || fail "$echo" \
+  qemu-img convert -f qcow2 -O raw $filename "${filename}.raw" || fail "$echo" \
       "Could not convert image"
   endtime=$(date +%s)
   $echo "converted image in $((endtime-starttime)) seconds"
@@ -40,13 +41,13 @@ if [[ ! -z $create ]]; then
   starttime=$(date +%s)
   $echo "Uploading image to glance"
   openstack image create --container-format bare --disk-format raw \
-    --file image.raw openstackTest.image --progress || fail "$echo" "could not uplad image"
+    --file "${filename}.raw" openstackTest.image --progress || fail "$echo" "could not uplad image"
   endtime=$(date +%s)
   $echo "uploaded image in $((endtime-starttime)) seconds"
 
   $echo "Deleting image from local disk"
-  rm image.img
-  rm image.raw
+  rm $filename 
+  rm "${filename}.raw" 
 fi
 
 if [[ ! -z $delete ]]; then

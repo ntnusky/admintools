@@ -1,5 +1,16 @@
 [
 {
+  "Name": "dx6.24c50r.l40s-24g",
+  "CPU": "24",
+  "RAM": "51200",
+  "Disk": "40",
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-l40s-24g", "resources:VGPU": 1,
+  "trait:CUSTOM_L40S_24G":"required",
+  "visibility": "private"
+},
+{
   "Name": "dx6.40c650r.l40s-48g",
   "CPU": "40",
   "RAM": "665600",

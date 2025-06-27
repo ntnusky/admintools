@@ -4,7 +4,6 @@ set -e
 . $(dirname $0)/common.sh
 
 prereq
-need_admin
 
 instance=$1
 

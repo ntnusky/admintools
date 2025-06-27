@@ -48,6 +48,18 @@
   "visibility": "public"
 },
 {
+  "Name": "sx3.12c32r",
+  "CPU": "12",
+  "RAM": "32768",
+  "Disk": "40",
+  "quota:cpu_shares": "12",
+  "hw:cpu_cores": 6, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "public"
+},
+{
   "Name": "sx3.12c48r",
   "CPU": "12",
   "RAM": "49152",

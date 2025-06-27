@@ -23,6 +23,8 @@ if [[ $OS_AUTH_URL == *"api.stack.it.ntnu.no"* ]]; then
   zoneSuffix="iaas.ntnu.no."
 elif [[ $OS_AUTH_URL == *"api.pile.it.ntnu.no"* ]]; then
   zoneSuffix="iaas-test.ntnu.no."
+elif [[ $OS_AUTH_URL == *"api.skyhigh.iik.ntnu.no"* ]]; then
+  zoneSuffix="iaas.iik.ntnu.no."
 else
   echo "Could not find the project zone name for this cloud environment. Exiting"
   exit 1
