@@ -108,6 +108,10 @@ networks[NTNU-IT-global]='367d094e-a80a-49f2-a84b-34493ab50cbd'
 networks[TRD1-internal]='edb06423-a29d-49fe-9dc2-392a218081a6'
 networks[TRD1-global]='1b466310-96a2-40c5-bf83-00a47d944138'
 
+declare -A domains
+domains[SkyHiGh]='vm.iik.ntnu.no'
+domains[TRD1]='misc.iaas.ntnu.no'
+
 NTNUNET=${networks["${OS_REGION_NAME}-internal"]}
 GLOBALNET=${networks["${OS_REGION_NAME}-global"]}
 SECGROUP='default'
@@ -199,10 +203,13 @@ fi
 
 if [ -n "${config}" ]; then
   # Drar ut brukernavn fra cloud-init-data
-  NAME=$(grep 'name:' $CONFIG | cut -d':' -f2 | tr -d ' ')
+  USERNAME=$(grep 'name:' $CONFIG | cut -d':' -f2 | tr -d ' ')
 else
-  NAME='##BRUKERNAVN##'
+  USERNAME='##BRUKERNAVN##'
 fi
 
 # Print tekst til TopDesk
-printTopDeskMessage $TOPDESK $NAME $FIP $FLAVOR
+if [ -n ${domains[$OS_REGION_NAME]} ]; then
+  FIP="${NAME}.${domains[$OS_REGION_NAME]}"
+fi
+printTopDeskMessage $TOPDESK $USERNAME $FIP $FLAVOR
