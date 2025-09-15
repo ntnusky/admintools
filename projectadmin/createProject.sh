@@ -35,7 +35,7 @@ types[TTK4854]="2 8 16 64 2"
 types[TTM4133]="4 4 16 100 4"
 types[TTM4135]="1 1 2 20 1"
 types[TTM4175]="30 128 256 20 30"
-types[TTM4195]="2 2 4 200 2"
+types[TTM4195]="2 4 8 200 2"
 types[TTM4536]="3 3 6 0 0"
 
 while getopts u:n:d:e:slq:i:c:r:v:f:z:4g:p:t: option; do
