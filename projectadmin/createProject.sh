@@ -27,7 +27,7 @@ types[IDATA2900]="1 2 4 0 0"
 types[IDATG2202]="1 2 4 20 1"
 types[IDATA2502]="2 2 8 40 2"
 types[IMT3003]="15 15 30 200 10"
-types[IIKG3005]="25 25 50 200 10"
+types[IIKG3005]="10 20 64 500 10"
 types[MACS490]="2 4 4 50 2"
 types[PROG2005]="3 3 3 20 2"
 types[PROG2052]="8 16 32 100 8"
@@ -219,7 +219,7 @@ else
 fi
 
 echo "Creates DNS-zone for the project"
-./createDesignateZone.sh $projectName
+./createDesignateZone.sh $projectName || /bin/true
 
 echo "Setting project expiry to $expiry"
 openstack project set --property expiry=$expiry $projectName
