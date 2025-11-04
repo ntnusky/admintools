@@ -42,7 +42,7 @@ function need_admin {
     exit $EXIT_FORBIDDEN
   fi
   
-  if [ -z $OS_TENANT_NAME ] && [ -z $OS_PROJECT_NAME ]; then
+  if [ -z $OS_TENANT_NAME ] && [ -z $OS_PROJECT_NAME ] && [ -z $OS_CLOUD ] ; then
     echo "Needs to be authenticated for for openstack"
     exit $EXIT_DEPENDENCY
   fi

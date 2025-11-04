@@ -1,15 +1,21 @@
 #!/bin/bash
 
 if [[ $# -lt 1 ]]; then
-  echo "Usage: $0 <compute-host>"
+  echo "Usage: $0 <compute-host|file-with-ids>"
   exit 1
 fi
 
-host=$1
+src=$1
 projects=()
 
+if [[ -f $src ]]; then  # A file was supplied
+  cmd="cat $src"
+else                    # A compute host name was supplied
+  cmd="openstack server list --all --host $src -f value -c ID"
+fi
+
 echo "For each server, get the project ID" >&2
-for server in $(openstack server list --all --host $host -f value -c ID); do
+for server in $($cmd); do
   project=$(openstack server show $server -f value -c project_id)
   projects=($project ${projects[@]})
   echo -n '#' >&2
