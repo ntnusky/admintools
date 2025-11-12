@@ -38,11 +38,12 @@ types[TTM4175]="30 128 256 20 30"
 types[TTM4195]="2 4 8 200 2"
 types[TTM4536]="3 3 6 0 0"
 
-while getopts u:n:d:e:slq:i:c:r:v:f:z:4g:p:t: option; do
-  case "${option}" in 
+while getopts u:n:d:e:oslq:i:c:r:v:f:z:4g:p:t: option; do
+  case "${option}" in
     d) projectDesc=${OPTARG} ;;
     n) projectName=${OPTARG} ;;
     e) expiry=${OPTARG} ;;
+    o) nameoverride=1 ;;
     s) service=1 ;;
     q) projectType=${OPTARG^^} ;;
     i) qinstances=${OPTARG} ;;
@@ -111,6 +112,7 @@ if [[ -z $projectName ]] || [[ -z $projectDesc ]]; then
   echo " -z <zone>                : Firewall-zone for the project"
   echo ""
   echo "Optional arguments:"
+  echo " -o                       : Override the requirement for a _ in the projectname"
   echo " -f <floating-ip's>       : Quota for Floating IPs."
   echo " -l                       : List available project types"
   echo " -p <project-name|id>     : The new project will be a child"
@@ -202,7 +204,9 @@ if [[ ! -z $topdesk ]] && [[ ! $topdesk =~ ^NTNU[0-9]+ ]]; then
   exit $EXIT_CONFIGERROR
 fi
 
-if [[ $projectName =~ ^([^_]*)_.*$ ]]; then
+if [[ ! -z $nameoverride ]]; then
+  prefix=$projectName
+elif [[ $projectName =~ ^([^_]*)_.*$ ]]; then
   prefix=${BASH_REMATCH[1]}
 else
   echo "Project-name need to include an '_' between its prefix and name."
