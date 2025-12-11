@@ -1,7 +1,7 @@
 #!/bin/bash
 
-parent="IMT3003_workers"
-net="imt3003"
+parent="DCSG2003_Workers"
+net="dcsg2003"
 
 if [[ $# -lt 3 ]]; then
   echo "This script assignes users to projects; and if the project"
