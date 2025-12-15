@@ -8,7 +8,7 @@ prereq
 need_admin
 
 while getopts p:z:4 option; do
-  case "${option}" in 
+  case "${option}" in
     4) v4pool=1 ;;
     p) project=${OPTARG} ;;
     z) zone=${OPTARG} ;;
@@ -22,10 +22,10 @@ if [[ -z $project ]] || [[ -z $zone ]]; then
   echo ""
   echo "Mandatory arguments (arguments which are always required)"
   echo " -p <project_name> : A project name"
-  echo " -z <Network zone> : A project description"
+  echo " -z <Network zone> : A network zone (exposed, internal...)"
   echo ""
   echo "Optional arguments:"
-  echo " -4                : Also give access to NTNU IPv4-addresses" 
+  echo " -4                : Also give access to NTNU IPv4-addresses"
   exit $EXIT_MISSINGARGS
 fi
 
@@ -33,7 +33,7 @@ if [[ $OS_REGION_NAME =~ ^TRD[12]$ ]]; then
   if [[ ! -z $zone && ! $zone =~ \
       ^(internal|exposed|restricted|management|research|infrastructure)$ ]]; then
     echo "The specified zone is invalid. It must be one of: "
-    echo "  exposed, internal, restricted, management, research or infrastructure" 
+    echo "  exposed, internal, restricted, management, research or infrastructure"
     exit $EXIT_MISSINGARGS
   fi
 else
