@@ -29,7 +29,7 @@ box "User info about VM: $vm ($vm_name)"
 echo "Project: $projectname"
 echo "User that created the VM: $creator"
 
-if [ "$properties" != "{}" ]; then
+if [ $projectname == "MISC" ] && [ "$properties" != "{}" ]; then
   echo "VM custom properties: $properties"
 else
   box "Current project members"
