@@ -9,6 +9,7 @@
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "nvme3t2",
   "pci_passthrough:alias": "nvme3t2:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
   "visibility": "private"
 },
 {
@@ -21,6 +22,7 @@
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "nvme3t2",
   "pci_passthrough:alias": "nvme3t2:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
   "visibility": "private"
 }
 ]
