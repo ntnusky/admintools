@@ -1,0 +1,26 @@
+[
+{
+  "Name": "gx3.20c64r.a40-16g",
+  "CPU": "20",
+  "RAM": "65536",
+  "Disk": "40",
+  "hw:cpu_cores": 10, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:VGPU": 1,
+  "trait:CUSTOM_A40_16G":"required",
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "private"
+},
+{
+  "Name": "gx3.20c150r.a40-16g",
+  "CPU": "20",
+  "RAM": "153600",
+  "Disk": "40",
+  "hw:cpu_cores": 10, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:VGPU": 1,
+  "trait:CUSTOM_A40_16G":"required",
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "private"
+}
+]

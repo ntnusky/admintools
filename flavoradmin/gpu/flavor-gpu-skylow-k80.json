@@ -1,0 +1,24 @@
+[
+{
+  "Name": "gx3.24c55r.k80",
+  "CPU": "24",
+  "RAM": "56320",
+  "Disk": "40",
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-k80",
+  "pci_passthrough:alias": "k80:1",
+  "visibility": "private"
+},
+{
+  "Name": "gx3.48c110r.2k80",
+  "CPU": "48",
+  "RAM": "112640",
+  "Disk": "40",
+  "hw:cpu_cores": 12, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-k80",
+  "pci_passthrough:alias": "k80:2",
+  "visibility": "private"
+}
+]

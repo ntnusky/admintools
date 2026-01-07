@@ -1,0 +1,38 @@
+[
+{
+  "Name": "gx5h.10c60r.e4t",
+  "CPU": "10",
+  "RAM": "61440",
+  "quota:cpu_shares": "80",
+  "Disk": "0", "Ephemeral": "4096",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "r650xs-hdd", 
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+},
+{
+  "Name": "gx5h.5c30r.e2t",
+  "CPU": "5",
+  "RAM": "30720",
+  "Disk": "0", "Ephemeral": "2048",
+  "quota:cpu_shares": "40",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "r650xs-hdd", 
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+},
+{
+  "Name": "gx5h.3c15r.e1t",
+  "CPU": "3",
+  "RAM": "15360",
+  "Disk": "0", "Ephemeral": "1024",
+  "quota:cpu_shares": "20",
+  "hw:cpu_cores": 3, "hw:cpu_sockets": 1, "hw:cpu_threads": 1,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "r650xs-hdd", 
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+}
+]
