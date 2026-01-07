@@ -188,7 +188,7 @@ fi
 echo "Creating VM $NAME..."
 
 openstack server create --image $IMAGE --flavor $FLAVOR \
-        --security-group "default" --key-name $KEY --nic net-id=$NET \
+        --security-group "default" --key-name "$KEY" --nic net-id=$NET \
         $volume \
         --property contact=$EMAIL --property expire=$EXPIRE \
         --property owner="${OWNER}" $topdesk $config $NAME --wait
