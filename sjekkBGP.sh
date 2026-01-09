@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for speaker in $(openstack bgp speaker list -f value -c Name); do
+for speaker in $(openstack bgp speaker list -f value -c Name --sort-column Name); do
   echo "DR-Agents for $speaker"
-  openstack bgp dragent list --bgp-speaker $speaker
+  openstack bgp dragent list --bgp-speaker $speaker --sort-column Host
 done
 
 echo "Tilgjengelige DR-Agents":
