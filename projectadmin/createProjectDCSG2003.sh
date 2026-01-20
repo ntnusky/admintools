@@ -1,7 +1,7 @@
 #!/bin/bash
 
 parent="DCSG2003_Workers"
-net="35fe8b76-cc31-4b48-b3f0-5c48eef8d289"
+net="35fe8b76-cc31-4b48-b3f0-5c48eef8d289" #DCSG20003
 
 if [[ $# -lt 3 ]]; then
   echo "This script assignes users to projects; and if the project"
@@ -57,7 +57,8 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 
   if [[ $exists -eq 0 ]]; then
     projectID=$(openstack project show $projectName -f value -c id) 2> /dev/null
-    $cmd openstack network rbac create --target-project $projectID --target-project-domain NTNU \
+    $cmd openstack network rbac create \
+        --target-project $projectID --target-project-domain NTNU \
         --action access_as_shared --type network $net
   fi
   echo " -- DONE adding $username to $projectName"

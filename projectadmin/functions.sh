@@ -149,7 +149,7 @@ function clean_designate {
   projectID=$1
 
   # For hver sone
-  zones=$(openstack zone list --sudo-project-id $projectID -f value -c id)
+  zones=$(openstack zone list --sudo-project-id $projectID -f value -c id || echo "")
   for zone in $zones; do
     owner=$(openstack zone show --sudo-project-id $projectID $zone \
         -f value -c project_id)

@@ -9,13 +9,18 @@ echo Projectinfo:
 openstack project show $1
 
 echo Members:
-openstack role assignment list --project $1 --names
+openstack role assignment list --project $1 --names \
+  --sort-column User --sort-column Group
 
-echo Servers:
-openstack server list --project $1
+for region in $(openstack region lis -f value -c Region); do
+  export OS_REGION_NAME=$region
 
-echo Images:
-openstack image list --project $1
-
-echo Volumes:
-openstack volume list --project $1
+  echo Servers in $region:
+  openstack server list --sort-column Name --project $1
+  
+  echo Images in $region:
+  openstack image list --sort-column Name --project $1
+  
+  echo Volumes in $region:
+  openstack volume list --sort-column Name --project $1
+done
