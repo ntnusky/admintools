@@ -53,17 +53,6 @@
   "visibility": "private"
 },
 {
-  "Name": "de3.12c60r.a100-10g",
-  "CPU": "12",
-  "RAM": "61440",
-  "Disk": "40",
-  "hw:cpu_cores": 6, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
-  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-10g", "resources:VGPU": 1,
-  "trait:CUSTOM_A100_10G":"required",
-  "visibility": "private"
-},
-{
   "Name": "de3.24c120r.a100-20g",
   "CPU": "24",
   "RAM": "122880",
