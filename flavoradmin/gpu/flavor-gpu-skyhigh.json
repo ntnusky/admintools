@@ -33,21 +33,21 @@
   "visibility": "private"
 },
 {
-  "Name": "dx5.8c90r.v100-8g",
+  "Name": "gx5.8c90r.v100-16g",
   "CPU": "8",
   "RAM": "92160",
   "Disk": "40",
   "hw:cpu_cores": 4, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-v100-8g", "resources:VGPU": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-v100-16g", "resources:VGPU": 1,
   "visibility": "private"
 },
 {
-  "Name": "dx5.8c90r.v100-16g",
-  "CPU": "8",
-  "RAM": "92160",
+  "Name": "gx5.16c180r.v100-16g",
+  "CPU": "16",
+  "RAM": "184320",
   "Disk": "40",
-  "hw:cpu_cores": 4, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw:cpu_cores": 8, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "aggregate_instance_extra_specs:node_type": "gpu-v100-16g", "resources:VGPU": 1,
   "visibility": "private"
