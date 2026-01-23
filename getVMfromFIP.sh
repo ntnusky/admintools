@@ -4,7 +4,6 @@ set -e
 . $(dirname $0)/common.sh
 
 prereq
-need_admin
 
 if [[ $# -lt 1 ]]; then
   echo "Usage: $0 <Floating IP address>"
@@ -57,6 +56,11 @@ elif [ "$device_owner" == "network:floatingip" ]; then
     echo "IP-adressen er allokert i et prosjekt, men er ikke hektet på en VM"
     print_project_info $project_id
   fi
+
+elif [ "$device_owner" == "compute:nova" ]; then
+  vm_id=$device_id
+  ./getVMowner.sh $vm_id
+
 else
   echo "Dette var rare greier ($device_owner) Adressen er sannsynligvis ikke i bruk"
 fi

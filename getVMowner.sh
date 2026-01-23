@@ -4,7 +4,6 @@ set -e
 . $(dirname $0)/common.sh
 
 prereq
-need_admin
 
 if [[ $# -lt 1 ]]; then
   echo "Usage: $0 <vm-uuid|vm-name>"
