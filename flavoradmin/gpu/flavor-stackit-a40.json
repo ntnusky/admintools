@@ -6,8 +6,8 @@
   "Disk": "40",
   "hw:cpu_cores": 10, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:VGPU": 1,
-  "trait:CUSTOM_A40_16G":"required",
+  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:CUSTOM_A40_16G": 1,
+  "pci_passthrough:alias":"a40_16g:1",
   "trait:HW_CPU_X86_AVX2": "required",
   "visibility": "private"
 },
@@ -18,8 +18,8 @@
   "Disk": "40",
   "hw:cpu_cores": 10, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:VGPU": 1,
-  "trait:CUSTOM_A40_16G":"required",
+  "aggregate_instance_extra_specs:node_type": "gpu-a40-16g", "resources:CUSTOM_A40_16G": 1,
+  "pci_passthrough:alias":"a40_16g:1",
   "trait:HW_CPU_X86_AVX2": "required",
   "visibility": "private"
 }
