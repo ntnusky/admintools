@@ -14,7 +14,7 @@ if [[ -n "$projects" ]]; then
   for project in $projects; do
     project_name=$(openstack project show -f value -c name $project)
     num_servers=$(openstack server list -f value --project $project --flavor $flavor | grep -v SHELVED | wc -l)
-    echo -e "$project_name - $num_servers active servers"
+    echo "$project_name - $num_servers active servers"
   done
 else
   echo "The flavor does not exist, or no projects has access to it"
