@@ -1,0 +1,9 @@
+#cloud-config
+set_timezone: Europe/Oslo
+users:
+  - default
+  - name: ntnubrukernavn
+    gecos: Fullt Navn Navnesen
+    groups: Administrators
+    passwd: PLAINTEXTPASSWORD
+
