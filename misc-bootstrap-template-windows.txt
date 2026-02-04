@@ -5,5 +5,5 @@ users:
   - name: ntnubrukernavn
     gecos: Fullt Navn Navnesen
     groups: Administrators
-    passwd: PLAINTEXTPASSWORD
+    passwd: PLAINTEXTPASSWORD MAX 20 CHARS
 
