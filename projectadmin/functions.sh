@@ -153,15 +153,21 @@ function clean_designate {
   for zone in $zones; do
     owner=$(openstack zone show --sudo-project-id $projectID $zone \
         -f value -c project_id)
-    
+
     if [[ $owner == $projectID ]]; then
       echo "Deleting DNS zone $zone"
       openstack zone delete --delete-shares --sudo-project-id $projectID $zone
     else
-      echo "Zone not owned by project. Deleting the zone-share for $zone"
+      echo "Zone not owned by project. Deleting records and the zone-share for $zone"
       services=$(openstack project show services -f value -c id)
       shareID=$(openstack zone share list --sudo-project-id $owner \
         $zone --target-project-id $projectID -f value -c id)
+
+      for record in $(openstack recordset list -f value -c id -c type --sudo-project-id $owner $zone \
+                      | grep -vE 'NS|SOA' | cut -d ' ' -f1); do
+        openstack recordset delete --sudo-project-id $owner $zone $record
+      done
+
       openstack zone share delete --sudo-project-id $owner $zone $shareID
 
       # If the zone is owned by the services project, and not shared with anyone

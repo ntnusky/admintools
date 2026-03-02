@@ -7,6 +7,9 @@
 # This net should exist in the MISC-project at all times
 net='ttm4135'
 
+# The base FQDN of auto-generated DNS-zone
+baseZone='iaas.iik.ntnu.no.'
+
 if [[ $# -lt 3 ]]; then
   echo "This script assignes users to projects; and if the project"
   echo "does not exist it will create them. The csv file should list"
@@ -41,6 +44,7 @@ fi
 while IFS='' read -r line || [[ -n "$line" ]]; do
   projectName=$(echo $line | cut -d ',' -f 1)
   usernames=$(echo $line | cut -d ',' -f '2-')
+  dns_record="$(echo ${projectName,,} | tr '_' '-' ).${baseZone}"
 
   openstack project show $projectName &> /dev/null
   if [[ $? -eq 0 ]]; then
@@ -61,7 +65,13 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
       --target-project-domain NTNU \
       --action access_as_shared --type network $net
 
-    $cmd openstack floating ip create --tag ttm4135 --tag $projectName --project $projectName ntnu-global
+    fip=$($cmd openstack floating ip create -f value -c floating_ip_address \
+      --tag ttm4135 --tag $projectName --project $projectName ntnu-global)
+
+    $cmd openstack quota set --floating-ips 1 $projectName
+
+    $cmd openstack recordset create --sudo-project-id $projectID \
+      --type A --record $fip $dns_record $dns_record
   fi
 
   echo " -- DONE adding $usernames to $projectName"
