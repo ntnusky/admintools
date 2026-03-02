@@ -10,13 +10,14 @@ need_admin
 
 short=""
 
-while getopts ati:c:r:p: option; do
+while getopts ati:c:r:p:g: option; do
   case "${option}" in 
     a) apply=1 ;;
     t) testing=1 ;;
     i) short+="-i ${OPTARG}"; long+="--instances ${OPTARG} " ;;
     c) short+="-c ${OPTARG}"; long+="--cores ${OPTARG} " ;;
     r) short+="-r ${OPTARG}"; long+="--ram $((${OPTARG}*1024))" ;;
+    g) short+="-g ${OPTARG}"; long+="--gigabytes ${OPTARG}" ;;
     p) projectPrefix=${OPTARG} ;;
   esac
 done
@@ -31,6 +32,7 @@ if [[ -z $projectPrefix || ( -z $apply && -z $testing ) || ( ! -z $apply && ! -z
   echo " -i <N>: Number of instances"
   echo " -c <N>: Number of CPUs"
   echo " -r <N>: GBs of RAM"
+  echo " -g <N>: GB of volume storage"
   exit $EXIT_MISSINGARGS
 fi
 

@@ -8,12 +8,13 @@ set -e
 prereq
 need_admin
 
-while getopts i:c:r:p: option; do
+while getopts i:c:r:p:g: option; do
   case "${option}" in 
     i) instances=${OPTARG} ;;
     c) cores=${OPTARG} ;;
     r) ram=${OPTARG} ;;
     p) project=${OPTARG} ;;
+    g) gigabytes=${OPTARG} ;;
   esac
 done
 
@@ -25,6 +26,7 @@ if [[ -z $project ]]; then
   echo " -i <N>: Would a new quota with N instances be valid?"
   echo " -c <N>: Would a new quota with N CPUs be valid?"
   echo " -r <N>: Would a new quota with N GB RAM be valid?"
+  echo " -g <N>: Would a new quota with N GB volume storage be valid?"
   exit $EXIT_MISSINGARGS
 fi
 
@@ -34,24 +36,30 @@ e=$EXIT_OK
 
 echo "Usage overview for $project:"
 if [[ -z $instances || $totalInstancesUsed -le $instances ]]; then
-  echo " - Instances: $totalInstancesUsed / $maxTotalInstances"
+  echo " - Instances:           $totalInstancesUsed / $maxTotalInstances"
 else
-  echo " * Instances: $totalInstancesUsed / $maxTotalInstances"
+  echo " * Instances:           $totalInstancesUsed / $maxTotalInstances"
   e=1
 fi
 
 if [[ -z $cores || $totalCoresUsed -le $cores ]]; then
-  echo " - VCPUs:     $totalCoresUsed / $maxTotalCores"
+  echo " - VCPUs:               $totalCoresUsed / $maxTotalCores"
 else
-  echo " * VCPUs:     $totalCoresUsed / $maxTotalCores"
+  echo " * VCPUs:               $totalCoresUsed / $maxTotalCores"
   e=1
 fi
 
 if [[ -z $ram || $(($totalRAMUsed/1024)) -le $ram ]]; then
-  echo " - RAM (GB):  $(($totalRAMUsed/1024)) / $(($maxTotalRAMSize/1024))"
+  echo " - RAM (GB):            $(($totalRAMUsed/1024)) / $(($maxTotalRAMSize/1024))"
 else
-  echo " * RAM (GB):  $(($totalRAMUsed/1024)) / $(($maxTotalRAMSize/1024))"
+  echo " * RAM (GB):            $(($totalRAMUsed/1024)) / $(($maxTotalRAMSize/1024))"
   e=1
+fi
+
+if [[ -z $gigabytes || $totalGigabytesUsed -le $maxTotalVolumeGigabytes ]]; then
+  echo " - Volume Storage (GB): $totalGigabytesUsed / $maxTotalVolumeGigabytes"
+else
+  echo " * Volume Storage (GB): $totalGigabytesUsed / $maxTotalVolumeGigabytes"
 fi
 
 exit $e
