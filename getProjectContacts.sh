@@ -34,7 +34,7 @@ $oscmd role assignment list -f csv -c User -c  Group --project "$project" --name
   fi
 
   if [ -n "$group" ]; then
-    groupdesc=$($oscmd group show -f value -c description --domain NTNU "$group")
-    echo "Group: $group | Group description: $groupdesc"
+    #groupdesc=$($oscmd group show -f value -c description --domain NTNU "$group")
+    echo "Group: $group"
   fi
 done
