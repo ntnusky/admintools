@@ -310,5 +310,29 @@
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
   "trait:HW_CPU_X86_AVX2": "required",
   "visibility": "public"
+},
+{
+  "Name": "sx3.72c512r",
+  "CPU": "72",
+  "RAM": "524288",
+  "Disk": "40",
+  "quota:cpu_shares": "72",
+  "hw:cpu_cores": 36, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "public"
+},
+{
+  "Name": "sx3.72c768r",
+  "CPU": "72",
+  "RAM": "786432",
+  "Disk": "40",
+  "quota:cpu_shares": "72",
+  "hw:cpu_cores": 36, "hw:cpu_sockets": 2, "hw:cpu_threads": 1,
+  "aggregate_instance_extra_specs:node_type": "general",
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "trait:HW_CPU_X86_AVX2": "required",
+  "visibility": "public"
 }
 ]
