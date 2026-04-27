@@ -47,8 +47,10 @@ function delete_users {
 function delete_user {
   local user=$1
 
-  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
-  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null)
+  if [[ -z $userid ]]; then
+    local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  fi
   local domain=$(openstack user show $userid -f value -c domain_id 2> /dev/null)
   local domain_name=$(openstack domain show $domain -f value -c name 2> /dev/null)
 
@@ -75,8 +77,10 @@ function add_user {
 
   local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
   local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
-  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
-  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null)
+  if [[ -z $userid ]]; then
+    local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  fi
 
   noRoles=$(openstack role assignment list --project $projectid --user $userid \
      -f csv  | wc -l)
@@ -102,8 +106,10 @@ function remove_user {
 
   local projectid=$(openstack project show $project -f value -c id 2> /dev/null) || \
   local projectid=$(openstack project show $project -f value -c id --domain=NTNU 2> /dev/null)
-  local userid=$(openstack user show $user -f value -c id 2> /dev/null) || \
-  local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  local userid=$(openstack user show $user -f value -c id 2> /dev/null)
+  if [[ -z $userid ]]; then
+    local userid=$(openstack user show $user -f value -c id --domain=NTNU 2> /dev/null)
+  fi
 
   for roleA in $(openstack role assignment list --project $projectid \
       --user $userid -f json | jq -c ".[]"); do
