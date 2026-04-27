@@ -50,7 +50,7 @@ for region in $(openstack region list -f value -c Region); do
   # Delete all security groups
   echo "Deleting security groups"
   default_group=$(openstack security group show -f value -c id default)
-  groups=$(openstack security group list | \
+  groups=$(openstack security group list --project $projectID | \
     grep -v $default_group | \
     egrep [0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12} -o) \
     || groups=""
