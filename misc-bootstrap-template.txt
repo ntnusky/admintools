@@ -12,6 +12,9 @@ users:
       - ssh-ed25519 AAAAAlaladidad bruker@host
       - ssh-rsa AAAAAldadaidaid bruker@enannenhost
 
+packages:
+  - lastlog2
+
 power_state:
   mode: reboot
   message: Reboot after upgrades
