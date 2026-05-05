@@ -1,0 +1,26 @@
+[
+{
+  "Name": "gx5.20c320r.a100d-40g",
+  "CPU": "20",
+  "RAM": "327680",
+  "Disk": "40",
+  "hw:cpu_cores": 5, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl",
+  "resources:CUSTOM_A100D_40G": 1, "pci_passthrough:alias":"a100d_40g:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+},
+{
+  "Name": "gx5.80c1280r.a100d-40g",
+  "CPU": "80",
+  "RAM": "1310720",
+  "Disk": "40",
+  "hw:cpu_cores": 20, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-iedl",
+  "resources:CUSTOM_A100D_40G": 1, "pci_passthrough:alias":"a100d_40g:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+}
+]
