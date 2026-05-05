@@ -6,8 +6,9 @@
   "Disk": "40",
   "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-40g", 
-  "trait:CUSTOM_A100_40G": "required", "resources:VGPU": 1,
+  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-40g",
+  "resources:CUSTOM_A100_40G": 1, "pci_passthrough:alias":"a100_40g:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
   "visibility": "private"
 }
 ]
