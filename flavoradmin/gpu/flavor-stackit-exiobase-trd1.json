@@ -1,0 +1,14 @@
+[
+{
+  "Name": "gx5.96c470r.a100d-80g",
+  "CPU": "96",
+  "RAM": "481280",
+  "Disk": "40",
+  "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "custom-exiobase-gpu-a100d-80g",
+  "resources:CUSTOM_A100D_80G": 1, "pci_passthrough:alias":"a100d_80g:1",
+  "trait:HW_CPU_X86_AVX512VAES": "required",
+  "visibility": "private"
+}
+]
