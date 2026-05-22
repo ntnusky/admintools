@@ -108,6 +108,9 @@ networks[NTNU-IT-global]='367d094e-a80a-49f2-a84b-34493ab50cbd'
 networks[TRD1-internal]='edb06423-a29d-49fe-9dc2-392a218081a6'
 networks[TRD1-global]='1b466310-96a2-40c5-bf83-00a47d944138'
 
+networks[SkyLow-internal]='7f5680be-6d00-4ef5-b924-ee13e69e7545'
+networks[SkyLow-global]='9ce7cfae-ee25-4190-8a4e-d7ec9fe5434e'
+
 declare -A domains
 domains[SkyHiGh]='vm.iik.ntnu.no'
 domains[TRD1]='misc.iaas.ntnu.no'
