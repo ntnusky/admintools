@@ -17,7 +17,7 @@
   "Disk": "40",
   "hw:cpu_cores": 16, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-h200-70g", "resources:CUSTOM_H200_70": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-h200-70g", "resources:CUSTOM_H200_70G": 1,
   "pci_passthrough:alias":"h200_70g:1",
   "visibility": "private"
 },
@@ -28,7 +28,7 @@
   "Disk": "40",
   "hw:cpu_cores": 8, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-h200-35g", "resources:CUSTOM_H200_35": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-h200-35g", "resources:CUSTOM_H200_35G": 1,
   "pci_passthrough:alias":"h200_35g:1",
   "visibility": "private"
 }
