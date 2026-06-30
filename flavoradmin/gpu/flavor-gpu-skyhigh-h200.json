@@ -1,0 +1,35 @@
+[
+{
+  "Name": "de4.64c660r.h200-141g",
+  "CPU": "64",
+  "RAM": "675840",
+  "Disk": "40",
+  "hw:cpu_cores": 32, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-h200-141g", "resources:CUSTOM_H200_141G": 1,
+  "pci_passthrough:alias":"h200_141g:1",
+  "visibility": "private"
+},
+{
+  "Name": "de4.32c330r.h200-70g",
+  "CPU": "32",
+  "RAM": "337920",
+  "Disk": "40",
+  "hw:cpu_cores": 16, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-h200-70g", "resources:CUSTOM_H200_70": 1,
+  "pci_passthrough:alias":"h200_70g:1",
+  "visibility": "private"
+},
+{
+  "Name": "de4.16c165r.h200-35g",
+  "CPU": "32",
+  "RAM": "168960",
+  "Disk": "40",
+  "hw:cpu_cores": 8, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
+  "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
+  "aggregate_instance_extra_specs:node_type": "gpu-h200-35g", "resources:CUSTOM_H200_35": 1,
+  "pci_passthrough:alias":"h200_35g:1",
+  "visibility": "private"
+}
+]
