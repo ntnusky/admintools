@@ -271,6 +271,10 @@ function clean_neutron {
     done
   done
 
+  # Wait a few seconds in an attempt to avoid the problem where we try to delete ports that's already deleted
+  echo "Sleeping for 4 seconds..."
+  sleep 4
+
   # Delete all ports
   echo "Deleting ports"
   ports=$(openstack port list -f value -c id)
