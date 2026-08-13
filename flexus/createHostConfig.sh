@@ -11,6 +11,7 @@ position=$(printf %02d $3)
 
 declare -A VLAN_MAPPING
 VLAN_MAPPING[compute]="300,303,2000-2999"
+VLAN_MAPPING[gpu]="300,303,2000-2999"
 VLAN_MAPPING[infra]="300,303"
 VLAN_MAPPING[neutronnet]="300,307,317,2000-2999"
 VLAN_MAPPING[storage]="300,303"
