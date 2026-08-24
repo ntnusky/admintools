@@ -48,7 +48,7 @@ if [ "$device_owner" == "network:router_gateway" ]; then
 
 elif [ "$device_owner" == "network:floatingip" ]; then
   fip_details=$($oscmd floating ip show -f json -c port_details -c project_id "$fip")
-  vm_id=$(echo "$fip_details" | jq -r '.port_details' | grep -oE "device_id='\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'" | cut -d'=' -f2 | tr -d "'")
+  vm_id=$(echo "$fip_details" | jq -r '.port_details.device_id')
   if [ ! -z "$vm_id" ]; then
     ./getVMowner.sh $vm_id
   else
