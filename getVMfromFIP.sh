@@ -49,8 +49,12 @@ if [ "$device_owner" == "network:router_gateway" ]; then
 elif [ "$device_owner" == "network:floatingip" ]; then
   fip_details=$($oscmd floating ip show -f json -c port_details -c project_id "$fip")
   vm_id=$(echo "$fip_details" | jq -r '.port_details.device_id')
-  if [ ! -z "$vm_id" ]; then
+  fip_device_owner=$(echo "$fip_details" | jq -r '.port_details.device_owner')
+  if [ ! -z "$vm_id" ] && [ "$fip_device_owner" == "compute:nova" ]; then
     ./getVMowner.sh $vm_id
+  elif [ ! -z "$vm_id" ] && [ "$fip_device_owner" == "Octavia" ]; then
+    echo "IP-adressen er tilknyttet en Octavia lastbalanserer"
+    ./getLBowner.sh $vm_id
   else
     project_id=$(echo "$fip_details" | jq -r '.project_id')
     echo "IP-adressen er allokert i et prosjekt, men er ikke hektet på en VM"
