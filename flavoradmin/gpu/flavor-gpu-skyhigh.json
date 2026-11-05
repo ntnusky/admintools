@@ -6,7 +6,7 @@
   "Disk": "40",
   "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-l40s-24g", "resources:CUSTOM_L40S_24G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-l40s-24g",
   "pci_passthrough:alias":"l40s_24g:1",
   "visibility": "private"
 },
@@ -17,7 +17,7 @@
   "Disk": "40",
   "hw:cpu_cores": 20, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-l40s-48g", "resources:CUSTOM_L40S_48G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-l40s-48g",
   "pci_passthrough:alias":"l40s_48g:1",
   "visibility": "private"
 },
@@ -48,7 +48,7 @@
   "Disk": "40",
   "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-20g", "resources:CUSTOM_A100_20G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-a100-20g",
   "pci_passthrough:alias":"a100_20g:1",
   "visibility": "private"
 },
@@ -59,7 +59,7 @@
   "Disk": "40",
   "hw:cpu_cores": 24, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100-40g", "resources:CUSTOM_A100_40G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-a100-40g",
   "pci_passthrough:alias":"a100_40g:1",
   "visibility": "private"
 },
@@ -70,7 +70,7 @@
   "Disk": "40",
   "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-a100d-20g", "resources:CUSTOM_A100D_20G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-a100d-20g",
   "pci_passthrough:alias":"a100d_20g:1",
   "visibility": "private"
 },
@@ -81,7 +81,7 @@
   "Disk": "40",
   "hw:cpu_cores": 12, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "gpu-nbl-a100-20g", "resources:CUSTOM_A100_20G": 1,
+  "aggregate_instance_extra_specs:node_type": "gpu-nbl-a100-20g",
   "pci_passthrough:alias":"a100_20g:1",
   "visibility": "private"
 }
