@@ -42,7 +42,7 @@ for region in $(openstack region list -f value -c Region); do
   clean_heat
   clean_nova
   clean_cinder
-  clean_glance
+  clean_glance $projectID
   clean_swift
   clean_octavia
   clean_neutron $projectID

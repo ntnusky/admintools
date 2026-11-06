@@ -219,8 +219,12 @@ function disable_nova {
 }
 
 function clean_glance {
+  local project=$1
+
   echo "Deleting private images"
-  images=$(openstack image list --private -f value -c ID)
+  images=$(openstack image list --private -f value -c ID; \
+           openstack image list --shared -f value -c ID --project $project \
+           openstack image list --community -f value -c ID --project $project)
   for image in $images; do
     openstack image set --unprotected $image
     openstack image delete $image
