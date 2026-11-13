@@ -14,9 +14,7 @@ if [[ -z $4 ]]; then
   echo " - HW_CPU_X86_AVX2 (gen3)"
   echo " - HW_CPU_X86_AVX512F (gen4)"
   echo " - HW_CPU_X86_AVX512VAES (gen5)"
-  # Den her skulle virkelig ha vært noe AMX-flagg; for det er jo det vi vil ha.
-  # Men dette virker som en work-around.
-  echo " - HW_CPU_X86_AVX512IFMA (gen6)"
+  echo " - HW_CPU_X86_AMXINT8 (gen6)"
   echo
   echo "CPU Shares defines priority:"
   echo " - 1 for low priority"
