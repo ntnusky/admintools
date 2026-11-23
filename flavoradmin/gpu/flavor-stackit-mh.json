@@ -1,13 +1,13 @@
 [
 {
-  "Name": "gx4.96c340g.a100-40g",
-  "CPU": "96",
-  "RAM": "348160",
+  "Name": "gx4.48c170g.a100-20g",
+  "CPU": "48",
+  "RAM": "174080",
   "Disk": "40",
-  "hw:cpu_cores": 24, "hw:cpu_sockets": 2, "hw:cpu_threads": 2,
+  "hw:cpu_cores": 24, "hw:cpu_sockets": 1, "hw:cpu_threads": 2,
   "hw_rng:allowed": true, "hw_rng:rate_bytes": 24, "hw_rng:rate_period": 5000,
-  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-40g",
-  "pci_passthrough:alias":"a100_40g:1",
+  "aggregate_instance_extra_specs:node_type": "custom-mh-gpu-a100-20g",
+  "pci_passthrough:alias":"a100_20g:1",
   "trait:HW_CPU_X86_AVX512F": "required",
   "visibility": "private"
 }
