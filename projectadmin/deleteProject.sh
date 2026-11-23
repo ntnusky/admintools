@@ -38,7 +38,6 @@ for region in $(openstack region list -f value -c Region); do
   export OS_REGION_NAME=$region
   set_project $projectName $projectID
   
-  clean_magnum
   clean_heat
   clean_nova
   clean_cinder
